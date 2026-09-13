@@ -1,5 +1,30 @@
 # mjbatch
 
+## Humanoid Cricket by Kishan
+
+This public fork is maintained by [Kishan (@kishanpb)](https://github.com/kishanpb)
+for the [Gym-Cricket](https://github.com/kishanpb/gym-cricket) integration proposed
+in [upstream PR #5](https://github.com/kevinzakka/mjbatch/pull/5).
+The contribution is included on this fork's default branch; upstream acceptance
+is separate. mjbatch is developed upstream by Kevin Zakka and contributors.
+
+| Batting: right and left handed | Bowling: right and left handed |
+| --- | --- |
+| [![Native mjbatch humanoid batting highlights](examples/assets/cricket_humanoid_batting_preview.gif)](https://github.com/kishanpb/gym-cricket/releases/download/v0.1.1-mjbatch-preview/gym_cricket_mjbatch_humanoid_batting.mp4) | [![Native mjbatch humanoid running-bowling highlights](examples/assets/cricket_humanoid_bowling_preview.gif)](https://github.com/kishanpb/gym-cricket/releases/download/v0.1.1-mjbatch-preview/gym_cricket_mjbatch_humanoid_bowling.mp4) |
+
+Click either preview for the full 42-second PPO/A2C reel with both hands,
+misses, and 0.25x replays. These are retained-checkpoint transfers through native
+CPU-batched integration, not new training or a speedup result. Stance, swing
+reference, and running action retain scripted components.
+
+The reproducible fixture contains 32 fixed episodes with exact serial-model parity;
+the previews are highlights, not success-rate estimates.
+[Run the example and inspect all results](examples/cricket_humanoid.md) |
+[Source and checkpoints](https://github.com/kishanpb/gym-cricket/tree/128fa627c8aa5ebe592d650f0eedcc230c65f794) |
+[Related UniLab fork](https://github.com/kishanpb/UniLab)
+
+---
+
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)
 [![PyPI version](https://img.shields.io/pypi/v/mjbatch)](https://pypi.org/project/mjbatch/)
 
