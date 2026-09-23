@@ -1,0 +1,298 @@
+{
+  "scope": "Development diagnostic only; stochastic actions do not establish deterministic balance",
+  "sampling_contract": "One Torch seed for each eight-row vector evaluation; all first episodes retained",
+  "rows": [
+    {
+      "checkpoint": "bootstrap_policy.zip",
+      "checkpoint_sha256": "cd507310def331ca2ebbc398e9efaae700cd001bf127f2c3a04aca0169b7bda3",
+      "action_selection": "deterministic",
+      "torch_action_sampling_seed": null,
+      "falls": 8,
+      "episodes": [
+        {
+          "seed": 9001,
+          "steps": 104,
+          "seconds": 2.08,
+          "return": 255.62063470144238,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9002,
+          "steps": 103,
+          "seconds": 2.06,
+          "return": 249.9070968282836,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9003,
+          "steps": 102,
+          "seconds": 2.04,
+          "return": 246.36575900179886,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9004,
+          "steps": 103,
+          "seconds": 2.06,
+          "return": 252.5785120752008,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9005,
+          "steps": 101,
+          "seconds": 2.02,
+          "return": 248.38880108408748,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9006,
+          "steps": 101,
+          "seconds": 2.02,
+          "return": 243.5137053170448,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9007,
+          "steps": 103,
+          "seconds": 2.06,
+          "return": 247.27399800333612,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9008,
+          "steps": 106,
+          "seconds": 2.12,
+          "return": 259.61699752976057,
+          "fell": true,
+          "bat_contact_outgoing": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "bootstrap_policy.zip",
+      "checkpoint_sha256": "cd507310def331ca2ebbc398e9efaae700cd001bf127f2c3a04aca0169b7bda3",
+      "action_selection": "sampled",
+      "torch_action_sampling_seed": 42,
+      "falls": 5,
+      "episodes": [
+        {
+          "seed": 9001,
+          "steps": 150,
+          "seconds": 3.0,
+          "return": 412.18611440968215,
+          "fell": false,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9002,
+          "steps": 99,
+          "seconds": 1.98,
+          "return": 230.1979720283253,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9003,
+          "steps": 122,
+          "seconds": 2.44,
+          "return": 316.5612725971228,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9004,
+          "steps": 138,
+          "seconds": 2.7600000000000002,
+          "return": 344.37912507732875,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9005,
+          "steps": 150,
+          "seconds": 3.0,
+          "return": 416.7194663593063,
+          "fell": false,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9006,
+          "steps": 120,
+          "seconds": 2.4,
+          "return": 306.814164940505,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9007,
+          "steps": 150,
+          "seconds": 3.0,
+          "return": 399.9992960637856,
+          "fell": false,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9008,
+          "steps": 102,
+          "seconds": 2.04,
+          "return": 263.5713411385237,
+          "fell": true,
+          "bat_contact_outgoing": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "policy.zip",
+      "checkpoint_sha256": "61745569f02b2db786eff8039606ef16816ba97778d57f365e1949726ad1fd62",
+      "action_selection": "deterministic",
+      "torch_action_sampling_seed": null,
+      "falls": 8,
+      "episodes": [
+        {
+          "seed": 9001,
+          "steps": 82,
+          "seconds": 1.6400000000000001,
+          "return": 203.2831864325291,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9002,
+          "steps": 80,
+          "seconds": 1.6,
+          "return": 200.1068137143784,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9003,
+          "steps": 79,
+          "seconds": 1.58,
+          "return": 198.38887716720765,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9004,
+          "steps": 78,
+          "seconds": 1.56,
+          "return": 195.56171357230753,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9005,
+          "steps": 81,
+          "seconds": 1.62,
+          "return": 201.62026126249896,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9006,
+          "steps": 79,
+          "seconds": 1.58,
+          "return": 198.53985810451184,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9007,
+          "steps": 83,
+          "seconds": 1.6600000000000001,
+          "return": 207.15897141263304,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9008,
+          "steps": 79,
+          "seconds": 1.58,
+          "return": 199.0888428537931,
+          "fell": true,
+          "bat_contact_outgoing": false
+        }
+      ]
+    },
+    {
+      "checkpoint": "policy.zip",
+      "checkpoint_sha256": "61745569f02b2db786eff8039606ef16816ba97778d57f365e1949726ad1fd62",
+      "action_selection": "sampled",
+      "torch_action_sampling_seed": 42,
+      "falls": 6,
+      "episodes": [
+        {
+          "seed": 9001,
+          "steps": 89,
+          "seconds": 1.7799999999999998,
+          "return": 209.40002706797222,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9002,
+          "steps": 150,
+          "seconds": 3.0,
+          "return": 392.48604593685303,
+          "fell": false,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9003,
+          "steps": 105,
+          "seconds": 2.1,
+          "return": 257.2009096625247,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9004,
+          "steps": 150,
+          "seconds": 3.0,
+          "return": 379.33132873577966,
+          "fell": false,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9005,
+          "steps": 130,
+          "seconds": 2.6,
+          "return": 322.62954985235115,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9006,
+          "steps": 126,
+          "seconds": 2.52,
+          "return": 314.36104124033903,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9007,
+          "steps": 113,
+          "seconds": 2.2600000000000002,
+          "return": 271.36176125880775,
+          "fell": true,
+          "bat_contact_outgoing": false
+        },
+        {
+          "seed": 9008,
+          "steps": 115,
+          "seconds": 2.3000000000000003,
+          "return": 285.77985846696953,
+          "fell": true,
+          "bat_contact_outgoing": false
+        }
+      ]
+    }
+  ]
+}

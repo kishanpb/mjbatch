@@ -1,0 +1,182 @@
+{
+  "task": "balance",
+  "hand": "right",
+  "algorithm": "ppo",
+  "training_seed": 1,
+  "timesteps": 1572864,
+  "parent_checkpoint": {
+    "sha256": "cd507310def331ca2ebbc398e9efaae700cd001bf127f2c3a04aca0169b7bda3",
+    "timesteps": 524288
+  },
+  "runtime_versions": {
+    "mujoco": "3.11.0",
+    "mujoco-menagerie": "2026.9.0",
+    "stable-baselines3": "2.7.1",
+    "torch": "2.9.0",
+    "numpy": "2.5.2"
+  },
+  "training_config": {
+    "envs": 32,
+    "requested_additional_steps": 1048576,
+    "n_steps": 64,
+    "learning_rate": 0.0003,
+    "gamma": 0.99,
+    "ent_coef": 0.005,
+    "policy_kwargs": {
+      "net_arch": [
+        128,
+        128
+      ],
+      "log_std_init": -1.0
+    }
+  },
+  "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
+  "seconds": 271.8831349168904,
+  "provenance": {
+    "robot": "unitree_g1",
+    "model": "g1_mjx",
+    "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+    "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+    "license": "BSD-3-Clause",
+    "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+    "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+    "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+  },
+  "observation_contract": "simulator proprioception, privileged ball state, geometry-level loads",
+  "source_sha256": {
+    "cricket_g1_train.py": "3ee319d49ab0da8bdb5126b7d4c44e66d5189c92e02cd25764b7dcdce2f4d449",
+    "cricket_g1.py": "c8937beb9b51822292205f42972a65cb4d63c36a3ff3f0ad315f44932e6d27f3"
+  },
+  "baseline": [
+    {
+      "seed": 9001,
+      "steps": 43,
+      "seconds": 0.8600000000000001,
+      "return": 97.22109899624078,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 43,
+      "seconds": 0.8600000000000001,
+      "return": 97.14010295830658,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.95892672201057,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.94954499161571,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 98.1638187127444,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.86871520677107,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.18698007024669,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.99878542460023,
+      "fell": true,
+      "bat_contact_outgoing": false
+    }
+  ],
+  "trained": [
+    {
+      "seed": 9001,
+      "steps": 82,
+      "seconds": 1.6400000000000001,
+      "return": 203.2831864325291,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 80,
+      "seconds": 1.6,
+      "return": 200.1068137143784,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 79,
+      "seconds": 1.58,
+      "return": 198.38887716720765,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 78,
+      "seconds": 1.56,
+      "return": 195.56171357230753,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 81,
+      "seconds": 1.62,
+      "return": 201.62026126249896,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 79,
+      "seconds": 1.58,
+      "return": 198.53985810451184,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 83,
+      "seconds": 1.6600000000000001,
+      "return": 207.15897141263304,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 79,
+      "seconds": 1.58,
+      "return": 199.0888428537931,
+      "fell": true,
+      "bat_contact_outgoing": false
+    }
+  ]
+}

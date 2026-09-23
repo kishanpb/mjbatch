@@ -1,0 +1,156 @@
+{
+  "task": "balance",
+  "hand": "right",
+  "algorithm": "ppo",
+  "training_seed": 1,
+  "timesteps": 524288,
+  "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
+  "seconds": 135.90178887499496,
+  "provenance": {
+    "robot": "unitree_g1",
+    "model": "g1_mjx",
+    "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+    "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+    "license": "BSD-3-Clause",
+    "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+    "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+    "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+  },
+  "observation_contract": "simulator proprioception, privileged ball state, geometry-level loads",
+  "source_sha256": {
+    "cricket_g1_train.py": "74d3de0e6bbb27848538f252ffa655ff2edd28cfa8bf3a4712114302cd68a960",
+    "cricket_g1.py": "c8937beb9b51822292205f42972a65cb4d63c36a3ff3f0ad315f44932e6d27f3"
+  },
+  "baseline": [
+    {
+      "seed": 9001,
+      "steps": 43,
+      "seconds": 0.8600000000000001,
+      "return": 97.22109899624078,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 43,
+      "seconds": 0.8600000000000001,
+      "return": 97.14010295830658,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.95892672201057,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.94954499161571,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 98.1638187127444,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.86871520677107,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.18698007024669,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 44,
+      "seconds": 0.8799999999999999,
+      "return": 97.99878542460023,
+      "fell": true,
+      "bat_contact_outgoing": false
+    }
+  ],
+  "trained": [
+    {
+      "seed": 9001,
+      "steps": 104,
+      "seconds": 2.08,
+      "return": 255.62063470144238,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 103,
+      "seconds": 2.06,
+      "return": 249.9070968282836,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 102,
+      "seconds": 2.04,
+      "return": 246.36575900179886,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 103,
+      "seconds": 2.06,
+      "return": 252.5785120752008,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 101,
+      "seconds": 2.02,
+      "return": 248.38880108408748,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 101,
+      "seconds": 2.02,
+      "return": 243.5137053170448,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 103,
+      "seconds": 2.06,
+      "return": 247.27399800333612,
+      "fell": true,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 106,
+      "seconds": 2.12,
+      "return": 259.61699752976057,
+      "fell": true,
+      "bat_contact_outgoing": false
+    }
+  ]
+}
