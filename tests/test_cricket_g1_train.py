@@ -12,6 +12,30 @@ sys.path.insert(0, str(Path(__file__).parents[1] / "examples"))
 from cricket_g1_train import CricketVecEnv
 
 
+def test_fixed_noise_survives_optimizer_update_and_checkpoint(tmp_path):
+  import torch
+  from stable_baselines3 import PPO
+
+  from cricket_g1_train import fix_action_noise
+
+  torch.set_num_threads(2)
+  env = CricketVecEnv(2)
+  policy = PPO("MlpPolicy", env, n_steps=2, batch_size=4, n_epochs=1, seed=1,
+               policy_kwargs={"net_arch": [16, 16]})
+  fix_action_noise(policy, .08)
+  before = policy.policy.log_std.detach().clone()
+  policy.learn(8)
+  torch.testing.assert_close(policy.policy.log_std, before)
+  policy.save(tmp_path / "policy")
+  loaded = PPO.load(tmp_path / "policy", env=env)
+  assert loaded.fixed_action_std == .08
+  fix_action_noise(loaded, loaded.fixed_action_std)
+  assert not loaded.policy.log_std.requires_grad
+  for invalid in (0, -1, float("nan")):
+    with pytest.raises(ValueError):
+      fix_action_noise(loaded, invalid)
+
+
 def test_seeded_native_vector_observations_and_actions():
   a, b = CricketVecEnv(2, seed=7), CricketVecEnv(2, seed=7)
   np.testing.assert_array_equal(a.reset(), b.reset())

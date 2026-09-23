@@ -20,9 +20,10 @@ from cricket_g1 import DECIMATION, TIMESTEP, G1Cricket
 
 
 class CricketVecEnv(VecEnv):
-  def __init__(self, count=32, seed=1, hand="right", task="balance"):
+  def __init__(self, count=32, seed=1, hand="right", task="balance", horizon=150):
     self.physics = G1Cricket(count, hand)
     self.task, self.render_mode = task, None
+    self.horizon = horizon
     self.rngs = [np.random.default_rng(seed + i) for i in range(count)]
     self.steps = np.zeros(count, dtype=int)
     self.returns = np.zeros(count)
@@ -99,7 +100,7 @@ class CricketVecEnv(VecEnv):
     self.last_action[:] = self.actions
     self.returns += reward
     obs = self.observation()
-    done = fallen | (self.steps >= 150)
+    done = fallen | (self.steps >= self.horizon)
     infos = [{} for _ in range(self.num_envs)]
     ids = np.flatnonzero(done)
     for i in ids:
@@ -127,16 +128,16 @@ class CricketVecEnv(VecEnv):
     return [False for _ in self._get_indices(indices)]
 
 
-def evaluate(policy, hand, task):
-  env = CricketVecEnv(count=8, seed=9001, hand=hand, task=task)
+def evaluate(policy, hand, task, horizon=150, seed=9001):
+  env = CricketVecEnv(count=8, seed=seed, hand=hand, task=task, horizon=horizon)
   obs = env.reset()
   rows, finished = [], np.zeros(8, dtype=bool)
-  for _ in range(150):
+  for _ in range(horizon):
     actions = np.zeros((8, 29)) if policy is None else policy.predict(obs, deterministic=True)[0]
     obs, _, done, infos = env.step(actions)
     for i in np.flatnonzero(done & ~finished):
       info = infos[i]
-      rows.append({"seed": 9001 + int(i), "steps": info["episode"]["l"],
+      rows.append({"seed": seed + int(i), "steps": info["episode"]["l"],
                    "seconds": info["episode"]["l"] * TIMESTEP * DECIMATION,
                    "return": info["episode"]["r"], "fell": info["fell"],
                    "bat_contact_outgoing": info["bat_contact_outgoing"]})
@@ -146,6 +147,15 @@ def evaluate(policy, hand, task):
   if not finished.all():
     raise RuntimeError("evaluation did not complete all declared seeds")
   return sorted(rows, key=lambda row: row["seed"])
+
+
+def fix_action_noise(model, std):
+  if not np.isfinite(std) or std <= 0:
+    raise ValueError("fixed action standard deviation must be finite and positive")
+  with torch.no_grad():
+    model.policy.log_std.fill_(np.log(std))
+  model.policy.log_std.requires_grad_(False)
+  model.fixed_action_std = std
 
 
 def main():
@@ -158,6 +168,7 @@ def main():
   parser.add_argument("--seed", type=int, default=1)
   parser.add_argument("--envs", type=int, default=32)
   parser.add_argument("--load", type=Path)
+  parser.add_argument("--fixed-action-std", type=float)
   args = parser.parse_args()
   args.output.mkdir(parents=True, exist_ok=True)
   torch.set_num_threads(2)
@@ -176,6 +187,9 @@ def main():
     "sha256": hashlib.sha256(args.load.read_bytes()).hexdigest(),
     "timesteps": model.num_timesteps,
   }
+  std = args.fixed_action_std if args.fixed_action_std is not None else getattr(model, "fixed_action_std", None)
+  if std is not None:
+    fix_action_noise(model, std)
   start = time.monotonic()
   model.set_logger(configure(str(args.output), ["csv"]))
   model.learn(total_timesteps=args.steps, reset_num_timesteps=args.load is None)
@@ -188,6 +202,7 @@ def main():
             "training_config": {"envs": args.envs, "requested_additional_steps": args.steps,
                                 "n_steps": model.n_steps, "learning_rate": model.learning_rate,
                                 "gamma": model.gamma, "ent_coef": model.ent_coef,
+                                "fixed_action_std": std,
                                 "policy_kwargs": model.policy_kwargs},
             "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
             "seconds": time.monotonic() - start, "provenance": env.physics.provenance,
