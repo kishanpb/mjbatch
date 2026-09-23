@@ -27,11 +27,13 @@ def test_report_uses_asset_identity_not_local_install_path(tmp_path, monkeypatch
 @pytest.mark.parametrize("task", ["batting", "bowling"])
 @pytest.mark.parametrize("hand", ["right", "left"])
 def test_humanoid_batch_matches_serial(task, hand, monkeypatch):
-  batch = cricket.HumanoidBatch(task, 2, handedness=hand, threads=2)
+  batch = cricket.HumanoidBatch(task, 2, handedness=hand, threads=2, contact_telemetry=True)
   seeds = [17000, 17001]
   batch.reset(seeds)
   refs = [
-    cricket.SensorBattingEnv(handedness=hand) if task == "batting" else cricket.CricketDeliveryStrideEnv(hand)
+    cricket.SensorBattingEnv(handedness=hand, contact_telemetry=True)
+    if task == "batting"
+    else cricket.CricketDeliveryStrideEnv(hand, contact_telemetry=True)
     for _ in seeds
   ]
   for env, seed in zip(refs, seeds, strict=True):
@@ -54,6 +56,7 @@ def test_humanoid_batch_matches_serial(task, hand, monkeypatch):
         np.testing.assert_array_equal(batch.envs[i].data.qvel, refs[i].data.qvel)
         np.testing.assert_array_equal(result[0], reference[0])
         assert result[1:4] == reference[1:4]
+        assert result[4]["contact_telemetry"] == reference[4]["contact_telemetry"]
         if task == "batting":
           assert result[4]["bat_contact"] == reference[4]["bat_contact"]
           assert result[4]["runs"] == reference[4]["runs"]

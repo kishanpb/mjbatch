@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.13,<3.14"
 # dependencies = [
-#   "cricket-gym[video] @ git+https://github.com/kishanpb/gym-cricket.git@128fa627c8aa5ebe592d650f0eedcc230c65f794",
+#   "cricket-gym[video,telemetry] @ git+https://github.com/kishanpb/gym-cricket.git@2a6641ddc030407b10e2320f07d6b88a92e23072",
 #   "mjbatch==0.1.0",
 #   "mujoco==3.11.0",
 #   "gymnasium==1.3.0",
@@ -61,7 +61,7 @@ def report_info(info):
   return result
 
 
-def replay(task, hand, algorithm, video, stack, checkpoints):
+def replay(task, hand, algorithm, video, stack, checkpoints, contact_telemetry=False):
   directory = checkpoints / task
   if task == "batting":
     directory /= hand
@@ -74,13 +74,16 @@ def replay(task, hand, algorithm, video, stack, checkpoints):
   setup.agent.load(str(checkpoint))
   policy = skrl_policy_fn(setup.agent) if task == "batting" else training.policy_fn(setup.agent)
   seeds = SEEDS[task]
-  batch = HumanoidBatch(task, len(seeds), handedness=hand, threads=2, profile="wicket")
+  batch = HumanoidBatch(
+    task, len(seeds), handedness=hand, threads=2, profile="wicket",
+    contact_telemetry=contact_telemetry,
+  )
   stack.callback(batch.close)
   batch.reset(seeds)
   refs = [
-    SensorBattingEnv(profile="wicket", handedness=hand)
+    SensorBattingEnv(profile="wicket", handedness=hand, contact_telemetry=contact_telemetry)
     if task == "batting"
-    else CricketDeliveryStrideEnv(hand)
+    else CricketDeliveryStrideEnv(hand, contact_telemetry=contact_telemetry)
     for _ in seeds
   ]
   for env, seed in zip(refs, seeds, strict=True):
@@ -120,6 +123,8 @@ def replay(task, hand, algorithm, video, stack, checkpoints):
       np.testing.assert_array_equal(env.data.qvel, refs[i].data.qvel)
       np.testing.assert_array_equal(result[0], ref[0])
       assert result[1:4] == ref[1:4]
+      if contact_telemetry:
+        assert result[4]["contact_telemetry"] == ref[4]["contact_telemetry"]
       returns[i] += result[1]
       if task == "batting":
         assert result[4]["bat_contact"] == ref[4]["bat_contact"]
@@ -253,6 +258,10 @@ def main():
   parser.add_argument("--output", type=Path, required=True)
   parser.add_argument("--checkpoints", type=Path, required=True)
   parser.add_argument("--video", action="store_true")
+  parser.add_argument(
+    "--contact-telemetry", action="store_true",
+    help="Record simulated contact loads and touch states",
+  )
   args = parser.parse_args()
   args.output.mkdir(parents=True, exist_ok=True)
   report = {
@@ -260,6 +269,7 @@ def main():
     "runtime": {name: version(name) for name in ("mujoco", "mjbatch", "jax", "skrl")},
     "scope": "Checkpoint-transfer smoke, not retraining or a full tournament.",
     "contact_semantics": "RK4 contact sensors, not legacy last-stage contact buffers; fresh scores only.",
+    "contact_telemetry_enabled": args.contact_telemetry,
     "rows": [],
     "videos": [],
     "replay_sha256": motor_training.sha256(__file__),
@@ -273,7 +283,9 @@ def main():
     for hand in ("right", "left"):
       for algorithm in ("ppo", "a2c"):
         with ExitStack() as stack:
-          rows, group = replay(task, hand, algorithm, args.video, stack, args.checkpoints)
+          rows, group = replay(
+            task, hand, algorithm, args.video, stack, args.checkpoints, args.contact_telemetry,
+          )
         report["rows"].extend(rows)
         clips.extend(group)
     if args.video:

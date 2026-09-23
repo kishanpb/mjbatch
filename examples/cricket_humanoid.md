@@ -1,8 +1,8 @@
 # Handed Humanoid Cricket
 
 An optional integration example for the corrected humanoid batting and running-bowling
-drills in [Gym-Cricket](https://github.com/kishanpb/gym-cricket/tree/128fa627c8aa5ebe592d650f0eedcc230c65f794).
-The model, controller, and adapter are pinned to that MIT-licensed revision; this PR
+drills in [Gym-Cricket](https://github.com/kishanpb/gym-cricket/tree/2a6641ddc030407b10e2320f07d6b88a92e23072).
+The model, controller, and adapter are pinned to that MIT-licensed revision; this example
 does not change mjbatch's native API, runtime dependencies, or default examples group.
 
 ## Reproduce
@@ -12,7 +12,7 @@ Clone the public checkpoint source and check out the exact revision:
 
 ```sh
 git clone https://github.com/kishanpb/gym-cricket.git ../gym-cricket-models
-git -C ../gym-cricket-models checkout 128fa627c8aa5ebe592d650f0eedcc230c65f794
+git -C ../gym-cricket-models checkout 2a6641ddc030407b10e2320f07d6b88a92e23072
 uv run --with-editable . examples/cricket_humanoid.py \
   --checkpoints ../gym-cricket-models/examples/pretrained \
   --output ../cricket-humanoid-results
@@ -82,7 +82,7 @@ suite in a separate environment:
 ```sh
 uv venv --python 3.13 .venv-cricket
 uv pip install --python .venv-cricket/bin/python -e . pytest \
-  'cricket-gym[video] @ git+https://github.com/kishanpb/gym-cricket.git@128fa627c8aa5ebe592d650f0eedcc230c65f794' \
+  'cricket-gym[video,telemetry] @ git+https://github.com/kishanpb/gym-cricket.git@2a6641ddc030407b10e2320f07d6b88a92e23072' \
   gymnasium==1.3.0 jax==0.10.0 jaxlib==0.10.0 skrl==2.0.0 \
   numpy==2.4.4 scipy==1.17.1 Pillow==12.2.0 flax==0.12.5
 .venv-cricket/bin/python -m pytest tests
@@ -92,6 +92,45 @@ Without Gym-Cricket installed, only this optional test module is skipped. The pi
 Gym-Cricket revision also carries contact-stage, limb-length, continuity, reset,
 adaptive-step, and packaging tests. Local validation is on macOS/Apple M2 Pro;
 Linux rendering and large-batch performance have not been established.
+
+## Contact Forces and Simulated Touch
+
+Add `--contact-telemetry` to the replay command to record ball contact with the bat,
+pitch, outfield and stumps. The [complete 32-episode report](cricket_contact_results/mjbatch_humanoid_validation.json)
+retains all fixed seeds, both hands and both algorithms, including misses. Every
+control step checks exact serial/batch telemetry, state, reward and termination parity.
+The source and checkpoint hashes are included; no checkpoint was retrained.
+
+| Integrated-stage diagnostics | Batting | Bowling |
+| --- | ---: | ---: |
+| Complete episodes | 16 | 16 |
+| Episodes with load-bearing samples | 16 | 16 |
+| Active substep samples | 3,529 | 28 |
+| Largest channel normal-load sample | 175,797.74 N | 1,127.18 N |
+
+These counts include all tracked surfaces, not just bat hits or wickets. Ten bowling
+episodes also contain a load-bearing **terminal forward solve**, counted separately.
+The largest batting load is the right-handed PPO seed 3101 bat-blade sample at a
+2.5 microsecond timestep. This force spike is retained as an uncalibrated model
+limitation, not advertised as realistic cricket impact. Dynamic robot control and
+contact-parameter/timestep checks are required before making physical-load claims.
+
+Local validation passed 90 shared-package tests, 44 mjbatch tests, and this full
+32-episode replay (95,746 native row-steps). The replay was rerun using the public
+Git-pinned package and this fork's editable native mjbatch build.
+
+Each channel reports load-bearing touch, contact count, normal/shear load and peaks
+in N. Sparse substep records retain contact-frame force/torque, world position and
+frame vectors, distance and timestep. Terminal reports include the full active trace.
+These are simulated geometry-level touch states, not hardware taxels or pressure
+measurements; grip load and dynamic foot support are unavailable in this model.
+RK4 sensor samples are not integrated impulses. Bowling's terminal pose/forward
+solve is reported separately and never counted as an integrated impact.
+
+See the [signal contract and support-load fixture](https://github.com/kishanpb/gym-cricket/blob/2a6641ddc030407b10e2320f07d6b88a92e23072/docs/contact_telemetry.md).
+The option is off by default and does not change observations, rewards or existing
+checkpoint dimensions. The existing videos below predate these telemetry reports.
+Unitree G1 learned batting/bowling is the next extension, not a result of this replay.
 
 ## Videos
 

@@ -20,8 +20,13 @@ reference, and running action retain scripted components.
 The reproducible fixture contains 32 fixed episodes with exact serial-model parity;
 the previews are highlights, not success-rate estimates.
 [Run the example and inspect all results](examples/cricket_humanoid.md) |
-[Source and checkpoints](https://github.com/kishanpb/gym-cricket/tree/128fa627c8aa5ebe592d650f0eedcc230c65f794) |
-[Related UniLab fork](https://github.com/kishanpb/UniLab)
+[Source and checkpoints](https://github.com/kishanpb/gym-cricket/tree/2a6641ddc030407b10e2320f07d6b88a92e23072) |
+[Related UniLab fork](https://github.com/kishanpb/Cricket-Gym-Unilab)
+
+**Contact diagnostics:** [force and simulated-touch reporting](examples/cricket_humanoid.md#contact-forces-and-simulated-touch)
+now covers the full fixed PPO/A2C replay, with per-contact force/torque, touch states
+and explicit sensor-timing limits. This does not turn the scripted components into
+learned robot control; a Unitree G1 cricket extension is the next milestone.
 
 ---
 
