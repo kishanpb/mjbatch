@@ -116,3 +116,22 @@ and seed 9004 at 0.74 s. Appending relative pelvis height (118 inputs) took
 failures, but none is a successful stance. Full rows/curves/checkpoints live in
 `observation_comparison/{original,height}`. Do not pool these fresh starts with
 the older warm-start continuation or claim a benefit from this single pair.
+
+## External Unitree Locomotion Transfer
+
+Pinned Unitree RL Lab velocity/v0 ONNX (commit
+`4960b84732b0c2ec593dccbfe963fda1bcd7b1e3`) supplies an externally trained prior,
+not local cricket learning. The separately versioned adapter validates asset
+hashes, 480-input term-major history, pelvis IMU, joint permutation and official
+PD/default targets. It retains the robot's inertias, collisions and motor limits.
+All 24 prior trials (eight declared seeds each for no bat/right bat/left bat)
+complete ten seconds with no falls, bat support, non-foot ground support or
+joint-limit excess; maximum applied joint-torque fraction is 0.882. The 24
+matched constant-target controls all fall at 1.234-1.396 seconds.
+
+`unitree_prior/evaluation.json` retains every row, and `stance_diagnostic.png`
+shows the first declared seed at 0/2/5/10 seconds for all three cases. An
+independent serial MuJoCo shadow matches native qpos/qvel exactly at every
+physics step and audits ground contacts. External policy/config stay outside
+the repository; no redistributable weight or cricket skill is claimed. This
+does not erase the failed custom PPO history or establish native UniLab transfer.

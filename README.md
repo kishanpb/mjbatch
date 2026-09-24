@@ -30,8 +30,10 @@ learned robot control; a Unitree G1 cricket extension is the next milestone.
 
 **G1 development:** the [floating-base robot foundation](examples/cricket_g1.md)
 now includes stock robot dynamics, a declared wrist fixture, contact/support
-sensors and CPU PPO training. Balance evaluations still fail; this is not yet
-a trained batting/bowling result or a replacement showcase video.
+sensors and CPU PPO training. Custom stance PPO runs still fail, but a separately
+attributed [external Unitree locomotion prior](examples/cricket_g1.md#external-locomotion-prior)
+passes all 24 ten-second transfer trials, including both wrist fixtures, without
+bat support. This is not yet learned batting/bowling or a replacement showcase.
 Force auditing rejected an apparent ten-second stance because the policy used
 the bat as ground support; the current curriculum explicitly forbids that shortcut.
 

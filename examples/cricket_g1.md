@@ -46,6 +46,65 @@ vision-only or deployable hardware sensing setup. Kinematic/sensor fields are
 from the final physics substep's evaluation stage, which precedes the resulting
 integrated state by one step; no extra forward force solve replaces those samples.
 
+## External Locomotion Prior
+
+The next route uses Unitree's **externally trained** 29-DoF G1 velocity policy,
+not one of our failed stance checkpoints. The pinned
+[Unitree RL Lab source](https://github.com/unitreerobotics/unitree_rl_lab/tree/4960b84732b0c2ec593dccbfe963fda1bcd7b1e3)
+provides `deploy/robots/g1_29dof/config/policy/velocity/v0/exported/policy.onnx`
+and its paired `params/deploy.yaml`. No cricket training or vendor pretraining
+performed locally is claimed. We do not redistribute these two external assets:
+the upstream README advertises Apache-2.0 but the pinned tree has no root license
+file; checkpoint redistribution has not been cleared.
+
+The adapter verifies both SHA-256 hashes before inference. Its 480 inputs use
+pelvis-frame angular velocity and projected gravity, zero velocity commands,
+joint positions/velocities in the official policy order, and previous raw actions.
+Each term contains five frames, oldest first, initialized by repeating the first
+frame. Policy output is mapped back to all 29 native joints. Official SDK-order
+PD gains, policy-order default pose and 20 ms control are explicit changes from
+our custom stance controller. Robot inertias, collision pairs, joint/torque limits,
+free base and 2 ms physics remain intact; there is no elastic band, gravity
+compensation or pose overwrite after reset. Targets are bounded by native joint
+limits; no retained prior step required that clipping.
+
+All eight predeclared seeds (4201-4208, joint-reset jitter +/-0.005 rad) were run
+for each of three models and two controllers, with a ten-second horizon:
+
+| Model | Constant default target | External Unitree policy |
+| --- | --- | --- |
+| No bat | 8/8 falls, 1.234-1.280 s | 8/8 completed 10 s |
+| Right wrist fixture | 8/8 falls, 1.330-1.396 s | 8/8 completed 10 s |
+| Left wrist fixture | 8/8 falls, 1.330-1.396 s | 8/8 completed 10 s |
+
+[All 48 rows](cricket_g1_results/unitree_prior/evaluation.json) retain failures,
+contact counts/loads, state extrema, runtime and source hashes. Every physics
+step matches an independent serial MuJoCo shadow exactly in qpos/qvel. All 24
+prior trials have no incidental bat contact, no non-foot robot-ground contact,
+no joint-limit excess and no applied joint-torque-limit violation. Maximum XY
+drift is 0.016 m; minimum pelvis height is 0.7869 m. This is narrow zero-command
+transfer evidence, not robustness certification, a matched PPO/A2C comparison,
+or a learned batting/bowling result. The bat pose is not a cricket-ready stance.
+
+![External prior diagnostic: first declared seed, fixed times, not learned cricket](cricket_g1_results/unitree_prior/stance_diagnostic.png)
+
+Reproduce after obtaining the pinned files from the source above in a local
+cache outside this checkout; pass that directory, containing `policy.onnx` and
+`deploy.yaml`, as `--assets`. No checkpoint download occurs implicitly:
+
+```sh
+uv pip install --python .venv/bin/python onnxruntime==1.30.0 pyyaml==6.0.3
+uv run --no-sync python examples/cricket_g1_prior.py --assets /path/to/local/cache \
+  --output examples/cricket_g1_results/unitree_prior/evaluation.json
+uv run --no-sync python -m pytest tests/test_cricket_g1_prior.py -q
+```
+
+The optional integration tests use the macOS cache
+`~/Library/Caches/unitree_rl_lab/4960b84732b0c2ec593dccbfe963fda1bcd7b1e3` and
+skip if those external assets are absent. Report/schema and hash-rejection tests
+remain separate. Physics-step sensor timing is unchanged; fixture/contact data
+remain simulated, uncalibrated signals, not hardware tactile measurements.
+
 ## Height Observation Comparison
 
 `--observe-root-height` appends pelvis height relative to the 0.78 m target,
