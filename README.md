@@ -68,6 +68,9 @@ The subsequent [fixed drive/release study](examples/cricket_g1.md#fixed-overarm-
 completes six left-hand scripted releases with stable recovery, but **zero
 qualified deliveries**: maximum forward release speed is 3.13 m/s and every
 first bounce falls short. This is development evidence, not a learned video.
+The [signed elbow and reward audit](examples/cricket_g1.md#signed-elbow-and-release-reward)
+closes an angle-folding loophole and adds an opt-in reward correction without
+reclassifying those failed deliveries as successes.
 
 ---
 

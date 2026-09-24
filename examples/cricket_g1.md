@@ -361,6 +361,35 @@ usable qualified teacher, a general G1 speed limit or an advertising video.
 Existing videos are unchanged; coordinated wind-up/control and both-hand learned
 batting/bowling showcases remain unfinished.
 
+### Signed Elbow and Release Reward
+
+The [new signed hinge audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7835d48f9d85b5a263bc6cc72c3b1a96d1aa1351/docs/g1_cricket_signed_release_v1.md)
+avoids the old unsigned angle folding through straight. It uses same-phase
+world geometry and the actual elbow axis, with its proximal landmark on the
+rigid elbow-parent link so shoulder yaw cannot masquerade as elbow extension.
+Both-hand full-range/randomized-pose tests verify this relationship. It adds
+failures for >15-degree signed extension without clearing any old failure;
+the measure remains robot geometry, not umpiring certification.
+
+The [six complete native/serial replays](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7835d48f9d85b5a263bc6cc72c3b1a96d1aa1351/g1_cricket_results/overarm_release_v1/signed_elbow_audit.json)
+exactly preserve every original outcome and motion trace. Signed extension is
+0.882-1.838 degrees, so no new elbow failure is added; **all six still fail the
+delivery gate**. No faster ball, successful teacher or new showcase is claimed.
+
+New shared owner `g1_cricket_overarm_reward_v2/mjbatch` removes only the old
+reward's ball-x<0 proxy for foot legality. The six retained foot/stride-legal
+release states all had ball x>0 and therefore zero old release bonus. Under
+the new formula, four release components become positive and two stay zero;
+these are counterfactual shaping values, not new episode returns or learned
+improvement. Actual foot faults remain disqualifying in independent evaluation.
+The old owner and physical/action/observation contracts are preserved.
+
+Both-hand CPU PPO smoke checks update finite actors for eight transitions each,
+with 122 observations and eight actions; no skill checkpoint is retained.
+64 focused UniLab tests, 47 native Batch tests and 19 documentation checks pass
+locally. This is the shared UniLab task running on native Batch, not a separately
+trained native implementation. Original videos remain unchanged.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)
