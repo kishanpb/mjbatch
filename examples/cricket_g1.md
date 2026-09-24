@@ -219,6 +219,29 @@ BC/media tests pass. This uses the shared task's 0.70 kg bat, not a checkpoint
 transfer into this standalone example's different 1.12 kg model. It is not an
 advertising reel or learned bowling; earlier highlights remain available.
 
+### Bowling Release Foundation
+
+The native held-control recorder now accepts explicit `EQ_ACTIVE` alongside
+`CTRL` and `XFRC_APPLIED`, with exact official-rollout/direct-physics comparisons.
+Activation must be supplied every interval: omission intentionally restores
+model defaults, not the previous release state. The companion UniLab public
+equality capability owns persistence and selected-environment reset semantics.
+
+The [both-hand G1 holder scene and tests](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/b524c8b4b7761f124270d865c38cd9e42f17886b/G1_CRICKET.md#bowling-release-foundation)
+use a 0.156 kg free-joint ball, 4 ms finite-compliance wrist weld and 0.25 ms
+physics step. Default and stance-keyframe ball poses come from each wrist's
+forward kinematics; nominal stance clearance exceeds 3 mm. A loaded moving-wrist
+test verifies continuous release, gravity-only flight and zero ball constraint
+force after release. Native Batch reproduces both-hand G1 substep states and
+sensors exactly; 47 local Batch/held-control tests and 163 focused companion
+tests pass. These are mechanical tests, not learned bowling or hardware evidence.
+
+The holder is an abstract constraint beside the fixed rubber hand, not an
+articulated gripper. Randomized wrist/ball reset alignment, dedicated holder-force
+telemetry, learned release/arm control and full bowling evaluation remain open.
+No old media or frozen evaluation is replaced. To reproduce the earlier batting
+matrix, use its documented frozen revisions rather than these modified adapters.
+
 ## Reproduce
 
 ```sh

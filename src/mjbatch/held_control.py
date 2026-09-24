@@ -9,7 +9,9 @@ from mjbatch import Batch
 
 FULL = mujoco.mjtState.mjSTATE_FULLPHYSICS
 INTEGRATION = mujoco.mjtState.mjSTATE_INTEGRATION
-CONTROLS = int(mujoco.mjtState.mjSTATE_CTRL | mujoco.mjtState.mjSTATE_XFRC_APPLIED)
+CONTROLS = int(
+  mujoco.mjtState.mjSTATE_CTRL | mujoco.mjtState.mjSTATE_XFRC_APPLIED | mujoco.mjtState.mjSTATE_EQ_ACTIVE
+)
 
 
 class HeldControlRollout:
@@ -19,7 +21,8 @@ class HeldControlRollout:
   FULLPHYSICS with reset auxiliary state, then preserves warmstart within the
   interval. Sensors are mj_step's solved-phase values, without an extra forward.
   Heterogeneous models are grouped by identity and stepped sequentially; this is
-  an evidence recorder, not a throughput claim.
+  an evidence recorder, not a throughput claim. EQ_ACTIVE is explicit held
+  input: callers must supply it each interval to preserve released constraints.
   """
 
   def __init__(self, models: Sequence[mujoco.MjModel], num_threads: int = 1):
@@ -59,7 +62,7 @@ class HeldControlRollout:
     if len(model) != len(self.models) or any(a is not b for a, b in zip(model, self.models, strict=True)):
       raise ValueError("recorder models differ from construction")
     if control_spec & ~CONTROLS:
-      raise ValueError("only CTRL and XFRC_APPLIED control fields are supported")
+      raise ValueError("only CTRL, XFRC_APPLIED and EQ_ACTIVE control fields are supported")
     width = mujoco.mj_stateSize(self.models[0], control_spec)
     expected = (len(self.models), nstep, width)
     if nstep < 1 or np.shape(control) != expected or np.shape(initial_state) != (len(model), self.nstate):

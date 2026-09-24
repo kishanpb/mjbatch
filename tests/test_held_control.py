@@ -111,3 +111,108 @@ def test_divergence_fails_before_auto_reset_can_look_healthy():
   finally:
     recorder.close()
     official.close()
+
+
+@pytest.mark.parametrize("side", [-1, 1])
+def test_moving_holder_release_persists_and_reset_is_per_environment(side):
+  model = mujoco.MjModel.from_xml_string(f"""
+  <mujoco><option timestep=".001" integrator="implicitfast"/>
+    <worldbody>
+      <body name="wrist" pos="0 {side * 0.08} 1.2">
+        <joint type="slide" axis="1 0 0"/>
+        <geom type="box" size=".04 .03 .03" mass=".7" contype="0" conaffinity="0"/>
+      </body>
+      <body name="ball" pos="0 {side * 0.08} 1.11"><freejoint/>
+        <geom type="sphere" size=".036" mass=".156"/>
+      </body>
+    </worldbody>
+    <equality><weld name="holder" body1="wrist" body2="ball" solref=".004 1"/></equality>
+    <sensor><framelinvel name="velocity" objtype="body" objname="ball"/></sensor>
+  </mujoco>
+  """)
+  data = mujoco.MjData(model)
+  data.qvel[[0, 1]] = 1.2
+  reset = np.empty(mujoco.mj_stateSize(model, FULL))
+  mujoco.mj_getState(model, data, reset, FULL)
+  initial = np.tile(reset, (3, 1))
+  active = np.ones(3)
+  native = HeldControlRollout([model] * 3)
+  official = Rollout(nthread=1)
+  spec = int(mujoco.mjtState.mjSTATE_EQ_ACTIVE | mujoco.mjtState.mjSTATE_XFRC_APPLIED)
+  try:
+    for tick in range(6):
+      if tick == 1:
+        active[1:] = 0
+      if tick == 3:
+        initial[1] = reset
+        active[1] = 1
+      control = np.zeros((3, 40, mujoco.mj_stateSize(model, spec)))
+      for row in range(3):
+        mujoco.mj_resetData(model, data)
+        mujoco.mj_setState(model, data, initial[row], FULL)
+        before = np.concatenate((data.qpos, data.qvel))
+        data.eq_active[:] = active[row]
+        data.xfrc_applied[1, 0] = 0.1
+        np.testing.assert_array_equal(np.concatenate((data.qpos, data.qvel)), before)
+        mujoco.mj_getState(model, data, control[row, 0], spec)
+        control[row] = control[row, 0]
+      actual = native.rollout([model] * 3, [data], initial, control, control_spec=spec, nstep=40)
+      expected = official.rollout([model] * 3, [data], initial, control, control_spec=spec, nstep=40)
+      for observed, reference in zip(actual, expected, strict=True):
+        np.testing.assert_array_equal(observed, reference)
+      for row in range(3):
+        mujoco.mj_resetData(model, data)
+        mujoco.mj_setState(model, data, initial[row], FULL)
+        mujoco.mj_setState(model, data, control[row, 0], spec)
+        for step in range(40):
+          mujoco.mj_step(model, data)
+          state = np.empty_like(reset)
+          mujoco.mj_getState(model, data, state, FULL)
+          np.testing.assert_array_equal(actual[0][row, step], state)
+          np.testing.assert_array_equal(actual[1][row, step], data.sensordata)
+          if not active[row]:
+            assert data.nefc == 0
+            np.testing.assert_array_equal(data.qfrc_constraint[1:], 0)
+        if active[row]:
+          assert abs(data.qpos[3] - 1.11) < 0.001
+        else:
+          assert data.qvel[3] < -0.3
+          assert data.qvel[1] > 1
+      initial = actual[0][:, -1].copy()
+  finally:
+    native.close()
+    official.close()
+
+
+def test_omitting_equality_input_restores_model_defaults():
+  model = mujoco.MjModel.from_xml_string("""
+  <mujoco><worldbody><body><joint name="slide" type="slide"/>
+    <geom type="sphere" size=".05" mass="1"/>
+  </body></worldbody><equality>
+    <joint name="held" joint1="slide"/>
+    <joint name="unused" joint1="slide" active="false"/>
+  </equality></mujoco>
+  """)
+  data = mujoco.MjData(model)
+  initial = np.empty((1, mujoco.mj_stateSize(model, FULL)))
+  mujoco.mj_getState(model, data, initial[0], FULL)
+  recorder = HeldControlRollout([model])
+  official = Rollout(nthread=1)
+  try:
+    released = recorder.rollout(
+      [model],
+      [data],
+      initial,
+      np.zeros((1, 5, 2)),
+      control_spec=int(mujoco.mjtState.mjSTATE_EQ_ACTIVE),
+      nstep=5,
+    )
+    control = np.zeros((1, 5, 0))
+    actual = recorder.rollout([model], [data], initial, control, control_spec=0, nstep=5)
+    expected = official.rollout([model], [data], initial, control, control_spec=0, nstep=5)
+    for observed, reference in zip(actual, expected, strict=True):
+      np.testing.assert_array_equal(observed, reference)
+    assert not np.array_equal(actual[0], released[0])
+  finally:
+    recorder.close()
+    official.close()

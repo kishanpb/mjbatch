@@ -42,6 +42,11 @@ and [six-view contact sheet](https://github.com/kishanpb/Cricket-Gym-Unilab/blob
 retain fixed contexts including failures. Loads are simulated and uncalibrated;
 this is a diagnostic, not an advertising reel. Earlier highlights are unchanged.
 
+The [bowling release foundation](examples/cricket_g1.md#bowling-release-foundation)
+adds explicit held equality inputs and tests both G1 wrists in the shared task.
+Release preserves ball position/velocity; the declared holder is not a learned
+grasp, and a trained bowling demonstration remains unfinished.
+
 ---
 
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)
