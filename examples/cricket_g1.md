@@ -2,7 +2,7 @@
 
 ## Current Direction: Two-Hand Whole-Body Tracking
 
-The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/381d7b4bccd65138a634cc48c7611d5bc8d24b7d/docs/g1_cricket_bimanual_tracking.md)
+The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3810b78fd170c948ebc67fcbfedff287a6c2119b/docs/g1_cricket_bimanual_tracking.md)
 retargets the earlier cricket choreography to UniLab's G1 geometry. Native
 mjbatch trains independent right/left whole-body PPO actors with two mechanical
 bat grips and all 29 joint controls. It does not use the frozen walking policy
@@ -20,6 +20,18 @@ videos are retained in the linked report, not advertised as successful cricket.
 Running approach, gather, legal plant, overarm release and
 recovery still need whole-body retargeting and physical learning before a new
 bowling showcase. The previous scripted-component highlights remain unchanged.
+
+The grounded-support revision fixes sole height and support placement and adds
+reference velocity plus motor-side static support compensation. Static guard
+completes three seconds on both sides without unexpected contacts or hard-limit
+excursions. Fresh 196,608-transition PPO pilots nevertheless fail at 2.10 s
+(right) and 2.00 s (left), below their own 2.36 s reference-only baselines.
+The left actor also has an elbow/hand collision; neither is promoted.
+Complete failed videos, checkpoints and traces are retained in the linked report.
+Every evaluated control interval now has independent substep replay with exact
+native endpoint-state and sensor agreement, plus force, grip, hard-limit and
+collision peaks. These remain uncalibrated simulator measurements, not a
+successful batting or running-bowling showcase.
 
 ## Historical Single-Wrist Foundation
 

@@ -34,6 +34,8 @@ CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
 direction; it is not an independent native learner or a new Menagerie-model
 result. Dry-swing balance, ball hitting and running bowling remain unfinished.
+The latest grounded-support pilot retains both failed full-episode videos and
+substep force, grip, joint-limit and collision audits in the linked research log.
 
 Earlier [force/touch diagnostics](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
 and complete failed experiments remain in the research log. Simulated loads
