@@ -45,6 +45,27 @@ offline animation from achieved physics. These are not dynamically validated
 teachers, learned bowling policies or a separate mjbatch running evaluation;
 whole-body balance remains unfinished.
 
+### Native Running PPO Pilot
+
+The [complete running-tracking pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f23805b51884c475d69fd97f97c563a1424b3ac/docs/g1_cricket_running_tracking.md)
+now uses native CPU mjbatch for all 29 motor controls, reset-only held-ball
+state, simulated holder force/impulse/contact observations and scheduled release.
+Both hands complete 128 PPO updates / 24,576 transitions with seed 1, retaining
+the final checkpoint. No root support, per-step pose writes or ball-velocity
+injection is used. The learner and G1 model belong to the shared UniLab task;
+this is not an independently retrained Menagerie setup.
+
+Both complete PPO evaluations terminate on unintended contact before delivery:
+right 0.52 s, left 0.58 s. Recorded terminal poses intersect the bowling-end
+wicket with the bowling hand. Reference-only controls stop at 0.56 s on tracking
+deviation and also have joint-stop excursions. All four fail the original
+delivery gate; exact independent native endpoint/sensor replay passes throughout.
+[Right video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f23805b51884c475d69fd97f97c563a1424b3ac/g1_cricket_results/running_tracking_v1/ppo_right/ppo.mp4)
+and [left video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f23805b51884c475d69fd97f97c563a1424b3ac/g1_cricket_results/running_tracking_v1/ppo_left/ppo.mp4)
+are complete 0.5x development diagnostics with simulated-load readouts, not
+bowling showcases. All four videos contain 115 decoded nonblank frames.
+Next is approach clearance and dynamic balance, not more unchanged training.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
