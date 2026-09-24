@@ -242,6 +242,32 @@ alignment and holder-force telemetry; learning and full bowling evaluation remai
 No old media or frozen evaluation is replaced. To reproduce the earlier batting
 matrix, use its documented frozen revisions rather than these modified adapters.
 
+### Both-Hand Delivery Learning Pilot
+
+The [frozen shared-task experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/10e125fdbc92e5039ecb93674516a023a45b1226/docs/g1_cricket_delivery_v1.md)
+trains separate right/left PPO actors on native mjbatch through UniLab, each
+with 256 updates / 24,576 actual transitions. This uses the shared Unitree prior
+and abstract ball holder, not the legacy standalone environment, a learned
+grasp or newly learned locomotion. The versioned scene places the robot beside
+the wicket and adds regulation-spaced wickets and explicitly edged crease paint.
+
+[All 32 evaluation rows and checkpoints](https://github.com/kishanpb/Cricket-Gym-Unilab/tree/10e125fdbc92e5039ecb93674516a023a45b1226/g1_cricket_results/delivery_v1)
+are retained: two hands, zero/final-PPO, two development seeds, .25/.125 ms and
+both executors. Every row completes four seconds; all 16 executor outcome pairs
+match exactly and serial replay matches every control-boundary state/sensor.
+**Neither trained actor releases the ball; all four PPO comparison contexts
+fail**, as do all four baseline contexts. Positive reward is not delivery success.
+Peak simulated holder force is 20.155614 N; no ball contacts or penetration occur.
+
+The independent full-episode gate checks true foot lift/landing order, footprint
+crease limits, overarm motion and elbow extension, all robot/ball contacts,
+joint/actuator limits and post-release bounce/target crossing. Its limited
+timestep checks pass for these failed carry episodes, not a demonstrated
+release or impact. It is not ICC certification or hardware calibration.
+The [result discussion](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/10e125fdbc92e5039ecb93674516a023a45b1226/G1_CRICKET.md#both-hand-delivery-learning-pilot)
+includes complete aggregates, source/runtime pins and 49 focused passing tests.
+No new showcase or upstream submission follows from this failed pilot.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)

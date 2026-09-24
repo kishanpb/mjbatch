@@ -52,6 +52,12 @@ now has arm/release controls and validated holder-force/touch signals. All 32
 untrained carry/drop checks complete on the two CPU executors; these are not
 learned or legally qualified deliveries.
 
+The subsequent [both-hand PPO delivery pilot](examples/cricket_g1.md#both-hand-delivery-learning-pilot)
+trains two fresh actors on native mjbatch, 24,576 transitions per hand. All 32
+evaluation cases match across executors but retain the ball: zero qualified
+deliveries. Failed checkpoints and complete evidence are retained, not promoted
+as a new bowling showcase.
+
 ---
 
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)
