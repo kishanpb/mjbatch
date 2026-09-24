@@ -2,12 +2,36 @@
 
 ## Current Direction: Two-Hand Whole-Body Tracking
 
-The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_bimanual_tracking.md)
+The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_tracking.md)
 retargets the earlier cricket choreography to UniLab's G1 geometry. Native
 mjbatch trains independent right/left whole-body PPO actors with two mechanical
 bat grips and all 29 joint controls. It does not use the frozen walking policy
 or overwrite robot poses during a policy step. This is the shared UniLab task
 on this executor, not a separate learner or the legacy Menagerie scene below.
+
+The current [two-hand soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
+adds waist-position and root-position ankle feedback to the frozen final actors,
+with original geometry, joint stops and motor-force caps. Both hands and both
+reference/PPO controls complete at two physics resolutions, with dry controls:
+all 16 full episodes have exact independent substep state/sensor replay and no
+joint-stop or unintended-contact violations. All eight soft-toss trials contact
+the blade and send the ball forward, with maximum ball penetration below 6 mm.
+Finest-resolution right/left PPO first-exit vx is 1.45590 / 1.70166 m/s and
+blade penetration 2.849 / 3.125 mm. These are uncalibrated simulator loads and
+nominal forward deflections, not robust cricket performance.
+
+Every row still fails the original bat-path accuracy gate. Three of four
+resolution comparisons pass; left reference-only pitch-force peak differs by
+5.115%, above the 5% bound. That failure remains in the full report. No new
+training or selected-checkpoint promotion follows this comparison: actors have
+no ball observation, and reference-only control hits too.
+
+The [current complete two-hand video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/g1_cricket_results/bimanual_soft_toss_v1/two_hand_ppo_soft_toss.mp4)
+shows both finest-resolution PPO episodes at 0.5x, right then left, including
+recovery and terminal labels. All 350 frames decode nonblank. This is a
+development diagnostic, not a finished batting or running-bowling showcase.
+
+### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
 now completes both reference-controlled swings. Fresh PPO with 0.05-rad residual
