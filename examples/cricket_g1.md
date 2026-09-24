@@ -77,8 +77,31 @@ all contexts**. Every fine-step trial exceeds 6 mm penetration (6.422581 to
 The result closes this finite last-command attenuation family without changing
 physics, gates or the prior. All 67 source/input hashes are checked; 45 focused
 tests pass, including 12 new tests. This is scripted, single-reset diagnostic
-evidence, not fresh training, physical calibration or a showcase. A bounded
-pre-contact bat-face orientation study remains an untested next hypothesis.
+evidence, not fresh training, physical calibration or a showcase. The wrist-only
+orientation experiment below follows this result.
+
+### Wrist Pitch And Motor Saturation
+
+The [companion experiment and motor audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/32b9fa15a0fb65420ca2ad8fbc686eb717d32f63/G1_CRICKET.md#wrist-pitch-and-motor-saturation)
+retain 28 complete wrist-pitch trials across seven command scales, both engines
+and both timesteps. All executor outcomes and first-impact evidence match;
+ten individual coarse rows pass but **no scale passes all four contexts**.
+Fine-step penetration remains 6.427966-6.620823 mm, above the unchanged 6 mm
+limit. The intended contact-orientation change is barely achieved.
+
+Four additional full native-mjbatch replays trace requested versus applied
+wrist-pitch torque at every physics solve (48,000 total). For scales 1 and 0,
+every forward-phase solve saturates at -5 N m at both timesteps, explaining
+why different commands produce identical impacts. The affine torque/clipping
+reconstruction error is zero in that phase and at most 1.78e-15 N m overall.
+All replay results exactly match their retained parent rows. The sweep checks
+72 source/input hashes, and the motor audit checks 75; 57 focused tests pass.
+
+No gains, motor limits, contact physics, reward or prior were changed. The
+finding concerns this specific wrist/control phase, not all wrist motion or a
+physical batting-speed ceiling. It motivates a bounded proximal-arm test with
+achieved joint motion and torque reporting, not more wrist-target tuning or
+weaker gates. These are simulated diagnostics, not fresh learning or new videos.
 
 ## Reproduce
 
