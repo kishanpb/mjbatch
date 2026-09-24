@@ -417,6 +417,38 @@ retained result. 68 focused UniLab tests, 47 native Batch tests and 19 doc tests
 pass locally. Existing videos are unchanged; alternate swing geometry, safe
 braking, learned control and both-hand qualification remain unfinished.
 
+### Positive Arc and Controller Damping
+
+The [paired six-case comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/a9d7cfedee86fa24e2e6c84113c87d10ccb84c11/G1_CRICKET.md#positive-arc-and-controller-damping)
+tests positive shoulder launch/braking schedules at the same left-hand
+development seed and fixed release time. These are scripted controls in the
+shared UniLab task on native Batch, not a new native learner or RL result.
+The compiled original arm controller uses kp 40/kd 10; the separately named
+retuned owner changes only selected shoulder-pitch kd to 2, retaining kp,
+torque caps, joint limits, remaining motors and all delivery gates.
+
+[All six original-controller cases](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/a9d7cfedee86fa24e2e6c84113c87d10ccb84c11/g1_cricket_results/positive_arc_v1/evaluation.json)
+finish four seconds but have ball/hand or wrist contact and invalid stride.
+[All six retuned cases](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/a9d7cfedee86fa24e2e6c84113c87d10ccb84c11/g1_cricket_results/shoulder_damping_v1/evaluation.json)
+remain available, including three incomplete episodes with leg-limit,
+self-contact and pelvis-height failures. Two retuned cases are physically
+clean, but neither qualifies: stride, speed, bounce-zone, bounce-count and
+target-corridor gates still fail. **Zero of twelve deliveries qualify.**
+
+Lower damping increases peak forward shoulder speed from 4.85-5.01 to
+10.23-11.09 rad/s, but release timing and whole-body recovery remain unresolved.
+The throwing shoulder itself stays within its original hard stop. Retuning
+does not preserve the prior's closed-loop calibration or establish hardware
+safety. No successful teacher, trained checkpoint or new showcase video is
+claimed; existing videos remain unchanged.
+
+Frozen experiment sources are UniLab `b8918a72` and `e53d9fea`. Every substep
+is independently replayed, with exact native endpoint/sensor agreement and
+input hashes checked before and after execution. A distinct action-owner
+identity rejects old/new cross-owner checkpoints through the strict contract.
+Local validation passes 79 focused UniLab, 48 checkpoint-resolver, 19 docs and
+47 native Batch tests; this is not an upstream CI or full-suite claim.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)
