@@ -1,5 +1,28 @@
 # Unitree G1 Cricket Development
 
+## Current Direction: Two-Hand Whole-Body Tracking
+
+The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/381d7b4bccd65138a634cc48c7611d5bc8d24b7d/docs/g1_cricket_bimanual_tracking.md)
+retargets the earlier cricket choreography to UniLab's G1 geometry. Native
+mjbatch trains independent right/left whole-body PPO actors with two mechanical
+bat grips and all 29 joint controls. It does not use the frozen walking policy
+or overwrite robot poses during a policy step. This is the shared UniLab task
+on this executor, not a separate learner or the legacy Menagerie scene below.
+
+The initial 196,608-transition pilot per hand fails during downswing at 1.56
+and 1.68 seconds, respectively; reference-only control fails at 0.32 seconds.
+These are deterministic dry-swing diagnostics, not ball hits or held-out
+performance. An equal, predeclared continuation reaches 393,216 cumulative
+transitions per hand: final duration improves to 2.00 seconds (right) and
+2.64 seconds (left), but both still fail anchor height before completing the
+three-second motion. Complete traces, final checkpoints and failed diagnostic
+videos are retained in the linked report, not advertised as successful cricket.
+Running approach, gather, legal plant, overarm release and
+recovery still need whole-body retargeting and physical learning before a new
+bowling showcase. The previous scripted-component highlights remain unchanged.
+
+## Historical Single-Wrist Foundation
+
 This is a **floating-base robot-learning foundation**, not a finished cricket
 policy or replacement for the existing humanoid highlights. The native mjbatch
 environment preserves the Menagerie G1's 29 joint actuators, link inertias,

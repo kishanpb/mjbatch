@@ -29,52 +29,16 @@ and explicit sensor-timing limits. This does not turn the scripted components in
 learned robot control; a Unitree G1 cricket extension is the next milestone.
 
 **Unitree G1 research:** [robot setup and complete results](examples/cricket_g1.md).
-The companion UniLab task fits a bat-arm actor, then runs 24,576 PPO transitions
-around a frozen external locomotion prior and rigid wrist bat. Native Batch
-reproduces the full 576-row evaluation exactly; this is shared-task execution,
-not a separately trained native Batch learner. BC qualifies on 2/24 right-hand
-development contexts. PPO completes all 24 with blade contact and no guard
-violations, but all fail the strict forward-speed target. Left-hand transfer is
-untrained and fails; learned bowling and a robust both-hand showcase remain open.
+The shared UniLab task now trains separate right/left PPO actors on native
+CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
+a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
+direction; it is not an independent native learner or a new Menagerie-model
+result. Dry-swing balance, ball hitting and running bowling remain unfinished.
 
-[G1 development video with force/touch overlays](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
-and [six-view contact sheet](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_contact_sheet.png)
-retain fixed contexts including failures. Loads are simulated and uncalibrated;
-this is a diagnostic, not an advertising reel. Earlier highlights are unchanged.
-
-The [bowling release foundation](examples/cricket_g1.md#bowling-release-foundation)
-adds explicit held equality inputs and tests both G1 wrists in the shared task.
-Release preserves ball position/velocity; the declared holder is not a learned
-grasp, and a trained bowling demonstration remains unfinished.
-
-The shared [experimental bowling task](examples/cricket_g1.md#bowling-task-and-force-audit)
-now has arm/release controls and validated holder-force/touch signals. All 32
-untrained carry/drop checks complete on the two CPU executors; these are not
-learned or legally qualified deliveries.
-
-The subsequent [both-hand PPO delivery pilot](examples/cricket_g1.md#both-hand-delivery-learning-pilot)
-trains two fresh actors on native mjbatch, 24,576 transitions per hand. All 32
-evaluation cases match across executors but retain the ball: zero qualified
-deliveries. Failed checkpoints and complete evidence are retained, not promoted
-as a new bowling showcase.
-
-The [absolute-arm reach comparison](examples/cricket_g1.md#absolute-arm-reach-and-prior-target-guard)
-now has three left-hand scripted raise-and-recovery witnesses after bounding
-the shared task's locomotion-prior targets. All right-hand trials still fail
-physical checks. These are one-seed preload diagnostics, not learned releases
-or a new bowling showcase; all failed cases remain available.
-
-The subsequent [fixed drive/release study](examples/cricket_g1.md#fixed-overarm-drive-and-release)
-completes six left-hand scripted releases with stable recovery, but **zero
-qualified deliveries**: maximum forward release speed is 3.13 m/s and every
-first bounce falls short. This is development evidence, not a learned video.
-The [signed elbow and reward audit](examples/cricket_g1.md#signed-elbow-and-release-reward)
-closes an angle-folding loophole and adds an opt-in reward correction without
-reclassifying those failed deliveries as successes.
-The [32-trial coordinated shoulder search](examples/cricket_g1.md#coordinated-shoulder-search)
-and [paired launch/braking controller tests](examples/cricket_g1.md#positive-arc-and-controller-damping)
-also find no qualified delivery. Complete failures remain available; no new
-learned-bowling showcase is claimed.
+Earlier [force/touch diagnostics](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
+and complete failed experiments remain in the research log. Simulated loads
+are uncalibrated, mechanical grips are not learned finger grasping, and no G1
+advertising reel is claimed. The original highlights above are unchanged.
 
 ---
 
