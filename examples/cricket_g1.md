@@ -31,6 +31,18 @@ shows both finest-resolution PPO episodes at 0.5x, right then left, including
 recovery and terminal labels. All 350 frames decode nonblank. This is a
 development diagnostic, not a finished batting or running-bowling showcase.
 
+### Running-Delivery Reference
+
+The companion [whole-body bowling diagnostic](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/24527b39f4f49e4c578d0f5fb89ca5296cf27848/docs/g1_cricket_running_reference.md)
+retargets approach, gather, planted overarm delivery and recovery for both hands.
+The revised offline targets remove the observed hand/hip intersections and bound
+joint-reference speed, but shoulder follow-through still misses its target by
+122.23 mm. Both motor-controlled native MuJoCo PD baselines fall at 0.62 s before
+delivery. The report retains both complete failures and clearly separates
+offline animation from achieved physics. These references are not accepted
+teachers, learned bowling policies or a separate mjbatch running evaluation;
+dynamic support and shoulder-return repair remain prerequisites.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
@@ -59,7 +71,7 @@ transitions per hand: final duration improves to 2.00 seconds (right) and
 three-second motion. Complete traces, final checkpoints and failed diagnostic
 videos are retained in the linked report, not advertised as successful cricket.
 Running approach, gather, legal plant, overarm release and
-recovery still need whole-body retargeting and physical learning before a new
+recovery still need reference repair and physical learning before a new
 bowling showcase. The previous scripted-component highlights remain unchanged.
 
 The grounded-support revision fixes sole height and support placement and adds

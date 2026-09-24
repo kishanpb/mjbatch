@@ -40,6 +40,10 @@ observation: this is not learned interception. All 16 declared episodes finish
 without joint-stop or unintended-contact violations; all eight toss trials hit.
 Bat-path accuracy and one reference-control pitch-force timestep check remain
 failed, and running bowling remains unfinished.
+The companion [running-delivery reference](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/24527b39f4f49e4c578d0f5fb89ca5296cf27848/docs/g1_cricket_running_reference.md)
+now includes both-handed approach, gather and overarm targets. Its native MuJoCo
+PD baselines fall before delivery; the offline animations are not learned
+bowling or an independently validated mjbatch integration.
 The linked research log retains complete episodes and substep force, grip,
 joint-limit and collision audits, not just selected successful-looking frames.
 
