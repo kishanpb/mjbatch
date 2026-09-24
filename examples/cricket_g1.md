@@ -62,7 +62,44 @@ without actuation, and exercise a controlled incoming-ball contact. These tests
 verify integration and instrumentation, **not realistic impact magnitudes**.
 Timestep/contact-parameter convergence and calibration remain required.
 
+The [16-case timestep audit](cricket_g1_results/contact_timestep_audit.json) retains
+both hands at 2 and 8 m/s over four stepsizes from 2 ms to 0.25 ms. Coarse versus
+finest peak normal loads differ by 4.84-9.20%; summed normal impulses differ by
+0.35-2.11%. These are controlled short impacts on the free robot with constant
+joint targets, not learned shots. The current critically damped contact has very
+little rebound; restitution/material calibration is still a prerequisite for
+credible batting dynamics. Numerical agreement alone does not supply it.
+
+[Allen et al. (2014)](https://shura.shu.ac.uk/8205/) validated cricket ball/bat
+impacts experimentally and found limitations in rigid-body predictions across
+blade locations. This motivates a separate rebound/contact-duration calibration
+study; their data are not a calibration of this wrist fixture or MuJoCo model.
+
 ## Results And Limits
+
+**Current physical gate: not passed.** A later PPO checkpoint stayed upright for
+all eight three-second development trials and all eight ten-second stress trials,
+but the added bat-ground sensors exposed support loads up to 1,364 N. It was using
+the bat as a crutch. This is rejected as a cricket stance, not a promoted result.
+
+![Rejected stance on the first declared stress seed](cricket_g1_results/balance_ppo_fine/stance_diagnostic.png)
+
+The [complete physical audit](cricket_g1_results/balance_ppo_fine/balance_validation.json)
+separates the no-fall gate from the cricket-stance gate. The new free-bat curriculum
+terminates on any incidental bat-ground or bat-body contact; the declared holding
+wrist fixture is excluded geometrically. Ball/bat contact remains allowed.
+Do not compare its returns directly with the older, unguarded curriculum.
+
+| Development condition | Additional transitions | Deterministic outcome |
+| --- | ---: | --- |
+| Fixed action std 0.08 from bootstrap | 524,288 | 8/8 falls, 1.88-2.68 s |
+| Same parent/std plus PPO target KL 0.02 | 524,288 | 5/8 falls; only 3/8 reach 3 s |
+| Continue KL checkpoint at learning rate 0.0001 | 524,288 | 0/8 falls at 3 s and 10 s, rejected for bat support |
+| Free-bat v2 continuation, same physics | 262,144 | 8/8 invalid bat contacts, 1.00-1.04 s; 0 successes |
+
+The frozen-noise and KL settings use Stable-Baselines3's existing PPO policy and
+update stopping logic. These are bounded development comparisons, not a final
+tournament, independently seeded training replication or an algorithm ranking.
 
 The complete first-episode evaluations use development seeds 9001-9008, all eight
 rows retained. These repeated development seeds are not an untouched final test

@@ -34,3 +34,13 @@ falls. Continue that exact checkpoint for 524,288 transitions with learning rate
 tests smaller updates because the early-stop mechanism can only detect an
 oversized update after it occurs. Keep the same eight-episode development gate;
 do not run the predeclared ten-second check unless all eight first pass.
+
+## Free-Bat V2 Physical Gate
+
+The smaller-step checkpoint passed both no-fall checks, but subsequent contact
+instrumentation and first-seed rendering showed bat-floor support. Reject it
+for cricket stance. Add the explicit no-incidental-bat-ground/body-contact gate
+without removing those collision pairs or changing robot physics. Continue
+from that checkpoint for 262,144 transitions at its saved optimizer settings.
+Count every invalid contact as failure, not a timeout or successful survival;
+this is a newly versioned termination/reward contract, not the old return scale.

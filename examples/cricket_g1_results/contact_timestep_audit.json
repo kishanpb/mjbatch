@@ -6,7 +6,7 @@
   "fixture_scope": "Rigid attachment wrench includes gravity/inertia, not finger taxels",
   "source_sha256": {
     "cricket_g1_contact_audit.py": "200ea3f7c73621391344df41a341354b7bdde4cbdd4959fb6cbc4dac4996aa6c",
-    "cricket_g1.py": "c8937beb9b51822292205f42972a65cb4d63c36a3ff3f0ad315f44932e6d27f3"
+    "cricket_g1.py": "41eab2ca21e08264d4a943318dcb4784e757ff1d674716b8414a7a661f136d80"
   },
   "rows": [
     {
@@ -31,7 +31,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+        "scene_xml_sha256": "68bfe31cf88b7e7deab9507baf7e2041b533523b36473e88da9e828a160bc524",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -58,7 +58,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "cc70fd6f55298c61ad34a666ca5badb0eda382dc19d634b21e1ab5a58a984a1a",
+        "scene_xml_sha256": "328be57989194b83a15a8a202f09b674cc7f5193fac3ebd57c15b0ff51fbb8f5",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -85,7 +85,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "e692bbca5746ba60d7eeb421eb04a41fd89686d64a311cafaaaf137a06a655c5",
+        "scene_xml_sha256": "4e67a728307b2e40e2d88c66c35f72e1d297e4c4b911ea438fc714c0883f883f",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -112,7 +112,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "c1be4aa30eaedf2996d871dd6499a8158e9d4ecb12db4b816b40d1f98941cc1b",
+        "scene_xml_sha256": "20be94efd84b85df05bca4eba0a1844760c622252e748ce2d5bb6fd344287e55",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -139,7 +139,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+        "scene_xml_sha256": "68bfe31cf88b7e7deab9507baf7e2041b533523b36473e88da9e828a160bc524",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -166,7 +166,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "cc70fd6f55298c61ad34a666ca5badb0eda382dc19d634b21e1ab5a58a984a1a",
+        "scene_xml_sha256": "328be57989194b83a15a8a202f09b674cc7f5193fac3ebd57c15b0ff51fbb8f5",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -193,7 +193,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "e692bbca5746ba60d7eeb421eb04a41fd89686d64a311cafaaaf137a06a655c5",
+        "scene_xml_sha256": "4e67a728307b2e40e2d88c66c35f72e1d297e4c4b911ea438fc714c0883f883f",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -220,7 +220,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "c1be4aa30eaedf2996d871dd6499a8158e9d4ecb12db4b816b40d1f98941cc1b",
+        "scene_xml_sha256": "20be94efd84b85df05bca4eba0a1844760c622252e748ce2d5bb6fd344287e55",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -247,7 +247,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "4f50d213a8fba3262fc17f5aa7e5843142d92c57b9110e373a12a9fc0ed476c8",
+        "scene_xml_sha256": "28a1440cb37552833a53db3d162d1636c22c8bb944f32b37817f4aad439835ab",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -274,7 +274,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "b425861c9cd7e9783723d17ec4d57044dee039153235aa58659ead1830fa1d55",
+        "scene_xml_sha256": "1d0e58992cb06f1a9a99c82c6aa20e3b730af9b0371a2ef6c508f36bf4089e2f",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -301,7 +301,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "569748d7e84cbfb40b230fd1f79c332c37009b0d6e9f2bdd99b7555c6d58148f",
+        "scene_xml_sha256": "96b31b17c36e9935e685ca4c3918f81d75abfff51912d0c35ef51137421696a4",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -328,7 +328,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "966004393a42b6563d187ddb387c5e3b4ae7fe7ecdba5528f9cebe4c91f15c58",
+        "scene_xml_sha256": "cba6ff00551fd4c8b40959d383e4d483e8d40117afe753a5af9bfd70e719cc59",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -355,7 +355,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "4f50d213a8fba3262fc17f5aa7e5843142d92c57b9110e373a12a9fc0ed476c8",
+        "scene_xml_sha256": "28a1440cb37552833a53db3d162d1636c22c8bb944f32b37817f4aad439835ab",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -382,7 +382,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "b425861c9cd7e9783723d17ec4d57044dee039153235aa58659ead1830fa1d55",
+        "scene_xml_sha256": "1d0e58992cb06f1a9a99c82c6aa20e3b730af9b0371a2ef6c508f36bf4089e2f",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -409,7 +409,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "569748d7e84cbfb40b230fd1f79c332c37009b0d6e9f2bdd99b7555c6d58148f",
+        "scene_xml_sha256": "96b31b17c36e9935e685ca4c3918f81d75abfff51912d0c35ef51137421696a4",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }
@@ -436,7 +436,7 @@
         "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
         "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
         "license": "BSD-3-Clause",
-        "scene_xml_sha256": "966004393a42b6563d187ddb387c5e3b4ae7fe7ecdba5528f9cebe4c91f15c58",
+        "scene_xml_sha256": "cba6ff00551fd4c8b40959d383e4d483e8d40117afe753a5af9bfd70e719cc59",
         "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
         "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
       }

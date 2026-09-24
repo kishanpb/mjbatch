@@ -199,6 +199,8 @@ def scene(hand="right", timestep=TIMESTEP):
       if surface in (f"{hand}_hand_collision", f"{hand}_wrist_collision"):
         continue  # The declared rigid fixture occupies the holding palm/wrist.
       ET.SubElement(contacts, "pair", geom1=geom, geom2=surface, condim="3", solref=".008 1")
+      ET.SubElement(sensors, "contact", name=f"{geom}_{surface}", geom1=geom, geom2=surface,
+                    num=str(SLOTS), reduce="none", data="found force torque dist pos normal tangent")
   for side in ("left", "right"):
     for i in range(1, 4):
       ET.SubElement(

@@ -21,10 +21,11 @@ from cricket_g1 import DECIMATION, TIMESTEP, G1Cricket
 
 
 class CricketVecEnv(VecEnv):
-  def __init__(self, count=32, seed=1, hand="right", task="balance", horizon=150):
+  def __init__(self, count=32, seed=1, hand="right", task="balance", horizon=150, forbid_bat_contact=False):
     self.physics = G1Cricket(count, hand)
     self.task, self.render_mode = task, None
     self.horizon = horizon
+    self.forbid_bat_contact = forbid_bat_contact
     self.rngs = [np.random.default_rng(seed + i) for i in range(count)]
     self.steps = np.zeros(count, dtype=int)
     self.returns = np.zeros(count)
@@ -33,6 +34,7 @@ class CricketVecEnv(VecEnv):
     self.ball = self.physics.batch.joint("cricket_ball_joint")
     self.support_ids = [i for i, n in enumerate(self.physics.contact_names) if n.startswith("support_")]
     self.bat_ids = [self.physics.contact_names.index("ball_" + n) for n in ("bat_blade", "bat_handle")]
+    self.external_bat_ids = [i for i, n in enumerate(self.physics.contact_names) if n.startswith("bat_")]
     obs = self.observation()
     super().__init__(count, gym.spaces.Box(-10, 10, obs.shape[1:], dtype=np.float32),
                      gym.spaces.Box(-1, 1, (29,), dtype=np.float32))
@@ -85,13 +87,14 @@ class CricketVecEnv(VecEnv):
     up = 1 - 2 * (q[:, 4]**2 + q[:, 5]**2)
     height = q[:, 2]
     fallen = (height < .50) | (up < .65)
+    invalid_bat_contact = self.forbid_bat_contact & (env.active_samples[:, self.external_bat_ids].sum(1) > 0)
     joint = q[:, env.model.jnt_qposadr[env.joints]]
     violation = np.maximum(env.limits[:, 0] - joint, 0) + np.maximum(joint - env.limits[:, 1], 0)
     reward = 2 * np.exp(-20 * (1 - up)**2) + np.exp(-100 * (height - .78)**2)
     reward -= .15 * np.square(env.qvel[:, :2]).sum(1)
     reward -= .01 * np.square(self.actions - self.last_action).sum(1)
     reward -= .01 * np.square(joint - env.home).sum(1) + 5 * violation.sum(1)
-    reward -= 5 * fallen
+    reward -= 5 * (fallen | invalid_bat_contact)
     current_hit = (env.active_samples[:, self.bat_ids].sum(1) > 0) & (self.ball.qvel[:, 0] > 1)
     new_hit = current_hit & ~self.hit
     self.hit |= current_hit
@@ -101,13 +104,14 @@ class CricketVecEnv(VecEnv):
     self.last_action[:] = self.actions
     self.returns += reward
     obs = self.observation()
-    done = fallen | (self.steps >= self.horizon)
+    done = fallen | invalid_bat_contact | (self.steps >= self.horizon)
     infos = [{} for _ in range(self.num_envs)]
     ids = np.flatnonzero(done)
     for i in ids:
-      infos[i] = {"terminal_observation": obs[i].copy(), "TimeLimit.truncated": not bool(fallen[i]),
+      infos[i] = {"terminal_observation": obs[i].copy(), "TimeLimit.truncated": not bool(fallen[i] or invalid_bat_contact[i]),
                   "episode": {"r": float(self.returns[i]), "l": int(self.steps[i])},
-                  "fell": bool(fallen[i]), "bat_contact_outgoing": bool(self.hit[i])}
+                  "fell": bool(fallen[i]), "invalid_bat_contact": bool(invalid_bat_contact[i]),
+                  "bat_contact_outgoing": bool(self.hit[i])}
     if len(ids):
       self._reset_rows(ids)
       obs[ids] = self.observation()[ids]
@@ -129,8 +133,9 @@ class CricketVecEnv(VecEnv):
     return [False for _ in self._get_indices(indices)]
 
 
-def evaluate(policy, hand, task, horizon=150, seed=9001):
-  env = CricketVecEnv(count=8, seed=seed, hand=hand, task=task, horizon=horizon)
+def evaluate(policy, hand, task, horizon=150, seed=9001, forbid_bat_contact=False):
+  env = CricketVecEnv(count=8, seed=seed, hand=hand, task=task, horizon=horizon,
+                      forbid_bat_contact=forbid_bat_contact)
   obs = env.reset()
   rows, finished = [], np.zeros(8, dtype=bool)
   for _ in range(horizon):
@@ -141,6 +146,8 @@ def evaluate(policy, hand, task, horizon=150, seed=9001):
       rows.append({"seed": seed + int(i), "steps": info["episode"]["l"],
                    "seconds": info["episode"]["l"] * TIMESTEP * DECIMATION,
                    "return": info["episode"]["r"], "fell": info["fell"],
+                   "invalid_bat_contact": info["invalid_bat_contact"],
+                   "success": not (info["fell"] or info["invalid_bat_contact"]),
                    "bat_contact_outgoing": info["bat_contact_outgoing"]})
       finished[i] = True
     if finished.all():
@@ -172,6 +179,7 @@ def main():
   parser.add_argument("--fixed-action-std", type=float)
   parser.add_argument("--target-kl", type=float)
   parser.add_argument("--learning-rate", type=float)
+  parser.add_argument("--forbid-bat-contact", action="store_true")
   args = parser.parse_args()
   if args.target_kl is not None and (args.algorithm != "ppo" or not np.isfinite(args.target_kl) or args.target_kl <= 0):
     parser.error("--target-kl requires PPO and a finite positive value")
@@ -202,6 +210,8 @@ def main():
   if args.learning_rate is not None:
     model.learning_rate = args.learning_rate
     model.lr_schedule = FloatSchedule(args.learning_rate)
+  env.forbid_bat_contact = args.forbid_bat_contact or getattr(model, "forbid_bat_contact", False)
+  model.forbid_bat_contact = env.forbid_bat_contact
   model.verbose = 0
   start = time.monotonic()
   model.set_logger(configure(str(args.output), ["csv"]))
@@ -217,17 +227,20 @@ def main():
                                 "gamma": model.gamma, "ent_coef": model.ent_coef,
                                 "fixed_action_std": std,
                                 "target_kl": getattr(model, "target_kl", None),
+                                "forbid_bat_contact": env.forbid_bat_contact,
                                 "policy_kwargs": model.policy_kwargs},
             "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
             "seconds": time.monotonic() - start, "provenance": env.physics.provenance,
             "observation_contract": "simulator proprioception, privileged ball state, geometry-level loads",
             "source_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                               for p in (Path(__file__), Path(__file__).with_name("cricket_g1.py"))},
-            "baseline": evaluate(None, args.hand, args.task),
-            "trained": evaluate(model, args.hand, args.task)}
+            "baseline": evaluate(None, args.hand, args.task, forbid_bat_contact=env.forbid_bat_contact),
+            "trained": evaluate(model, args.hand, args.task, forbid_bat_contact=env.forbid_bat_contact)}
   (args.output / "evaluation.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
   print(json.dumps({"baseline_falls": sum(r["fell"] for r in report["baseline"]),
-                    "trained_falls": sum(r["fell"] for r in report["trained"])}))
+                    "trained_falls": sum(r["fell"] for r in report["trained"]),
+                    "trained_invalid_bat_contacts": sum(r["invalid_bat_contact"] for r in report["trained"]),
+                    "trained_successes": sum(r["success"] for r in report["trained"])}))
 
 
 if __name__ == "__main__":

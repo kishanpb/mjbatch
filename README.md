@@ -32,6 +32,8 @@ learned robot control; a Unitree G1 cricket extension is the next milestone.
 now includes stock robot dynamics, a declared wrist fixture, contact/support
 sensors and CPU PPO training. Balance evaluations still fail; this is not yet
 a trained batting/bowling result or a replacement showcase video.
+Force auditing rejected an apparent ten-second stance because the policy used
+the bat as ground support; the current curriculum explicitly forbids that shortcut.
 
 ---
 

@@ -66,3 +66,16 @@ def test_timeout_keeps_terminal_observation_and_resets_episode():
     assert info["episode"]["l"] == 150
     assert info["terminal_observation"].shape == obs[i].shape
     assert not np.array_equal(info["terminal_observation"], obs[i])
+
+
+def test_incidental_bat_contact_is_failure_not_timeout():
+  env = CricketVecEnv(2, forbid_bat_contact=True)
+  env.reset()
+  floor = env.physics.contact_names.index("bat_blade_floor")
+  env.physics.active_samples[0, floor] = 1
+  _, _, done, info = env.step(np.zeros((2, 29)))
+  assert done.tolist() == [True, False]
+  assert info[0]["invalid_bat_contact"]
+  assert not info[0]["TimeLimit.truncated"]
+  assert not info[0]["fell"]
+  assert env.physics.active_samples[0, floor] == 0

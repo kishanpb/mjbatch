@@ -45,3 +45,29 @@ actions produce 5/8 falls for the bootstrap and 6/8 for the continuation. This
 partly explains the training/evaluation gap, but still does not solve balance.
 All 32 episodes are retained in `action_sampling_probe.json`; none is selected
 for a skill or success-rate claim beyond this development diagnostic.
+
+## Fixed Noise, KL And Physical Rejection
+
+2026-09-23: from the same 524,288-transition bootstrap, fixed action std 0.08
+for 524,288 further transitions produced eight falls at 1.88-2.68 s. Adding PPO
+target KL 0.02 from that same parent/budget produced five falls and three
+three-second completions. Continuing the KL checkpoint for 524,288 transitions
+at learning rate 0.0001 produced eight three-second and eight ten-second
+completions, but this apparent stability was rejected by physical inspection.
+
+The first declared stress seed, 19101, visibly uses the bat on the floor.
+New bat/ground and bat/body sensors expose up to 1,363.69 N normal load across
+the complete eight-seed physical audit. Every old development episode fails
+the no-incidental-bat-contact gate at 0.56-0.58 s. This is a reward shortcut,
+not a valid cricket stance, despite passing the original no-fall gate.
+
+The versioned free-bat v2 curriculum preserves physics and additionally
+terminates on incidental bat-ground/body contact. Its 262,144-transition warm
+start from the rejected checkpoint still has eight invalid contacts at
+1.00-1.04 s and zero successes. All rows and the current v2 checkpoint remain.
+Returns across the two termination contracts are not directly comparable.
+
+The fixed-noise-only failed checkpoint is recoverable from commit `ed4981f`;
+its current redundant binary is removed, while the complete evaluation and
+training curve stay. Other retained checkpoints either provide the comparison
+probe, a parent in the active curriculum lineage, or the current candidate.

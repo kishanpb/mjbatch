@@ -1,0 +1,217 @@
+{
+  "task": "balance",
+  "hand": "right",
+  "algorithm": "ppo",
+  "training_seed": 1,
+  "timesteps": 1835008,
+  "parent_checkpoint": {
+    "sha256": "c3fceab7983dfb4f7f0b3b96bdc678d8ad7ad6b7bc91a60d15b3831d1673e4cd",
+    "timesteps": 1572864
+  },
+  "runtime_versions": {
+    "mujoco": "3.11.0",
+    "mujoco-menagerie": "2026.9.0",
+    "stable-baselines3": "2.7.1",
+    "torch": "2.9.0",
+    "numpy": "2.5.2"
+  },
+  "training_config": {
+    "envs": 32,
+    "requested_additional_steps": 262144,
+    "n_steps": 64,
+    "learning_rate": 0.0001,
+    "gamma": 0.99,
+    "ent_coef": 0.005,
+    "fixed_action_std": 0.08,
+    "target_kl": 0.02,
+    "forbid_bat_contact": true,
+    "policy_kwargs": {
+      "net_arch": [
+        128,
+        128
+      ],
+      "log_std_init": -1.0
+    }
+  },
+  "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
+  "seconds": 75.47605841606855,
+  "provenance": {
+    "robot": "unitree_g1",
+    "model": "g1_mjx",
+    "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+    "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+    "license": "BSD-3-Clause",
+    "scene_xml_sha256": "68bfe31cf88b7e7deab9507baf7e2041b533523b36473e88da9e828a160bc524",
+    "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+    "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+  },
+  "observation_contract": "simulator proprioception, privileged ball state, geometry-level loads",
+  "source_sha256": {
+    "cricket_g1_train.py": "c1bd765ab7e1e9f6ef19b924fef00393da581616fc033ca4fb75165d66d5df33",
+    "cricket_g1.py": "41eab2ca21e08264d4a943318dcb4784e757ff1d674716b8414a7a661f136d80"
+  },
+  "baseline": [
+    {
+      "seed": 9001,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.8595117356046,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.85878610700529,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.86725373969719,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.867068360313745,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.86785822840148,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.86693195333112,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.86345445310516,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 19,
+      "seconds": 0.38,
+      "return": 51.86606899799148,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    }
+  ],
+  "trained": [
+    {
+      "seed": 9001,
+      "steps": 51,
+      "seconds": 1.02,
+      "return": 136.96072291502657,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9002,
+      "steps": 50,
+      "seconds": 1.0,
+      "return": 133.80571932275882,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9003,
+      "steps": 51,
+      "seconds": 1.02,
+      "return": 136.19542100148388,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9004,
+      "steps": 52,
+      "seconds": 1.04,
+      "return": 140.1252949440114,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9005,
+      "steps": 52,
+      "seconds": 1.04,
+      "return": 139.43691449438484,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9006,
+      "steps": 50,
+      "seconds": 1.0,
+      "return": 133.63960643898744,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9007,
+      "steps": 51,
+      "seconds": 1.02,
+      "return": 136.6565675418779,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    },
+    {
+      "seed": 9008,
+      "steps": 51,
+      "seconds": 1.02,
+      "return": 136.87314157823886,
+      "fell": false,
+      "invalid_bat_contact": true,
+      "success": false,
+      "bat_contact_outgoing": false
+    }
+  ]
+}
