@@ -33,15 +33,17 @@ development diagnostic, not a finished batting or running-bowling showcase.
 
 ### Running-Delivery Reference
 
-The companion [whole-body bowling diagnostic](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/24527b39f4f49e4c578d0f5fb89ca5296cf27848/docs/g1_cricket_running_reference.md)
+The companion [whole-body bowling diagnostic](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/b75c8e766c0c8d8a5b721c92d19eb40a01618b91/docs/g1_cricket_running_reference.md)
 retargets approach, gather, planted overarm delivery and recovery for both hands.
-The revised offline targets remove the observed hand/hip intersections and bound
-joint-reference speed, but shoulder follow-through still misses its target by
-122.23 mm. Both motor-controlled native MuJoCo PD baselines fall at 0.62 s before
-delivery. The report retains both complete failures and clearly separates
-offline animation from achieved physics. These references are not accepted
+The G1-adapted front raise reduces arm error from 122.23 to 5.25 mm across both
+complete 136-frame references, with no audited intersections and all IK solves
+converged. Both motor-controlled native MuJoCo PD baselines still fall at 0.62 s
+before delivery. A stance-load controller reaches 0.82 s but introduces joint
+excursions and foot/wicket collisions; it is rejected and removed from the
+default runner. The report retains complete failures and clearly separates
+offline animation from achieved physics. These are not dynamically validated
 teachers, learned bowling policies or a separate mjbatch running evaluation;
-dynamic support and shoulder-return repair remain prerequisites.
+whole-body balance remains unfinished.
 
 ### Preceding Dry-Swing Pilots
 
