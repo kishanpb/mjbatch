@@ -20,7 +20,7 @@ def test_fixed_noise_survives_optimizer_update_and_checkpoint(tmp_path):
 
   torch.set_num_threads(2)
   env = CricketVecEnv(2)
-  policy = PPO("MlpPolicy", env, n_steps=2, batch_size=4, n_epochs=1, seed=1,
+  policy = PPO("MlpPolicy", env, n_steps=2, batch_size=4, n_epochs=1, seed=1, target_kl=.02,
                policy_kwargs={"net_arch": [16, 16]})
   fix_action_noise(policy, .08)
   before = policy.policy.log_std.detach().clone()
@@ -29,6 +29,7 @@ def test_fixed_noise_survives_optimizer_update_and_checkpoint(tmp_path):
   policy.save(tmp_path / "policy")
   loaded = PPO.load(tmp_path / "policy", env=env)
   assert loaded.fixed_action_std == .08
+  assert loaded.target_kl == .02
   fix_action_noise(loaded, loaded.fixed_action_std)
   assert not loaded.policy.log_std.requires_grad
   for invalid in (0, -1, float("nan")):

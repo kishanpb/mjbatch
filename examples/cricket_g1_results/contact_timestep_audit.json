@@ -1,0 +1,471 @@
+{
+  "scope": "Controlled reset-only incoming ball, constant motor targets, floating robot; not learned cricket or hardware calibration",
+  "setup": "Ball starts 2 mm clear of the bat face; 80 ms simulated duration; all declared cases retained",
+  "sensor_timing": "Integrated physics-step force stage, no post-step forward substitution",
+  "impulse_scope": "Sum of normal-force magnitudes times timestep, not net vector impulse or a pressure estimate",
+  "fixture_scope": "Rigid attachment wrench includes gravity/inertia, not finger taxels",
+  "source_sha256": {
+    "cricket_g1_contact_audit.py": "200ea3f7c73621391344df41a341354b7bdde4cbdd4959fb6cbc4dac4996aa6c",
+    "cricket_g1.py": "c8937beb9b51822292205f42972a65cb4d63c36a3ff3f0ad315f44932e6d27f3"
+  },
+  "rows": [
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.002,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 6,
+      "peak_normal_load_n": 75.888027709356,
+      "summed_normal_impulse_magnitude_ns": 0.3031347388304691,
+      "peak_fixture_force_norm_n": 12.129655868927813,
+      "peak_fixture_torque_norm_nm": 2.390124560611992,
+      "final_ball_velocity_m_s": [
+        -0.05682993206902714,
+        0.00030507681511906485,
+        -0.7959137852284603
+      ],
+      "final_pelvis_height_m": 0.7804594336968889,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.001,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 14,
+      "peak_normal_load_n": 75.89906015476197,
+      "summed_normal_impulse_magnitude_ns": 0.31102704597755265,
+      "peak_fixture_force_norm_n": 12.084648455882107,
+      "peak_fixture_torque_norm_nm": 2.3907685835861088,
+      "final_ball_velocity_m_s": [
+        -0.006238484070538504,
+        0.0003706863023346861,
+        -0.796187975921999
+      ],
+      "final_pelvis_height_m": 0.7804783344905177,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "cc70fd6f55298c61ad34a666ca5badb0eda382dc19d634b21e1ab5a58a984a1a",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.0005,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 29,
+      "peak_normal_load_n": 73.70022808895712,
+      "summed_normal_impulse_magnitude_ns": 0.3100777645398217,
+      "peak_fixture_force_norm_n": 11.666088037646341,
+      "peak_fixture_torque_norm_nm": 2.397056211257894,
+      "final_ball_velocity_m_s": [
+        -0.012322293416876138,
+        0.00039515552497822485,
+        -0.7959056702562267
+      ],
+      "final_pelvis_height_m": 0.7804869976617336,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "e692bbca5746ba60d7eeb421eb04a41fd89686d64a311cafaaaf137a06a655c5",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.00025,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 60,
+      "peak_normal_load_n": 72.38587047283609,
+      "summed_normal_impulse_magnitude_ns": 0.3096582278926289,
+      "peak_fixture_force_norm_n": 11.416380342461405,
+      "peak_fixture_torque_norm_nm": 2.400116418090138,
+      "final_ball_velocity_m_s": [
+        -0.015011280422689571,
+        0.0004125453926763979,
+        -0.7958394824423902
+      ],
+      "final_pelvis_height_m": 0.7804913155421163,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "c1be4aa30eaedf2996d871dd6499a8158e9d4ecb12db4b816b40d1f98941cc1b",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.002,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 6,
+      "peak_normal_load_n": 317.6842297263172,
+      "summed_normal_impulse_magnitude_ns": 1.2555809708377077,
+      "peak_fixture_force_norm_n": 57.549284504473384,
+      "peak_fixture_torque_norm_nm": 7.849651164705752,
+      "final_ball_velocity_m_s": [
+        0.04819666651786046,
+        -0.0038604752841723306,
+        -0.8917336485491573
+      ],
+      "final_pelvis_height_m": 0.7805335326962417,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "175a629118fdedaa5f3bd43e52f2395c6d36dfa2313ff9048baee9785b901c66",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.001,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 14,
+      "peak_normal_load_n": 299.8538497146641,
+      "summed_normal_impulse_magnitude_ns": 1.2464223558469658,
+      "peak_fixture_force_norm_n": 54.04114406134313,
+      "peak_fixture_torque_norm_nm": 7.433979881958375,
+      "final_ball_velocity_m_s": [
+        -0.010589074506559718,
+        -0.004121948921156408,
+        -0.8929908458548697
+      ],
+      "final_pelvis_height_m": 0.7805505065312792,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "cc70fd6f55298c61ad34a666ca5badb0eda382dc19d634b21e1ab5a58a984a1a",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.0005,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 30,
+      "peak_normal_load_n": 290.9320216454339,
+      "summed_normal_impulse_magnitude_ns": 1.2432109222581014,
+      "peak_fixture_force_norm_n": 52.3049396908429,
+      "peak_fixture_torque_norm_nm": 7.228334617361711,
+      "final_ball_velocity_m_s": [
+        -0.031209219825649684,
+        -0.004284054943335024,
+        -0.8936983614851812
+      ],
+      "final_pelvis_height_m": 0.7805589858003936,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "e692bbca5746ba60d7eeb421eb04a41fd89686d64a311cafaaaf137a06a655c5",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "right",
+      "physics_timestep_s": 0.00025,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 62,
+      "peak_normal_load_n": 290.9326745224119,
+      "summed_normal_impulse_magnitude_ns": 1.2512166563561098,
+      "peak_fixture_force_norm_n": 52.30271878187372,
+      "peak_fixture_torque_norm_nm": 7.228349716248876,
+      "final_ball_velocity_m_s": [
+        0.02007835483512866,
+        -0.004426269298564832,
+        -0.8970784628117792
+      ],
+      "final_pelvis_height_m": 0.7805646214187573,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "c1be4aa30eaedf2996d871dd6499a8158e9d4ecb12db4b816b40d1f98941cc1b",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.002,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 6,
+      "peak_normal_load_n": 75.88832374763378,
+      "summed_normal_impulse_magnitude_ns": 0.30313995890390016,
+      "peak_fixture_force_norm_n": 12.135934280380106,
+      "peak_fixture_torque_norm_nm": 2.3884042662874903,
+      "final_ball_velocity_m_s": [
+        -0.05679648865689719,
+        -0.00032246481304374074,
+        -0.7959270213369083
+      ],
+      "final_pelvis_height_m": 0.7804596375157389,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "4f50d213a8fba3262fc17f5aa7e5843142d92c57b9110e373a12a9fc0ed476c8",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.001,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 14,
+      "peak_normal_load_n": 75.89939805238143,
+      "summed_normal_impulse_magnitude_ns": 0.3110330377733589,
+      "peak_fixture_force_norm_n": 12.091016861369454,
+      "peak_fixture_torque_norm_nm": 2.3891101385512585,
+      "final_ball_velocity_m_s": [
+        -0.006200096349124115,
+        -0.0003904702161096761,
+        -0.7962027523839185
+      ],
+      "final_pelvis_height_m": 0.7804785325217481,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "b425861c9cd7e9783723d17ec4d57044dee039153235aa58659ead1830fa1d55",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.0005,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 29,
+      "peak_normal_load_n": 73.70052028359859,
+      "summed_normal_impulse_magnitude_ns": 0.3100841984248783,
+      "peak_fixture_force_norm_n": 11.6718188240858,
+      "peak_fixture_torque_norm_nm": 2.395422776598792,
+      "final_ball_velocity_m_s": [
+        -0.012281078573388227,
+        -0.0004155034145670625,
+        -0.7959221767773846
+      ],
+      "final_pelvis_height_m": 0.7804871966061403,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "569748d7e84cbfb40b230fd1f79c332c37009b0d6e9f2bdd99b7555c6d58148f",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.00025,
+      "incoming_speed_m_s": 2.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 60,
+      "peak_normal_load_n": 72.38614961754801,
+      "summed_normal_impulse_magnitude_ns": 0.3096651848367202,
+      "peak_fixture_force_norm_n": 11.422006574017898,
+      "peak_fixture_torque_norm_nm": 2.3985020238880703,
+      "final_ball_velocity_m_s": [
+        -0.014966717154779943,
+        -0.0004337465107970243,
+        -0.7958570698064109
+      ],
+      "final_pelvis_height_m": 0.7804915145708328,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "966004393a42b6563d187ddb387c5e3b4ae7fe7ecdba5528f9cebe4c91f15c58",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.002,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 6,
+      "peak_normal_load_n": 317.6849691720168,
+      "summed_normal_impulse_magnitude_ns": 1.2555875166534962,
+      "peak_fixture_force_norm_n": 57.56649075331509,
+      "peak_fixture_torque_norm_nm": 7.85134691252805,
+      "final_ball_velocity_m_s": [
+        0.04823842473361276,
+        0.003850627044478744,
+        -0.8917665858110323
+      ],
+      "final_pelvis_height_m": 0.780533637895367,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "4f50d213a8fba3262fc17f5aa7e5843142d92c57b9110e373a12a9fc0ed476c8",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.001,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 14,
+      "peak_normal_load_n": 299.854539130861,
+      "summed_normal_impulse_magnitude_ns": 1.246429399861325,
+      "peak_fixture_force_norm_n": 54.05739870736552,
+      "peak_fixture_torque_norm_nm": 7.435558711109736,
+      "final_ball_velocity_m_s": [
+        -0.010544145868685488,
+        0.004107970279257915,
+        -0.8930231880822812
+      ],
+      "final_pelvis_height_m": 0.7805506179729884,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "b425861c9cd7e9783723d17ec4d57044dee039153235aa58659ead1830fa1d55",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.0005,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 30,
+      "peak_normal_load_n": 290.9326902112765,
+      "summed_normal_impulse_magnitude_ns": 1.2432183434132407,
+      "peak_fixture_force_norm_n": 52.32074975515386,
+      "peak_fixture_torque_norm_nm": 7.229860568354978,
+      "final_ball_velocity_m_s": [
+        -0.031161900056694787,
+        0.004268715069795964,
+        -0.893731361857352
+      ],
+      "final_pelvis_height_m": 0.7805590953813865,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "569748d7e84cbfb40b230fd1f79c332c37009b0d6e9f2bdd99b7555c6d58148f",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    },
+    {
+      "hand": "left",
+      "physics_timestep_s": 0.00025,
+      "incoming_speed_m_s": 8.0,
+      "duration_s": 0.08,
+      "active_contact_samples": 62,
+      "peak_normal_load_n": 290.93334510635646,
+      "summed_normal_impulse_magnitude_ns": 1.2512242611818785,
+      "peak_fixture_force_norm_n": 52.318531320529196,
+      "peak_fixture_torque_norm_nm": 7.229876986591577,
+      "final_ball_velocity_m_s": [
+        0.020126836674978804,
+        0.004410384032420293,
+        -0.8971127172337164
+      ],
+      "final_pelvis_height_m": 0.7805647278377935,
+      "provenance": {
+        "robot": "unitree_g1",
+        "model": "g1_mjx",
+        "tree_id": "57c00d310bfd8ae7d5676c64b959c86fbdd61d20",
+        "archive_sha256": "1380b36f51ce8389d63a3ccab02135db4ac37a0cb731aebe7df9183ad128a1c1",
+        "license": "BSD-3-Clause",
+        "scene_xml_sha256": "966004393a42b6563d187ddb387c5e3b4ae7fe7ecdba5528f9cebe4c91f15c58",
+        "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
+        "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite"
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "hand": "right",
+      "incoming_speed_m_s": 2.0,
+      "2ms_vs_0_25ms_peak_relative_error": 0.048381779671132774,
+      "2ms_vs_0_25ms_impulse_relative_error": 0.02106673898689937
+    },
+    {
+      "hand": "right",
+      "incoming_speed_m_s": 8.0,
+      "2ms_vs_0_25ms_peak_relative_error": 0.09195101666672545,
+      "2ms_vs_0_25ms_impulse_relative_error": 0.003488056572318987
+    },
+    {
+      "hand": "left",
+      "incoming_speed_m_s": 2.0,
+      "2ms_vs_0_25ms_peak_relative_error": 0.04838182647632849,
+      "2ms_vs_0_25ms_impulse_relative_error": 0.02107187456756121
+    },
+    {
+      "hand": "left",
+      "incoming_speed_m_s": 8.0,
+      "2ms_vs_0_25ms_peak_relative_error": 0.0919510414176854,
+      "2ms_vs_0_25ms_impulse_relative_error": 0.0034871889931995526
+    }
+  ]
+}

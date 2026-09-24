@@ -88,3 +88,14 @@ def test_reset_only_incoming_ball_produces_measured_bat_contact():
   assert env.active_samples[0, sensor] > 0
   assert env.peak_load[0, sensor] > 0
   assert np.isfinite(env.peak_load).all()
+
+
+def test_controlled_impact_audit_is_repeatable():
+  from cricket_g1_contact_audit import impact
+
+  first = impact("right", .001, 2.)
+  assert first == impact("right", .001, 2.)
+  assert first["active_contact_samples"] > 0
+  assert first["peak_normal_load_n"] > 0
+  assert 0 < first["summed_normal_impulse_magnitude_ns"] < 1
+  assert first["final_pelvis_height_m"] > .7

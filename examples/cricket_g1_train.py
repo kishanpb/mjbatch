@@ -169,7 +169,10 @@ def main():
   parser.add_argument("--envs", type=int, default=32)
   parser.add_argument("--load", type=Path)
   parser.add_argument("--fixed-action-std", type=float)
+  parser.add_argument("--target-kl", type=float)
   args = parser.parse_args()
+  if args.target_kl is not None and (args.algorithm != "ppo" or not np.isfinite(args.target_kl) or args.target_kl <= 0):
+    parser.error("--target-kl requires PPO and a finite positive value")
   args.output.mkdir(parents=True, exist_ok=True)
   torch.set_num_threads(2)
   env = CricketVecEnv(args.envs, args.seed, args.hand, args.task)
@@ -190,6 +193,9 @@ def main():
   std = args.fixed_action_std if args.fixed_action_std is not None else getattr(model, "fixed_action_std", None)
   if std is not None:
     fix_action_noise(model, std)
+  if args.target_kl is not None:
+    model.target_kl = args.target_kl
+  model.verbose = 0
   start = time.monotonic()
   model.set_logger(configure(str(args.output), ["csv"]))
   model.learn(total_timesteps=args.steps, reset_num_timesteps=args.load is None)
@@ -203,6 +209,7 @@ def main():
                                 "n_steps": model.n_steps, "learning_rate": model.learning_rate,
                                 "gamma": model.gamma, "ent_coef": model.ent_coef,
                                 "fixed_action_std": std,
+                                "target_kl": getattr(model, "target_kl", None),
                                 "policy_kwargs": model.policy_kwargs},
             "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
             "seconds": time.monotonic() - start, "provenance": env.physics.provenance,
