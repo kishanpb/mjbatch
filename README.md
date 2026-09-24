@@ -47,6 +47,11 @@ adds explicit held equality inputs and tests both G1 wrists in the shared task.
 Release preserves ball position/velocity; the declared holder is not a learned
 grasp, and a trained bowling demonstration remains unfinished.
 
+The shared [experimental bowling task](examples/cricket_g1.md#bowling-task-and-force-audit)
+now has arm/release controls and validated holder-force/touch signals. All 32
+untrained carry/drop checks complete on the two CPU executors; these are not
+learned or legally qualified deliveries.
+
 ---
 
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)

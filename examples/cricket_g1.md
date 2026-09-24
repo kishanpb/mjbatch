@@ -25,7 +25,7 @@ the task's policy observations, reward, warmstart boundaries and float32 endpoin
 caches. This path uses **UniLab's 0.70 kg wrist fixture and soft-toss curriculum**;
 it does not relabel the 1.12 kg scene and SB3 experiments documented below.
 
-Only fixed models and held CTRL/XFRC_APPLIED intervals are supported. Initial
+Only fixed models and held CTRL/XFRC_APPLIED/EQ_ACTIVE intervals are supported. Initial
 model variants, state resets and external wrenches are covered; reset-time model
 mutation is rejected by the UniLab adapter. Every physics substep retains the
 solved contact sensors without an extra forward call. Any MuJoCo warning fails
@@ -237,10 +237,39 @@ sensors exactly; 47 local Batch/held-control tests and 163 focused companion
 tests pass. These are mechanical tests, not learned bowling or hardware evidence.
 
 The holder is an abstract constraint beside the fixed rubber hand, not an
-articulated gripper. Randomized wrist/ball reset alignment, dedicated holder-force
-telemetry, learned release/arm control and full bowling evaluation remain open.
+articulated gripper. The task extension below adds randomized wrist/ball reset
+alignment and holder-force telemetry; learning and full bowling evaluation remain open.
 No old media or frozen evaluation is replaced. To reproduce the earlier batting
 matrix, use its documented frozen revisions rather than these modified adapters.
+
+### Bowling Task and Force Audit
+
+The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)
+adds `g1_cricket_bowling_v1/mjbatch`: seven bounded arm offsets and a one-way
+policy release channel over a frozen Unitree 0.4 m/s locomotion command. This
+uses the shared UniLab scene on native Batch, not the legacy standalone G1
+environment or a new native learner. Ball pose is aligned to randomized wrist
+kinematics only during reset; release preserves integrated position/velocity.
+
+[All 32 retained carry/drop rows](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/g1_cricket_results/bowling_v1/mechanics_smoke.json)
+complete four seconds: both hands, both executors, .25/.125 ms physics, four
+jittered rows at seed 5301, with zero arm residual and hold/drop controls. All
+16 executor outcome/telemetry pairs match exactly. Minimum sampled pelvis
+height is .779097 m; maximum holder force is 4.208319 N. The frozen prior carries
+the ball, but no bowling policy is trained or qualified by this smoke test.
+
+Validated signals include local fixture force, interval peak force, world-frame
+holder impulse and selected-hand geometric touch occupancy. Load is not touch:
+all carry/drop rows have zero hand-contact occupancy. These are simulated
+fixture signals, not finger sensors, total impact force or hardware calibration.
+Weld-site torque fails physical accounting in the installed MuJoCo version and
+is omitted. Full-body contact, delivery-arm motion, front-foot legality and
+flight/bounce gates remain necessary before advertising learned bowling.
+
+Thirteen new bowling/report tests cover reset/release/force semantics and exact
+short native trajectories. The companion focused suite passes 176 tests and
+the local native Batch/held-control suite passes 47; neither is full upstream CI.
+Earlier media and frozen learned-batting results remain unchanged.
 
 ## Reproduce
 
