@@ -16,6 +16,37 @@ and an outfield boundary provide cricket context; regulation delivery/no-ball
 gates are not implemented yet. The incoming ball's initial velocity is a declared
 bowling-machine reset condition, not learned bowling.
 
+## Shared UniLab Task Executor
+
+The experimental `mjbatch.held_control.HeldControlRollout` also executes the
+companion UniLab fork's G1 cricket task through native `Batch.step()`. It receives
+the fully materialized models, including tracking/contact sensors, and preserves
+the task's policy observations, reward, warmstart boundaries and float32 endpoint
+caches. This path uses **UniLab's 0.70 kg wrist fixture and soft-toss curriculum**;
+it does not relabel the 1.12 kg scene and SB3 experiments documented below.
+
+Only fixed models and held CTRL/XFRC_APPLIED intervals are supported. Initial
+model variants, state resets and external wrenches are covered; reset-time model
+mutation is rejected by the UniLab adapter. Every physics substep retains the
+solved contact sensors without an extra forward call. Any MuJoCo warning fails
+the interval, so a solver auto-reset cannot masquerade as healthy execution.
+Different model groups are stepped sequentially; no speedup is claimed.
+
+The recorder's tests compare every native-dtype state and sensor through actual
+blade contact against official MuJoCo Rollout, including heterogeneous fixed
+models, partial resets, wrenches and warmstart reset. A deliberate divergence
+must raise, and the following healthy call must recover exact parity.
+
+See the companion [G1 integration guide](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/4303f1987c237f784fb71c864c82e5088e3eca0c/G1_CRICKET.md#experimental-native-mjbatch-execution)
+for its optional installation and `g1_cricket_tanh_v1/mjbatch` owner. The complete
+[frozen-PPO evaluation](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/4303f1987c237f784fb71c864c82e5088e3eca0c/g1_cricket_results/native_mjbatch_v1/evaluation.json)
+reproduces all **192** parent rows exactly, including returns and contact-force
+evidence: 96 identities at each of 0.25/0.125 ms, both hands, zero residual/PPO,
+three lanes and eight seeds. Every interval also passes independent serial
+state/sensor replay. Right PPO contacts 24/24 balls but still has zero qualified
+forward shots; left PPO is untrained transfer and misses all 24. This is not
+new mjbatch training, material calibration or a replacement for the videos.
+
 ## Reproduce
 
 ```sh

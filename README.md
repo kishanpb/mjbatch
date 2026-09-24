@@ -36,6 +36,10 @@ passes all 24 ten-second transfer trials, including both wrist fixtures, without
 bat support. This is not yet learned batting/bowling or a replacement showcase.
 Force auditing rejected an apparent ten-second stance because the policy used
 the bat as ground support; the current curriculum explicitly forbids that shortcut.
+An experimental [shared-task executor](examples/cricket_g1.md#shared-unilab-task-executor)
+now runs the UniLab G1 task through native Batch with physics-substep contact
+recording; all 192 frozen-policy evaluation rows match exactly. This verifies
+the integration, not a new learned-cricket result or successful forward shot.
 
 ---
 
