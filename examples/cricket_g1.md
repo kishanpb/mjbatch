@@ -176,7 +176,7 @@ No learned G1 batting/bowling showcase is ready yet.
 
 ### Imitation Initialization and Bounded PPO
 
-The [companion experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/bafef19db73b125ca92028e7cc62b45a8fe82762/G1_CRICKET.md#imitation-initialization-and-bounded-ppo)
+The [companion experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/G1_CRICKET.md#imitation-initialization-and-bounded-ppo)
 has completed 2,000 actor-only imitation updates, then 256 PPO updates and
 24,576 new transitions in 399.20 seconds. Training runs in the companion
 MuJoCo task, not a separate native Batch learner. It uses the opt-in 2 ms
@@ -190,12 +190,34 @@ and all 256 scalar iterations are retained. The 105 input pins and final payload
 verify; 53 focused companion tests pass. Final mean training reward 6.077679
 and episode length 99.25 ticks are training diagnostics, not qualified shots.
 
-**Closed-loop qualification is pending:** the frozen 576-case evaluation compares
-zero, BC-only and PPO across both hands, three lanes, eight reused development
-seeds, both fine timesteps and both executors. It must verify native Batch parity,
-full contact/fixture loads and unchanged shot/stability/limit gates. Left remains
-untrained transfer. No new learned batting/bowling video or generalization claim
-is made; earlier highlights are preserved.
+The [completed 576-row evaluation](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/evaluation.json)
+compares zero, BC-only and PPO across both hands, three lanes, eight reused
+development seeds, two fine timesteps and both executors. All 115 input hashes
+verify, all 144 four-way comparisons have exact executor outcome/impact equality,
+and endpoint state/sensor errors are zero. Six comparisons fail timestep
+resolution checks; none fail fixture-load resolution. Executor copies are not
+independent samples, and these development seeds are not held-out evaluation.
+
+BC qualifies in 2/24 right-hand contexts across all four engine/timestep cases;
+its coarse-step speeds are only 1.008442 and 1.000203 m/s above a strict >1 m/s
+threshold. It has eight guarded-contact episodes and six early terminations.
+PPO completes all 24 right-hand contexts with blade contact and no guard failures,
+but none qualify: finest-step first-exit speeds are 0.605781-0.858866 m/s. It
+improves stability/contact while losing BC's two qualified shots. Left-hand BC/PPO
+use remains untrained transfer, with guard failures in all 24 contexts and 21
+early terminations each. No robust policy, learned bowling or generalization
+claim follows from these results.
+
+The [16.08-second development video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
+replays six predeclared final-PPO contexts through native Batch: seed 4301, both
+hands and all lanes at 31.25 us. It retains failures and early terminations,
+with true 0.5x playback and physics-substep force, shear, impulse, touch-occupancy
+and wrist-fixture overlays. All six complete outcomes match the evaluation and
+all 804 frames decode. The [frame-level manifest](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_media.json)
+retains hashes and simulated, uncalibrated telemetry; 25 focused companion
+BC/media tests pass. This uses the shared task's 0.70 kg bat, not a checkpoint
+transfer into this standalone example's different 1.12 kg model. It is not an
+advertising reel or learned bowling; earlier highlights remain available.
 
 ## Reproduce
 

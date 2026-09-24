@@ -28,32 +28,19 @@ now covers the full fixed PPO/A2C replay, with per-contact force/torque, touch s
 and explicit sensor-timing limits. This does not turn the scripted components into
 learned robot control; a Unitree G1 cricket extension is the next milestone.
 
-**G1 development:** the [floating-base robot foundation](examples/cricket_g1.md)
-now includes stock robot dynamics, a declared wrist fixture, contact/support
-sensors and CPU PPO training. Custom stance PPO runs still fail, but a separately
-attributed [external Unitree locomotion prior](examples/cricket_g1.md#external-locomotion-prior)
-passes all 24 ten-second transfer trials, including both wrist fixtures, without
-bat support. This is not yet learned batting/bowling or a replacement showcase.
-Force auditing rejected an apparent ten-second stance because the policy used
-the bat as ground support; the current curriculum explicitly forbids that shortcut.
-An experimental [shared-task executor](examples/cricket_g1.md#shared-unilab-task-executor)
-now runs the UniLab G1 task through native Batch with physics-substep contact
-recording; all 192 frozen-policy evaluation rows match exactly. This verifies
-the integration, not a new learned-cricket result or successful forward shot.
-A [bounded scripted motion search](examples/cricket_g1.md#bounded-scripted-reversal-diagnostic)
-now produces a forward strike in both engines, but excessive overlap at the finer
-timestep prevents validation. A wrist torque plateau is now diagnosed; the
-[follow-up elbow test](examples/cricket_g1.md#elbow-motion-with-motor-telemetry)
-changes actual motion but still fails the shot gates. A new
-[isolated model study](examples/cricket_g1.md#isolated-compliance-study) measures
-reduced overlap at the cost of doubled peak loads. The subsequent
-[32-case G1 transfer](examples/cricket_g1.md#contact-model-transfer-to-g1)
-matches exactly across both executors but rejects the candidate's narrow speed
-pass at the finer timestep. The changed contact model is opt-in; historical
-tasks and existing videos are unchanged. The companion task now has a completed
-[imitation-initialized PPO run](examples/cricket_g1.md#imitation-initialization-and-bounded-ppo)
-with 24,576 new transitions; its complete dual-executor evaluation is still
-pending. No validated G1 showcase yet.
+**Unitree G1 research:** [robot setup and complete results](examples/cricket_g1.md).
+The companion UniLab task fits a bat-arm actor, then runs 24,576 PPO transitions
+around a frozen external locomotion prior and rigid wrist bat. Native Batch
+reproduces the full 576-row evaluation exactly; this is shared-task execution,
+not a separately trained native Batch learner. BC qualifies on 2/24 right-hand
+development contexts. PPO completes all 24 with blade contact and no guard
+violations, but all fail the strict forward-speed target. Left-hand transfer is
+untrained and fails; learned bowling and a robust both-hand showcase remain open.
+
+[G1 development video with force/touch overlays](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
+and [six-view contact sheet](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_contact_sheet.png)
+retain fixed contexts including failures. Loads are simulated and uncalibrated;
+this is a diagnostic, not an advertising reel. Earlier highlights are unchanged.
 
 ---
 
