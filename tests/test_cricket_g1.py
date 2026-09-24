@@ -111,3 +111,20 @@ def test_ball_wickets_and_bat_are_on_the_selected_hand_side(hand, line_y):
   for end in ("striker", "bowler"):
     assert env.model.geom(f"{end}_stump_1").pos[1] == line_y
     assert env.model.geom(f"{end}_popping_crease").pos[1] == line_y
+
+
+def test_contact_presence_does_not_require_positive_normal_load(monkeypatch):
+  from types import SimpleNamespace
+
+  from cricket_g1 import DECIMATION
+
+  env = G1Cricket()
+  batch = env.batch
+  monkeypatch.setattr(env, "batch", SimpleNamespace(step=lambda: batch))
+  for sensor in env.contacts:
+    sensor[:] = 0
+  floor = env.contact_names.index("bat_blade_floor")
+  env.contacts[floor][0, 0, 0] = 1
+  env.step(np.zeros((1, 29)))
+  assert env.peak_load[0, floor] == 0
+  assert env.active_samples[0, floor] == DECIMATION

@@ -287,7 +287,7 @@ class G1Cricket:
       if not np.isfinite(loads).all() or any(np.any(slots[:, :, 0] > SLOTS) for slots in self.contacts):
         raise RuntimeError("invalid or overflowing G1 contact sensor")
       self.peak_load = np.maximum(self.peak_load, loads)
-      self.active_samples += loads > 0
+      self.active_samples += np.stack([(slots[:, :, 0] > 0).any(axis=1) for slots in self.contacts], axis=1)
     self.elapsed += DECIMATION * self.model.opt.timestep
     if self.warning[:, :, 1].any() or not np.isfinite(self.qpos).all():
       raise RuntimeError("invalid G1 simulation state")

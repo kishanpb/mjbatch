@@ -6,7 +6,7 @@
   "fixture_scope": "Rigid attachment wrench includes gravity/inertia, not finger taxels",
   "source_sha256": {
     "cricket_g1_contact_audit.py": "200ea3f7c73621391344df41a341354b7bdde4cbdd4959fb6cbc4dac4996aa6c",
-    "cricket_g1.py": "88d0d7721bee7f40583f198e114f0fc916bad0c34c2bbd1e046ce3eded3e8fda"
+    "cricket_g1.py": "ad836b8edb0cdfd446174129ebd96db5d5e6a78e3579bdb5e5531849291d291f"
   },
   "rows": [
     {

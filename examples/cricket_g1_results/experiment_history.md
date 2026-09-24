@@ -92,3 +92,16 @@ training. The eight trials ended at 2.10, 1.82, 1.84, 2.00, 2.06, 1.88, 1.94 and
 This continuation regresses; both full reports/curves and their parent checkpoints
 remain available, with no selected-row promotion or ten-second success claim.
 Pause unchanged-budget scaling and inspect the stance observation/control contract.
+
+The contact counter now uses sensor `found`, not positive normal load. A focused
+zero-load-contact regression test passes, and both latest checkpoints reproduce
+all 16 original development rows exactly under the stricter presence guard.
+Training/evaluation source snapshots remain recoverable at `b487c9d`; no old
+training hash was replaced with a post-training implementation hash.
+
+Superseded `balance_ppo_fixed_noise_kl/policy.zip` and
+`balance_free_bat_v2/policy.zip` binaries are removed from the current tree; both
+are recoverable at `6b7961a`. Their complete evaluations, curves and descendant
+parent hashes remain. Keep the bootstrap/action-sampling pair, the rejected
+bat-crutch counterexample and the two latest guarded checkpoints for current
+comparisons instead of accumulating every optimizer snapshot.

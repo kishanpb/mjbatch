@@ -53,6 +53,8 @@ collisions. The fixture intentionally excludes bat collisions with its holding
 palm/wrist. Original robot self-collision pairs are retained. Geometry-level
 contact records report force, torque, distance, position and contact frame;
 normal loads and contact-presence counts are sampled after every physics step.
+Presence uses the sensor's `found` field, including zero-normal-load contacts;
+it is not inferred from a positive force threshold.
 Both feet expose support records. Fixture force/torque sensors include gravity
 and inertial loads, not finger pressure or hardware tactile taxels.
 
@@ -105,6 +107,9 @@ tournament, independently seeded training replication or an algorithm ranking.
 The second unchanged continuation regressed and is not promoted. More budget
 has not established contact-free balance; the next investigation is the stance
 observation/control contract rather than another unchanged continuation.
+Both continuation evaluations replay exactly after the contact-presence guard
+fix. Their saved training-source hashes describe the implementation at commit
+`b487c9d`; the subsequent guard correction did not retrain the checkpoints.
 
 The complete first-episode evaluations use development seeds 9001-9008, all eight
 rows retained. These repeated development seeds are not an untouched final test
