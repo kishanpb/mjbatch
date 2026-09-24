@@ -64,6 +64,22 @@ Fine-step blade/fixture force peaks are 273.684 N / 99.198 N, with fixture torqu
 28.911 Nm; these remain uncalibrated simulated loads. No training, policy
 promotion or new showcase video follows from this diagnostic.
 
+### Terminal Command Attenuation
+
+The companion [frozen experiment and all results](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/53955bc4a22ab91853a590871ce5cac1f5b22b1f/G1_CRICKET.md#terminal-command-attenuation)
+change only the parent's tick-19 residual scale, testing six values from 0 to 1
+in both engines at both timesteps. All 24 rows complete two seconds; all four
+unchanged-parent baselines and all 12 cross-executor outcome/impact pairs match
+exactly. Six individual coarse rows pass, but **none of the six scales passes
+all contexts**. Every fine-step trial exceeds 6 mm penetration (6.422581 to
+6.620823 mm), while stronger attenuation also loses the >1 m/s forward exit.
+
+The result closes this finite last-command attenuation family without changing
+physics, gates or the prior. All 67 source/input hashes are checked; 45 focused
+tests pass, including 12 new tests. This is scripted, single-reset diagnostic
+evidence, not fresh training, physical calibration or a showcase. A bounded
+pre-contact bat-face orientation study remains an untested next hypothesis.
+
 ## Reproduce
 
 ```sh
