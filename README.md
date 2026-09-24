@@ -50,7 +50,10 @@ reduced overlap at the cost of doubled peak loads. The subsequent
 [32-case G1 transfer](examples/cricket_g1.md#contact-model-transfer-to-g1)
 matches exactly across both executors but rejects the candidate's narrow speed
 pass at the finer timestep. The changed contact model is opt-in; historical
-tasks and existing videos are unchanged. No validated G1 showcase yet.
+tasks and existing videos are unchanged. The companion task now has a completed
+[imitation-initialized PPO run](examples/cricket_g1.md#imitation-initialization-and-bounded-ppo)
+with 24,576 new transitions; its complete dual-executor evaluation is still
+pending. No validated G1 showcase yet.
 
 ---
 

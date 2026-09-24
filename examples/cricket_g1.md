@@ -171,9 +171,31 @@ remaining 24 trials complete two seconds. The opt-in companion owner
 historical owners and checkpoints stay unchanged. This is not a new native
 mjbatch learner or new training evidence.
 
-Next is a separately frozen actor-only imitation initialization followed by
-bounded PPO, retaining failed demonstrations and the same physical limits and
-fine-timestep gates. No learned G1 batting/bowling showcase is ready yet.
+The actor-only initialization and bounded PPO run below follow this test.
+No learned G1 batting/bowling showcase is ready yet.
+
+### Imitation Initialization and Bounded PPO
+
+The [companion experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/bafef19db73b125ca92028e7cc62b45a8fe82762/G1_CRICKET.md#imitation-initialization-and-bounded-ppo)
+has completed 2,000 actor-only imitation updates, then 256 PPO updates and
+24,576 new transitions in 399.20 seconds. Training runs in the companion
+MuJoCo task, not a separate native Batch learner. It uses the opt-in 2 ms
+model, unchanged reward/physical limits, a fresh critic and fresh PPO optimizer.
+
+All 24 teacher episodes and 1,885 observation/action samples are retained,
+including seven early failures and four training-timestep passes; demonstrations
+are not filtered for success. BC leaves the critic, initial 0.2 noise and PPO
+state untouched. Both the BC-only and final PPO checkpoints, model/data hashes
+and all 256 scalar iterations are retained. The 105 input pins and final payloads
+verify; 53 focused companion tests pass. Final mean training reward 6.077679
+and episode length 99.25 ticks are training diagnostics, not qualified shots.
+
+**Closed-loop qualification is pending:** the frozen 576-case evaluation compares
+zero, BC-only and PPO across both hands, three lanes, eight reused development
+seeds, both fine timesteps and both executors. It must verify native Batch parity,
+full contact/fixture loads and unchanged shot/stability/limit gates. Left remains
+untrained transfer. No new learned batting/bowling video or generalization claim
+is made; earlier highlights are preserved.
 
 ## Reproduce
 
