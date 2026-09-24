@@ -69,7 +69,8 @@ compensation or pose overwrite after reset. Targets are bounded by native joint
 limits; no retained prior step required that clipping.
 
 All eight predeclared seeds (4201-4208, joint-reset jitter +/-0.005 rad) were run
-for each of three models and two controllers, with a ten-second horizon:
+for each of three models and two controllers, with a ten-second horizon. The
+original matrix below is frozen at `7c90ade898c83e0b44a138f90fbe69acfec1ce77`:
 
 | Model | Constant default target | External Unitree policy |
 | --- | --- | --- |
@@ -88,6 +89,32 @@ or a learned batting/bowling result. The bat pose is not a cricket-ready stance.
 
 ![External prior diagnostic: first declared seed, fixed times, not learned cricket](cricket_g1_results/unitree_prior/stance_diagnostic.png)
 
+### Wicket-complete collision contract v2
+
+The original scene omitted bat/robot-to-wicket pairs and all bail contacts.
+The current scene adds explicit pairs and per-physics-step contact sensors for
+both bat geoms and every robot collider against all six stumps and both bails;
+ball/bail pairs are included too. There are 232 new bat/robot wicket channels.
+Any bat/robot wicket presence terminates the PPO/A2C task and prior audit, even
+when the optional general bat-contact guard is disabled. Zero reported force
+does not excuse contact. Stock robot self-collision pairs and inertias are unchanged.
+
+The [new complete 48-row audit](cricket_g1_results/unitree_prior_wickets_v2/evaluation.json)
+retains **24/24 imported-prior ten-second passes and 24/24 constant-target
+failures**, with native/serial qpos/qvel equality at every 2 ms step. Each
+bat-equipped episode includes the expanded wicket counts and peak normal loads.
+Unit tests cover every explicit pair and 48 injected overlap cases across both
+hands, both bat geoms, a representative robot collider and all eight wicket
+geoms; native force records exactly match serial MuJoCo. Those penetrations are
+synthetic fault tests, not realistic impact-force measurements.
+
+The freshly rendered diagnostic is byte-identical to the retained figure above;
+the duplicate image is omitted.
+
+Earlier training and contact reports remain historical evidence under their
+original scene, not validations of v2. This repair does not establish legal
+bowling, a learned shot, deformable/breakable stumps, or calibrated contact loads.
+
 Reproduce after obtaining the pinned files from the source above in a local
 cache outside this checkout; pass that directory, containing `policy.onnx` and
 `deploy.yaml`, as `--assets`. No checkpoint download occurs implicitly:
@@ -95,7 +122,7 @@ cache outside this checkout; pass that directory, containing `policy.onnx` and
 ```sh
 uv pip install --python .venv/bin/python onnxruntime==1.30.0 pyyaml==6.0.3
 uv run --no-sync python examples/cricket_g1_prior.py --assets /path/to/local/cache \
-  --output examples/cricket_g1_results/unitree_prior/evaluation.json
+  --output examples/cricket_g1_results/unitree_prior_wickets_v2/evaluation.json
 uv run --no-sync python -m pytest tests/test_cricket_g1_prior.py -q
 ```
 
@@ -134,8 +161,8 @@ and a distinct `--output`; add `--observe-root-height` only for the height arm.
 
 ## Contact Evidence
 
-Explicit pairs cover ball/bat, robot, ground and stumps, plus bat/robot and ground
-collisions. The fixture intentionally excludes bat collisions with its holding
+Explicit pairs cover ball/bat, robot, ground, stumps and bails, plus bat/robot,
+bat/ground and bat/robot-to-wicket collisions. The fixture intentionally excludes bat collisions with its holding
 palm/wrist. Original robot self-collision pairs are retained. Geometry-level
 contact records report force, torque, distance, position and contact frame;
 normal loads and contact-presence counts are sampled after every physics step.

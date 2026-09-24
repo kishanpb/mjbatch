@@ -175,8 +175,10 @@ def scene(hand="right", timestep=TIMESTEP):
   robot_colliders = [
     geom.get("name") for geom in root.iter("geom") if geom.get("name", "").endswith("_collision")
   ]
+  wickets = [f"{end}_stump_{i}" for end in ("striker", "bowler") for i in range(3)]
+  wickets += [f"{end}_bail" for end in ("striker", "bowler")]
   ball_surfaces = ["floor", "bat_handle", "bat_blade"] + robot_colliders
-  ball_surfaces += [f"{end}_stump_{i}" for end in ("striker", "bowler") for i in range(3)]
+  ball_surfaces += wickets
   for surface in ball_surfaces:
     ET.SubElement(
       contacts,
@@ -203,6 +205,11 @@ def scene(hand="right", timestep=TIMESTEP):
         continue  # The declared rigid fixture occupies the holding palm/wrist.
       ET.SubElement(contacts, "pair", geom1=geom, geom2=surface, condim="3", solref=".008 1")
       ET.SubElement(sensors, "contact", name=f"{geom}_{surface}", geom1=geom, geom2=surface,
+                    num=str(SLOTS), reduce="none", data="found force torque dist pos normal tangent")
+  for geom in ["bat_handle", "bat_blade"] + robot_colliders:
+    for surface in wickets:
+      ET.SubElement(contacts, "pair", geom1=geom, geom2=surface, condim="3", solref=".008 1")
+      ET.SubElement(sensors, "contact", name=f"wicket_{geom}_{surface}", geom1=geom, geom2=surface,
                     num=str(SLOTS), reduce="none", data="found force torque dist pos normal tangent")
   for side in ("left", "right"):
     for i in range(1, 4):
@@ -238,6 +245,7 @@ def scene(hand="right", timestep=TIMESTEP):
     "scene_xml_sha256": hashlib.sha256(xml.encode()).hexdigest(),
     "grip": "single_hand_rigid_fixture_not_dexterous_grasp",
     "robot_control": "29_joint_position_targets_floating_base_no_pose_overwrite",
+    "collision_contract": "v2_ball_bat_robot_vs_both_wickets_and_bails",
   }
   return model, provenance
 

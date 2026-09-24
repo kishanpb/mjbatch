@@ -37,6 +37,7 @@ class CricketVecEnv(VecEnv):
     self.support_ids = [i for i, n in enumerate(self.physics.contact_names) if n.startswith("support_")]
     self.bat_ids = [self.physics.contact_names.index("ball_" + n) for n in ("bat_blade", "bat_handle")]
     self.external_bat_ids = [i for i, n in enumerate(self.physics.contact_names) if n.startswith("bat_")]
+    self.wicket_ids = [i for i, n in enumerate(self.physics.contact_names) if n.startswith("wicket_")]
     obs = self.observation()
     super().__init__(count, gym.spaces.Box(-10, 10, obs.shape[1:], dtype=np.float32),
                      gym.spaces.Box(-1, 1, (29,), dtype=np.float32))
@@ -92,13 +93,15 @@ class CricketVecEnv(VecEnv):
     height = q[:, 2]
     fallen = (height < .50) | (up < .65)
     invalid_bat_contact = self.forbid_bat_contact & (env.active_samples[:, self.external_bat_ids].sum(1) > 0)
+    invalid_wicket_contact = env.active_samples[:, self.wicket_ids].sum(1) > 0
+    failed = fallen | invalid_bat_contact | invalid_wicket_contact
     joint = q[:, env.model.jnt_qposadr[env.joints]]
     violation = np.maximum(env.limits[:, 0] - joint, 0) + np.maximum(joint - env.limits[:, 1], 0)
     reward = 2 * np.exp(-20 * (1 - up)**2) + np.exp(-100 * (height - .78)**2)
     reward -= .15 * np.square(env.qvel[:, :2]).sum(1)
     reward -= .01 * np.square(self.actions - self.last_action).sum(1)
     reward -= .01 * np.square(joint - env.home).sum(1) + 5 * violation.sum(1)
-    reward -= 5 * (fallen | invalid_bat_contact)
+    reward -= 5 * failed
     current_hit = (env.active_samples[:, self.bat_ids].sum(1) > 0) & (self.ball.qvel[:, 0] > 1)
     new_hit = current_hit & ~self.hit
     self.hit |= current_hit
@@ -108,13 +111,14 @@ class CricketVecEnv(VecEnv):
     self.last_action[:] = self.actions
     self.returns += reward
     obs = self.observation()
-    done = fallen | invalid_bat_contact | (self.steps >= self.horizon)
+    done = failed | (self.steps >= self.horizon)
     infos = [{} for _ in range(self.num_envs)]
     ids = np.flatnonzero(done)
     for i in ids:
-      infos[i] = {"terminal_observation": obs[i].copy(), "TimeLimit.truncated": not bool(fallen[i] or invalid_bat_contact[i]),
+      infos[i] = {"terminal_observation": obs[i].copy(), "TimeLimit.truncated": not bool(failed[i]),
                   "episode": {"r": float(self.returns[i]), "l": int(self.steps[i])},
                   "fell": bool(fallen[i]), "invalid_bat_contact": bool(invalid_bat_contact[i]),
+                  "invalid_wicket_contact": bool(invalid_wicket_contact[i]),
                   "bat_contact_outgoing": bool(self.hit[i])}
     if len(ids):
       self._reset_rows(ids)
@@ -154,7 +158,8 @@ def evaluate(policy, hand, task, horizon=150, seed=9001, forbid_bat_contact=Fals
                    "seconds": info["episode"]["l"] * TIMESTEP * DECIMATION,
                    "return": info["episode"]["r"], "fell": info["fell"],
                    "invalid_bat_contact": info["invalid_bat_contact"],
-                   "success": not (info["fell"] or info["invalid_bat_contact"]),
+                   "invalid_wicket_contact": info["invalid_wicket_contact"],
+                   "success": not (info["fell"] or info["invalid_bat_contact"] or info["invalid_wicket_contact"]),
                    "bat_contact_outgoing": info["bat_contact_outgoing"]})
       finished[i] = True
     if finished.all():

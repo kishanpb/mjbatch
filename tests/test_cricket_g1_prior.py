@@ -1,6 +1,8 @@
 """Contract checks for the optional, externally trained G1 locomotion prior."""
 
+import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -22,7 +24,6 @@ from cricket_g1_prior import (
   UnitreePrior,
   prior_model,
   rollout,
-  sha256,
 )
 
 
@@ -112,7 +113,8 @@ def test_retained_prior_complete_pool_and_provenance():
   assert len(report["rows"]) == 48
   assert report["external_asset_sha256"] == ASSET_HASHES
   for name, checksum in report["source_sha256"].items():
-    assert sha256(root / "examples" / name) == checksum
+    historical = subprocess.check_output(["git", "show", f"7c90ade898c83e0b44a138f90fbe69acfec1ce77:examples/{name}"], cwd=root)
+    assert hashlib.sha256(historical).hexdigest() == checksum
   for row in report["rows"]:
     assert row["native_serial_parity"] == "exact_qpos_qvel_every_physics_step"
     if row["controller"] == "unitree_onnx":

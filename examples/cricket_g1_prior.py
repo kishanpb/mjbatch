@@ -170,6 +170,8 @@ def rollout(prior, hand, seed, controller, seconds=10.0, frames=None):
       invalid = [name for name, count in zip(names, counts, strict=True) if name.startswith("bat_") and count]
       if invalid:
         failure = "incidental_bat_contact"
+      if any(name.startswith("wicket_") and count for name, count in zip(names, counts, strict=True)):
+        failure = "robot_or_bat_wicket_contact"
       if nonfoot_ground:
         failure = "nonfoot_robot_ground_contact"
       if failure:
@@ -244,6 +246,7 @@ def main():
                  "target_clipping": "native joint limits, count every affected control step",
                  "unsupported": True, "pose_overwrite_after_reset": False,
                  "bat_contact_guard": "any sensor presence, every physics substep; fixed wrist fixture excepted",
+                 "wicket_contact_guard": "v2 explicit bat and robot collider pairs against both sets of stumps and bails; any sensor presence fails",
                  "ground_contact_guard": "every-substep independent serial shadow, exact native state parity, robot feet only",
                  "sensor_timing": "MuJoCo step sensor stage, one 2 ms step behind returned generalized state; no post-step forward",
                  "no_bat_model": "Menagerie stock scene_mjx, original collisions/inertias/torque limits",
