@@ -33,9 +33,12 @@ The shared UniLab task now trains separate right/left PPO actors on native
 CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
 direction; it is not an independent native learner or a new Menagerie-model
-result. Dry-swing balance, ball hitting and running bowling remain unfinished.
-The latest grounded-support pilot retains both failed full-episode videos and
-substep force, grip, joint-limit and collision audits in the linked research log.
+result. The [latest two-hand PPO diagnostic](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/g1_cricket_results/bimanual_balanced_small_residual_v1/two_hand_ppo_diagnostic.mp4)
+completes both three-second swings with ankle feedback and smaller learned
+corrections. Small joint-stop excursions and bat-path error still fail the
+physical/accuracy gates; ball hitting and running bowling remain unfinished.
+The linked research log retains complete episodes and substep force, grip,
+joint-limit and collision audits, not just selected successful-looking frames.
 
 Earlier [force/touch diagnostics](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
 and complete failed experiments remain in the research log. Simulated loads

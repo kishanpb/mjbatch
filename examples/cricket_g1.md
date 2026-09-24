@@ -2,12 +2,29 @@
 
 ## Current Direction: Two-Hand Whole-Body Tracking
 
-The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3810b78fd170c948ebc67fcbfedff287a6c2119b/docs/g1_cricket_bimanual_tracking.md)
+The companion [motion-tracking task and complete pilots](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_bimanual_tracking.md)
 retargets the earlier cricket choreography to UniLab's G1 geometry. Native
 mjbatch trains independent right/left whole-body PPO actors with two mechanical
 bat grips and all 29 joint controls. It does not use the frozen walking policy
 or overwrite robot poses during a policy step. This is the shared UniLab task
 on this executor, not a separate learner or the legacy Menagerie scene below.
+
+The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
+now completes both reference-controlled swings. Fresh PPO with 0.05-rad residual
+authority also completes both three-second episodes, after the otherwise
+identical 0.25-rad pilot failed. Each hand has 512 updates / 196,608 transitions,
+with no favorable checkpoint selection. Right/left returns are 17.3800 / 17.2177
+versus unchanged reference-only baselines 17.0956 / 17.0986. Neither qualifies:
+peak bat-path errors .14836 / .15063 m exceed .08 m, and hard-limit excursions
+.00389 / .00553 rad exceed .0001 rad. No unintended loaded contacts occur;
+mechanical grip gaps stay below 1.136 mm. Every evaluation interval matches
+independent native-state/sensor replay, and all 49 scalar series per run are finite.
+
+The [combined two-hand video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/g1_cricket_results/bimanual_balanced_small_residual_v1/two_hand_ppo_diagnostic.mp4)
+retains both complete final-policy episodes, right then left at 0.5x, with no
+cuts. It is a development dry-swing preview, not learned ball interception,
+running bowling, hardware validation or an advertising reel. The following
+pilots are historical; complete failures remain available for comparison.
 
 The initial 196,608-transition pilot per hand fails during downswing at 1.56
 and 1.68 seconds, respectively; reference-only control fails at 0.32 seconds.
