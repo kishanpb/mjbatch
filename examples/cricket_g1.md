@@ -296,6 +296,37 @@ control and learned bowling are not established. The repair has 38 focused
 UniLab tests and 47 passing native Batch tests; no new showcase replaces old media.
 Reproduce at the linked revisions, not against historical source-hash contracts.
 
+### Absolute Arm Reach and Prior Target Guard
+
+The [versioned shared-task control change](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3b7afaf6d6be76199f6c1c60c69fa3706fba4492/G1_CRICKET.md#absolute-arm-reach-and-prior-target-guard)
+commands the selected seven arm joints with bounded absolute references while
+retaining the external locomotion prior for the other 22. Seven of eight initial
+scripted trials reach a sampled overhead pose, but all violate leg joint limits.
+The [exact diagnostic replay](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/4cf98c6bec837883be526cba05bd7ca7f451dd83/g1_cricket_results/overarm_v1/failure_attribution.json)
+reproduces every outcome and identifies unbounded prior motor targets in six
+first-limit events. Physical safety cannot be inferred from reaching overhead.
+
+The [guarded comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3b7afaf6d6be76199f6c1c60c69fa3706fba4492/g1_cricket_results/overarm_guard_v1/evaluation.json)
+repeats all eight controls at seed 6301 and .0625 ms, changing only those 22
+targets to the central 90% of existing joint ranges. Motor gains, physical
+joint/torque limits, scene, holder, contact response, reward and gates remain
+unchanged. Native Batch and independent serial replay match each control-boundary
+state and named sensor; the actual applied guard is checked every interval.
+
+Three left-hand cases now pass the complete four-second scripted reach/recovery
+checks, with 7, 32 and 31 consecutive qualifying overhead endpoints. All four
+left cases have no forbidden contacts or joint/stability failures, but one does
+not meet the preload criterion. **All right-hand cases still fail**, including
+foot crossing and three early terminations; one joint-overshoot result worsens.
+All eight intentionally retain the ball, so none is a qualified delivery.
+
+These are development preload witnesses, not learned policies, held-out success
+rates, paired-resolution validation or advertising videos. The full reports
+retain all failures, poses and force diagnostics with 108 local input pins,
+104 learner-runtime file pins and native executor hashes. 50 focused UniLab
+tests and 47 native Batch tests pass. Left-hand drive/release and right-hand
+gait/recovery remain separate next tasks; earlier media are unchanged.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)

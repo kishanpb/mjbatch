@@ -58,11 +58,11 @@ evaluation cases match across executors but retain the ball: zero qualified
 deliveries. Failed checkpoints and complete evidence are retained, not promoted
 as a new bowling showcase.
 
-The [overarm search and pitch-contact audit](examples/cricket_g1.md#overarm-search-and-pitch-contact-audit)
-retain 32 failed scripted motions plus a finer-step contact-model repair in the
-shared G1 task. Native Batch exactly reproduces the isolated impacts and full
-robot drops; these are numerical diagnostics, not newly learned bowling or
-physical force calibration.
+The [absolute-arm reach comparison](examples/cricket_g1.md#absolute-arm-reach-and-prior-target-guard)
+now has three left-hand scripted raise-and-recovery witnesses after bounding
+the shared task's locomotion-prior targets. All right-hand trials still fail
+physical checks. These are one-seed preload diagnostics, not learned releases
+or a new bowling showcase; all failed cases remain available.
 
 ---
 
