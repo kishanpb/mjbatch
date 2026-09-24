@@ -14,6 +14,7 @@ import numpy as np
 import torch
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.logger import configure
+from stable_baselines3.common.utils import FloatSchedule
 from stable_baselines3.common.vec_env import VecEnv
 
 from cricket_g1 import DECIMATION, TIMESTEP, G1Cricket
@@ -170,9 +171,12 @@ def main():
   parser.add_argument("--load", type=Path)
   parser.add_argument("--fixed-action-std", type=float)
   parser.add_argument("--target-kl", type=float)
+  parser.add_argument("--learning-rate", type=float)
   args = parser.parse_args()
   if args.target_kl is not None and (args.algorithm != "ppo" or not np.isfinite(args.target_kl) or args.target_kl <= 0):
     parser.error("--target-kl requires PPO and a finite positive value")
+  if args.learning_rate is not None and (not np.isfinite(args.learning_rate) or args.learning_rate <= 0):
+    parser.error("--learning-rate must be finite and positive")
   args.output.mkdir(parents=True, exist_ok=True)
   torch.set_num_threads(2)
   env = CricketVecEnv(args.envs, args.seed, args.hand, args.task)
@@ -195,6 +199,9 @@ def main():
     fix_action_noise(model, std)
   if args.target_kl is not None:
     model.target_kl = args.target_kl
+  if args.learning_rate is not None:
+    model.learning_rate = args.learning_rate
+    model.lr_schedule = FloatSchedule(args.learning_rate)
   model.verbose = 0
   start = time.monotonic()
   model.set_logger(configure(str(args.output), ["csv"]))

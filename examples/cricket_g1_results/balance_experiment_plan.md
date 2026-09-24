@@ -25,3 +25,12 @@ Both unchanged and changed conditions use the same stock robot dynamics.
 There is no root support, joint-pose trajectory overwrite or relaxed fall gate.
 The existing longer learned-variance continuation is failed development context,
 not an equal-budget causal control or a promoted policy.
+
+## Lower-Step-Size Continuation
+
+The fixed-noise/KL run produced three non-falling three-second episodes and five
+falls. Continue that exact checkpoint for 524,288 transitions with learning rate
+0.0001 instead of 0.0003, retaining fixed noise 0.08 and target KL 0.02. This
+tests smaller updates because the early-stop mechanism can only detect an
+oversized update after it occurs. Keep the same eight-episode development gate;
+do not run the predeclared ten-second check unless all eight first pass.
