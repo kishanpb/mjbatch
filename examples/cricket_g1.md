@@ -146,6 +146,35 @@ robot transfer test with the 4 ms control and 2 ms candidate at the same fine
 timesteps, not a learned-policy claim or permission to ignore doubled loads.
 Existing highlights are preserved; no new G1 batting or bowling video is ready.
 
+### Contact Model Transfer to G1
+
+The [companion transfer report](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/86d88d479b57f3f3e4f40eeb6174de1691f6688f/G1_CRICKET.md#contact-model-transfer-to-g1)
+now retains all 32 robot trials: both 4/2 ms contact models, both fine timesteps,
+both executors, both hands and zero/scripted controls. Unlike the isolated
+study, this includes native Batch execution. All 16 executor pairs match
+exactly, including impact and force evidence, with zero endpoint state/sensor
+error; 97 input hashes verify and 146 focused companion tests pass.
+
+At the finest 0.03125 ms timestep the right-hand 2 ms candidate reduces
+penetration from 6.578690 to 3.252920 mm, but exit velocity drops from 1.064265
+to 0.996949 m/s and fails the unchanged strict >1 m/s requirement. Its
+1.000953 m/s pass at 0.0625 ms therefore does not qualify. Blade peak load
+increases from 269.054 to 536.053 N; wrist-fixture force from 97.345 to
+190.750 N and torque from 28.454 to 52.885 N m. These are simulated loads,
+not hardware safety or cricket-material calibration.
+
+Only 2/32 individual rows pass and 0/8 comparison groups qualify. All eight
+left-hand scripted transfers terminate on guarded contact at 0.18 seconds;
+they are untrained same-command transfers, not mirrored batting skills. The
+remaining 24 trials complete two seconds. The opt-in companion owner
+`task=g1_cricket_compliance_v2/mjbatch` changes only bat-ball contact compliance;
+historical owners and checkpoints stay unchanged. This is not a new native
+mjbatch learner or new training evidence.
+
+Next is a separately frozen actor-only imitation initialization followed by
+bounded PPO, retaining failed demonstrations and the same physical limits and
+fine-timestep gates. No learned G1 batting/bowling showcase is ready yet.
+
 ## Reproduce
 
 ```sh

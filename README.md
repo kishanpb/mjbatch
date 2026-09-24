@@ -46,8 +46,11 @@ timestep prevents validation. A wrist torque plateau is now diagnosed; the
 [follow-up elbow test](examples/cricket_g1.md#elbow-motion-with-motor-telemetry)
 changes actual motion but still fails the shot gates. A new
 [isolated model study](examples/cricket_g1.md#isolated-compliance-study) measures
-reduced overlap at the cost of doubled peak loads; robot physics and existing
-videos are unchanged. No validated G1 showcase yet.
+reduced overlap at the cost of doubled peak loads. The subsequent
+[32-case G1 transfer](examples/cricket_g1.md#contact-model-transfer-to-g1)
+matches exactly across both executors but rejects the candidate's narrow speed
+pass at the finer timestep. The changed contact model is opt-in; historical
+tasks and existing videos are unchanged. No validated G1 showcase yet.
 
 ---
 
