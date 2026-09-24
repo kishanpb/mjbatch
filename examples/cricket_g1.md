@@ -74,8 +74,25 @@ nonblank video frames are retained with exact native endpoint/sensor replay.
 An offline audit finds upward COM acceleration during aerial reference stencils,
 equivalent to 393.6-475.5 N of extra vertical support for the 33.497 kg system.
 That is inferred reference inconsistency, not a measured or applied force.
-The next repair is gravity-consistent run-up flight with continuous stance
+This motivated gravity-consistent run-up flight with continuous stance
 transitions, keeping original geometry, force caps and full delivery gates.
+
+The [three complete COM-repair comparisons](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/5af65619f51018bcf74a7704e1a7120e6a741d70/docs/g1_cricket_running_reference.md#ballistic-com-repair-comparison)
+retain both hands and every failed physical PD episode. The final analytic
+offline root elimination reduces each aerial COM-force residual below 1.2e-10 N,
+with no audited reference intersections, but foot error reaches 2.043 mm and six
+IK frames per hand hit the evaluation limit. Both physical episodes fall at
+0.68 s with joint/contact faults before release; these are not valid teachers.
+Coarse angular-momentum residuals reach 93.30 Nm in pitch. Their five-pose
+velocity windows may include phase boundaries, so refinement is required before
+repairing whole-body orientation/counter-motion. These are inferred reference
+residuals, not applied/measured loads or learned bowling results.
+
+All 36 focused tests pass and 1,016 generated video frames across the three
+comparisons decode nonblank. Historical duplicate videos/tracking exports were
+pruned after validation; complete reports, poses and reviews remain, and the
+latest full target/failed-PD videos are retained. No new PPO, separate Menagerie
+running training, upstream PR or social publication is claimed.
 
 ### Preceding Dry-Swing Pilots
 

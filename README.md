@@ -48,9 +48,11 @@ bowling or an independently validated mjbatch running integration.
 The [whole-body running PPO study on native mjbatch](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/114c985f001895ba28b9a4c6485e4553a3b82545/docs/g1_cricket_running_tracking.md)
 trains all 29 joints with holder-force/contact observations. An outward lane
 shift lets frozen right/left policies reach 0.66 / 0.72 s, but both stop before
-release. An offline COM check exposes non-ballistic aerial reference motion;
-that dynamics defect needs repair before more training. Complete failures and
-controls remain available. This is the shared UniLab G1 task, not a separately
+release. The [ballistic COM repair](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/5af65619f51018bcf74a7704e1a7120e6a741d70/docs/g1_cricket_running_reference.md#ballistic-com-repair-comparison)
+now removes the reference's fictitious airborne support demand, but both physical
+PD trials still fall at 0.68 s before release. Coarse angular-momentum diagnostics
+expose another flight inconsistency; no new PPO was trained. Complete failures
+and controls remain available. This is shared UniLab G1 work, not a separately
 trained Menagerie-model result or a bowling showcase.
 The linked research log retains complete episodes and substep force, grip,
 joint-limit and collision audits, not just selected successful-looking frames.
