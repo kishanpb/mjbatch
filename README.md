@@ -44,8 +44,10 @@ A [bounded scripted motion search](examples/cricket_g1.md#bounded-scripted-rever
 now produces a forward strike in both engines, but excessive overlap at the finer
 timestep prevents validation. A wrist torque plateau is now diagnosed; the
 [follow-up elbow test](examples/cricket_g1.md#elbow-motion-with-motor-telemetry)
-changes actual motion but still fails the shot gates. Existing videos are
-unchanged; no validated G1 showcase yet.
+changes actual motion but still fails the shot gates. A new
+[isolated model study](examples/cricket_g1.md#isolated-compliance-study) measures
+reduced overlap at the cost of doubled peak loads; robot physics and existing
+videos are unchanged. No validated G1 showcase yet.
 
 ---
 

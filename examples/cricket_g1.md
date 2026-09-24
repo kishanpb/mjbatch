@@ -123,9 +123,28 @@ reconstruction error 7.11e-15 N m. All 81 source/input hashes verify; 68 focused
 tests pass. This closes a control family, not all humanoid batting.
 
 No task, reward, prior, gains, motor limits or contact parameters were changed.
-A separate isolated contact-compliance study is the next numerical diagnosis
-before more learning, not a policy improvement or a reason to weaken gates.
+The separate isolated contact-compliance study below follows this diagnosis;
+it is not a policy improvement or a reason to weaken gates.
 Learned both-hand batting, bowling and the new README videos remain unfinished.
+
+### Isolated Compliance Study
+
+The [companion model study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aed9732d025b76feadd792d75cca39694a7a2ef0/G1_CRICKET.md#isolated-compliance-study)
+retains all 16 fixed-blade trials, 240,000 physics steps and 2,821 contact
+samples. It runs directly in MuJoCo, not native Batch, and leaves the robot task
+unchanged. At the finest 0.03125 ms step and 4.67 m/s incident speed, shortening
+the contact time constant from 4 to 2 ms reduces penetration from 6.642890 to
+3.315848 mm but increases peak normal force from 374.469 to 751.048 N. Rebound
+ratio stays near 0.132; the model is not calibrated to cricket materials.
+
+All force-accounting checks pass, but only 8/12 adjacent-resolution comparisons
+pass: four coarser comparisons fail for the 2 ms candidate. Its two finest
+steps (0.0625 and 0.03125 ms) agree under the declared tolerances at both
+incident speeds. All rows reproduce, all nine input hashes verify, and 82
+focused companion tests pass. These results justify a separately versioned
+robot transfer test with the 4 ms control and 2 ms candidate at the same fine
+timesteps, not a learned-policy claim or permission to ignore doubled loads.
+Existing highlights are preserved; no new G1 batting or bowling video is ready.
 
 ## Reproduce
 
