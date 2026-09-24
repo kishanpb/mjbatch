@@ -103,6 +103,30 @@ physical batting-speed ceiling. It motivates a bounded proximal-arm test with
 achieved joint motion and torque reporting, not more wrist-target tuning or
 weaker gates. These are simulated diagnostics, not fresh learning or new videos.
 
+### Elbow Motion With Motor Telemetry
+
+The [companion elbow experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/2cd11a09ac4a301292116bca1434a78f69a90ac0/G1_CRICKET.md#elbow-motion-with-motor-telemetry)
+tests four forward-phase elbow-command scales with all other commands and
+physics unchanged. All 16 full two-second rows, four exact parent baselines,
+and eight exact executor pairs are retained, including motor traces. Only the
+two coarse parent rows pass; **none of the scales qualifies across contexts**.
+Attenuation reduces fine-step outgoing vx from 1.066471 m/s to
+0.999878/0.977664/0.947774 m/s, while penetration stays above 6 mm.
+
+Unlike the wrist plateau, the elbow moves: its fine-step forward-phase minimum
+angle changes from 0.959749 to 1.118130 rad between scales 1 and 0. Only the
+parent briefly saturates (4/1,600 fine-step forward-phase solves); the three
+alternatives never saturate in that phase. The resulting contact normals tilt
+the wrong way for the intended mechanism. All 192,000 physics solves are
+checked against unchanged +/-25 N m motor limits, with maximum torque
+reconstruction error 7.11e-15 N m. All 81 source/input hashes verify; 68 focused
+tests pass. This closes a control family, not all humanoid batting.
+
+No task, reward, prior, gains, motor limits or contact parameters were changed.
+A separate isolated contact-compliance study is the next numerical diagnosis
+before more learning, not a policy improvement or a reason to weaken gates.
+Learned both-hand batting, bowling and the new README videos remain unfinished.
+
 ## Reproduce
 
 ```sh

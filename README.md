@@ -42,9 +42,10 @@ recording; all 192 frozen-policy evaluation rows match exactly. This verifies
 the integration, not a new learned-cricket result or successful forward shot.
 A [bounded scripted motion search](examples/cricket_g1.md#bounded-scripted-reversal-diagnostic)
 now produces a forward strike in both engines, but excessive overlap at the finer
-timestep prevents validation. The [wrist-control audit](examples/cricket_g1.md#wrist-pitch-and-motor-saturation)
-now explains an identical-motion plateau at the wrist motor's torque limit.
-Existing videos are unchanged; no validated G1 showcase yet.
+timestep prevents validation. A wrist torque plateau is now diagnosed; the
+[follow-up elbow test](examples/cricket_g1.md#elbow-motion-with-motor-telemetry)
+changes actual motion but still fails the shot gates. Existing videos are
+unchanged; no validated G1 showcase yet.
 
 ---
 
