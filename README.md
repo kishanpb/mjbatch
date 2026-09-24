@@ -71,6 +71,9 @@ first bounce falls short. This is development evidence, not a learned video.
 The [signed elbow and reward audit](examples/cricket_g1.md#signed-elbow-and-release-reward)
 closes an angle-folding loophole and adds an opt-in reward correction without
 reclassifying those failed deliveries as successes.
+The [32-trial coordinated shoulder search](examples/cricket_g1.md#coordinated-shoulder-search)
+also finds no qualified delivery; complete failures are retained rather than
+presented as a new learned-bowling showcase.
 
 ---
 

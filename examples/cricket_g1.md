@@ -390,6 +390,33 @@ with 122 observations and eight actions; no skill checkpoint is retained.
 locally. This is the shared UniLab task running on native Batch, not a separately
 trained native implementation. Original videos remain unchanged.
 
+### Coordinated Shoulder Search
+
+The [bounded shoulder search](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aec22f49cd20718dbc9bbd299e99aaf0b0d9c3e8/G1_CRICKET.md#coordinated-shoulder-search)
+uses the shared UniLab task on native Batch, not an independent native learner.
+SciPy differential evolution evaluates 32 coordinated shoulder-reference
+trajectories at one left-hand development seed, preserving original motor
+authority, fixed elbow/wrists/release time, guarded prior, full four-second
+recovery and every full + signed delivery gate. It exhausts the budget without
+convergence; no optimality or RL training claim is made.
+
+[All 32 traces, failures and forces](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aec22f49cd20718dbc9bbd299e99aaf0b0d9c3e8/g1_cricket_results/shoulder_search_v1/evaluation.json)
+remain available. Twenty-three are physically clean, three have ball/hand
+contacts and six have other robot self/wicket contacts. All finish four seconds,
+but **zero qualify**: all fail speed, bounce-zone, bounce-count and target gates.
+Forward release speed is 2.338-2.926 m/s and first-bounce x is 0.939-1.141 m.
+The lowest scalar search cost does not represent a cricket-performance step
+or a successful teacher for imitation learning.
+
+Independent serial replay checks every substep and matches native endpoint
+states/named sensors exactly; all initial 98 control traces match. Simulated
+holder peaks are 6.686-9.054 N, maximum pitch force is 1.419 kN and maximum
+penetration is 2.489 mm, not hardware-certified loads. The experiment source is
+frozen at UniLab `36d2e70d`; a later tied-minimum report-selection fix changes no
+retained result. 68 focused UniLab tests, 47 native Batch tests and 19 doc tests
+pass locally. Existing videos are unchanged; alternate swing geometry, safe
+braking, learned control and both-hand qualification remain unfinished.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)
