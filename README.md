@@ -45,11 +45,13 @@ now includes both-handed approach, gather and overarm targets, with arm error
 below 5.25 mm and no audited intersections in the offline references. Native
 MuJoCo PD baselines still fall before delivery; these animations are not learned
 bowling or an independently validated mjbatch running integration.
-The subsequent [whole-body running PPO pilot on native mjbatch](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f23805b51884c475d69fd97f97c563a1424b3ac/docs/g1_cricket_running_tracking.md)
-trains all 29 joints with holder-force/contact observations, but its final
-right/left policies stop at 0.52 / 0.58 s on unintended contact before release.
-Both complete failure videos and reference controls are retained. This remains
-the shared UniLab G1 task, not a separately trained Menagerie-model result.
+The [whole-body running PPO study on native mjbatch](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/114c985f001895ba28b9a4c6485e4553a3b82545/docs/g1_cricket_running_tracking.md)
+trains all 29 joints with holder-force/contact observations. An outward lane
+shift lets frozen right/left policies reach 0.66 / 0.72 s, but both stop before
+release. An offline COM check exposes non-ballistic aerial reference motion;
+that dynamics defect needs repair before more training. Complete failures and
+controls remain available. This is the shared UniLab G1 task, not a separately
+trained Menagerie-model result or a bowling showcase.
 The linked research log retains complete episodes and substep force, grip,
 joint-limit and collision audits, not just selected successful-looking frames.
 

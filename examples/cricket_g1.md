@@ -66,6 +66,17 @@ are complete 0.5x development diagnostics with simulated-load readouts, not
 bowling showcases. All four videos contain 115 decoded nonblank frames.
 Next is approach clearance and dynamic balance, not more unchanged training.
 
+The subsequent [fixed lane comparison and COM check](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/114c985f001895ba28b9a4c6485e4553a3b82545/docs/g1_cricket_running_tracking.md#lane-results-and-dynamic-reference-defect)
+translates only the complete reference lane outward by 0.20 m. Frozen PPO reaches
+0.66 / 0.72 s, but neither hand delivers; both stop on tracking deviation and
+left still has substep self/wicket contact. All four full episodes and 129
+nonblank video frames are retained with exact native endpoint/sensor replay.
+An offline audit finds upward COM acceleration during aerial reference stencils,
+equivalent to 393.6-475.5 N of extra vertical support for the 33.497 kg system.
+That is inferred reference inconsistency, not a measured or applied force.
+The next repair is gravity-consistent run-up flight with continuous stance
+transitions, keeping original geometry, force caps and full delivery gates.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
