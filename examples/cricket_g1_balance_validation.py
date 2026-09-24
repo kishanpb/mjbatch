@@ -42,6 +42,7 @@ def physical_rollout(policy, seed, horizon=500):
           "maximum_joint_limit_excess_rad": max_joint_error,
           "fixture_force_control_snapshot_peak_n": force_peak,
           "fixture_torque_control_snapshot_peak_nm": torque_peak,
+          "contact_active_substep_counts": dict(zip(physics.contact_names, physics.active_samples[0].tolist(), strict=True)),
           "contact_normal_substep_peaks_n": dict(zip(physics.contact_names, physics.peak_load[0].tolist(), strict=True))}
 
 
@@ -52,10 +53,10 @@ def main():
   torch.set_num_threads(2)
   checkpoint = args.directory / "policy.zip"
   policy = PPO.load(checkpoint, device="cpu")
-  short = evaluate(policy, "right", "balance")
-  if any(row["fell"] for row in short):
-    raise RuntimeError("the eight-episode short curriculum gate has not passed")
-  stress = evaluate(policy, "right", "balance", horizon=500, seed=19101)
+  short = evaluate(policy, "right", "balance", forbid_bat_contact=True)
+  if not all(row["success"] for row in short):
+    raise RuntimeError("the eight-episode contact-free short curriculum gate has not passed")
+  stress = evaluate(policy, "right", "balance", horizon=500, seed=19101, forbid_bat_contact=True)
   physical = [physical_rollout(policy, seed) for seed in range(19101, 19109)]
   report = {
     "scope": "Balance only, right-hand wrist fixture, no learned batting/bowling or safety claim",
@@ -63,10 +64,10 @@ def main():
     "short_development": short, "ten_second_stress": stress,
     "physical_diagnostics": physical,
     "physical_diagnostics_scope": "All eight seeds, independently simulated single-row batches; fixture snapshots at control rate, contact peaks at physics rate",
-    "ten_second_gate_passed": not any(row["fell"] for row in stress + physical),
-    "guarded_three_second_evaluation": evaluate(policy, "right", "balance", forbid_bat_contact=True),
-    "cricket_stance_gate_passed": not any(row["fell"] for row in stress + physical) and
-        not any(value > 0 for row in physical for name, value in row["contact_normal_substep_peaks_n"].items()
+    "ten_second_gate_passed": all(row["success"] for row in stress) and not any(row["fell"] for row in physical),
+    "guarded_three_second_evaluation": short,
+    "cricket_stance_gate_passed": all(row["success"] for row in stress) and not any(row["fell"] for row in physical) and
+        not any(value > 0 for row in physical for name, value in row["contact_active_substep_counts"].items()
                 if name.startswith("bat_")),
     "physical_gate": "No incidental bat-ground or bat-robot support/contact; existing wrist fixture remains declared",
     "source_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in

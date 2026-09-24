@@ -79,3 +79,19 @@ def test_incidental_bat_contact_is_failure_not_timeout():
   assert not info[0]["TimeLimit.truncated"]
   assert not info[0]["fell"]
   assert env.physics.active_samples[0, floor] == 0
+
+
+def test_stress_audit_rejects_contact_failure_before_running(monkeypatch, tmp_path):
+  import cricket_g1_balance_validation as validation
+
+  monkeypatch.setattr(sys, "argv", ["validation", "--directory", str(tmp_path)])
+  monkeypatch.setattr(validation.PPO, "load", lambda *args, **kwargs: object())
+
+  def failed_evaluation(policy, hand, task, **kwargs):
+    assert kwargs == {"forbid_bat_contact": True}
+    return [{"fell": False, "invalid_bat_contact": True, "success": False}] * 8
+
+  monkeypatch.setattr(validation, "evaluate", failed_evaluation)
+  with pytest.raises(RuntimeError, match="contact-free short curriculum gate"):
+    validation.main()
+  assert not (tmp_path / "balance_validation.json").exists()

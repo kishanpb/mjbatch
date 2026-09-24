@@ -96,10 +96,15 @@ Do not compare its returns directly with the older, unguarded curriculum.
 | Same parent/std plus PPO target KL 0.02 | 524,288 | 5/8 falls; only 3/8 reach 3 s |
 | Continue KL checkpoint at learning rate 0.0001 | 524,288 | 0/8 falls at 3 s and 10 s, rejected for bat support |
 | Free-bat v2 continuation, same physics | 262,144 | 8/8 invalid bat contacts, 1.00-1.04 s; 0 successes |
+| Continue free-bat v2, unchanged contract | 1,048,576 | 8/8 falls, 1.88-2.70 s; no incidental bat contacts, 0 successes |
+| Further free-bat v2 continuation | 1,048,576 | 7/8 contact failures, 1/8 fall, 1.82-2.16 s; 0 successes |
 
 The frozen-noise and KL settings use Stable-Baselines3's existing PPO policy and
 update stopping logic. These are bounded development comparisons, not a final
 tournament, independently seeded training replication or an algorithm ranking.
+The second unchanged continuation regressed and is not promoted. More budget
+has not established contact-free balance; the next investigation is the stance
+observation/control contract rather than another unchanged continuation.
 
 The complete first-episode evaluations use development seeds 9001-9008, all eight
 rows retained. These repeated development seeds are not an untouched final test
@@ -112,8 +117,8 @@ results are kept separately from that parent checkpoint.
 The continuation to 1,572,864 total transitions regressed to 1.56-1.66 s with
 eight falls out of eight, despite a training-episode average near 144 control
 steps. The [complete continuation evaluation](cricket_g1_results/balance_ppo_right/evaluation.json)
-is retained, not promoted. Investigating action sampling versus deterministic
-control is the next bounded experiment.
+is retained, not promoted. The action-sampling diagnostic below investigated
+that training/evaluation mismatch.
 
 A [fixed-seed action-sampling probe](cricket_g1_results/balance_ppo_right/action_sampling_probe.json)
 reproduces both deterministic evaluations exactly. Sampled actions reduce falls
@@ -126,5 +131,7 @@ full PPO/A2C comparison without selected episodes, joint/torque and foot-fault
 audits, impact sensitivity checks, and videos of actual learned control.
 The current UniLab prototype has a different 0.70 kg fixture and control period;
 cross-framework policy/performance parity is not established.
-The left-hand fixture exists, but its ball/wicket-line mirroring is still pending;
-left-handed learned batting is not established.
+Both handed scenes now align the bat, incoming ball and wicket line; the pitch,
+creases and boundary center mirror with them. Tests cover this alignment and
+the previous right-hand checkpoint evaluation replays exactly. Left-handed
+learned batting is not established.

@@ -44,3 +44,16 @@ without removing those collision pairs or changing robot physics. Continue
 from that checkpoint for 262,144 transitions at its saved optimizer settings.
 Count every invalid contact as failure, not a timeout or successful survival;
 this is a newly versioned termination/reward contract, not the old return scale.
+
+## Free-Bat V2 Continuations
+
+The first 262,144-transition run failed all eight trials on incidental contact.
+An additional 1,048,576 transitions under the same guarded contract removed
+incidental contact from all eight deterministic trials, but each still fell
+after 1.88-2.70 seconds. No stance or cricket success is claimed.
+
+Continue this exact 2,883,584-transition checkpoint for one further 1,048,576
+transitions without changing reward, physics, observation, optimizer or seeds.
+Retain all eight development rows. Only eight contact-free, non-falling
+three-second trials permit the separate ten-second physical audit. This is
+additional-budget development, not a new mechanism or an algorithm comparison.

@@ -71,3 +71,24 @@ The fixed-noise-only failed checkpoint is recoverable from commit `ed4981f`;
 its current redundant binary is removed, while the complete evaluation and
 training curve stay. Other retained checkpoints either provide the comparison
 probe, a parent in the active curriculum lineage, or the current candidate.
+
+## Guarded Continuation And Scene Alignment
+
+From the 1,835,008-transition free-bat v2 checkpoint, another 1,048,576 transitions
+at unchanged settings took 296.38 s. All eight development trials avoid incidental
+bat contact but still fall, at 1.92, 1.96, 2.38, 2.42, 2.70, 2.12, 1.88 and 2.20 s.
+This removes the observed support shortcut at evaluation, not the balance failure.
+The first declared stress seed 19101 also falls (1.92 s); its diagnostic stops
+at failure instead of continuing into post-fall motion. No ten-second gate was run.
+
+The left-handed scene now mirrors ball, wickets, crease, pitch and boundary
+alignment to the bat side. Right-hand physics is unchanged: all eight prior
+free-bat v2 evaluation rows replay exactly. The 16-case timestep audit and
+untrained physical baseline were regenerated for the corrected scenes.
+
+A further 1,048,576 transitions reached 3,932,160 total in 300.15 s additional
+training. The eight trials ended at 2.10, 1.82, 1.84, 2.00, 2.06, 1.88, 1.94 and
+2.16 s: seven incidental-contact failures and one fall (seed 9004), zero successes.
+This continuation regresses; both full reports/curves and their parent checkpoints
+remain available, with no selected-row promotion or ten-second success claim.
+Pause unchanged-budget scaling and inspect the stance observation/control contract.

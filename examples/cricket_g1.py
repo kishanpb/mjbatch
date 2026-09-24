@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
-"""Floating-base Unitree G1 cricket foundation; no trained policy is bundled yet."""
+"""Floating-base Unitree G1 cricket foundation with experimental stance policies."""
 
 import argparse
 import copy
@@ -27,6 +27,8 @@ def scene(hand="right", timestep=TIMESTEP):
   """Extend the stock 29-DoF scene without changing robot inertias or motor limits."""
   if hand not in ("left", "right"):
     raise ValueError("hand must be left or right")
+  mirror = 1 if hand == "right" else -1
+  line_y = -.20 * mirror
   robot = mm.get("unitree_g1")
   if robot.oid != ROBOT_TREE:
     raise ValueError("G1 asset revision changed; audit the new model before use")
@@ -88,7 +90,7 @@ def scene(hand="right", timestep=TIMESTEP):
     "geom",
     name="pitch_marking",
     type="box",
-    pos="9.46 -.20 -.001",
+    pos=f"9.46 {line_y} -.001",
     size="10.66 1.52 .002",
     rgba=".49 .51 .38 1",
     contype="0",
@@ -101,13 +103,14 @@ def scene(hand="right", timestep=TIMESTEP):
       "geom",
       name=f"{end}_popping_crease",
       type="box",
-      pos=f"{crease} -.2 .003",
+      pos=f"{crease} {line_y} .003",
       size=".025 1.83 .002",
       rgba=".95 .95 .95 1",
       contype="0",
       conaffinity="0",
     )
     for i, y in enumerate((-0.29, -0.20, -0.11)):
+      y *= mirror
       ET.SubElement(
         world,
         "geom",
@@ -124,7 +127,7 @@ def scene(hand="right", timestep=TIMESTEP):
       "geom",
       name=f"{end}_bail",
       type="capsule",
-      fromto=f"{x} -.31 .72 {x} -.09 .72",
+      fromto=f"{x} {-.31 * mirror} .72 {x} {-.09 * mirror} .72",
       size=".008",
       rgba=".92 .9 .76 1",
       contype="0",
@@ -134,10 +137,10 @@ def scene(hand="right", timestep=TIMESTEP):
     a, b = 2 * np.pi * np.array([i, i + 1]) / 96
     ends = [
       9.46 + 24 * np.cos(a),
-      -0.2 + 24 * np.sin(a),
+      line_y + 24 * np.sin(a),
       0.008,
       9.46 + 24 * np.cos(b),
-      -0.2 + 24 * np.sin(b),
+      line_y + 24 * np.sin(b),
       0.008,
     ]
     ET.SubElement(
@@ -154,7 +157,7 @@ def scene(hand="right", timestep=TIMESTEP):
   ET.SubElement(
     world, "light", name="cricket_sun", directional="true", pos="0 0 8", dir=".2 -.3 -1", diffuse=".7 .7 .7"
   )
-  ball = ET.SubElement(world, "body", name="cricket_ball", pos="3 -.20 1.1")
+  ball = ET.SubElement(world, "body", name="cricket_ball", pos=f"3 {line_y} 1.1")
   ET.SubElement(ball, "freejoint", name="cricket_ball_joint")
   ET.SubElement(
     ball,
@@ -221,7 +224,7 @@ def scene(hand="right", timestep=TIMESTEP):
     keys,
     "key",
     name="cricket_ready",
-    qpos=" ".join(map(str, np.r_[pose, [3, -0.20, 1.1, 1, 0, 0, 0]])),
+    qpos=" ".join(map(str, np.r_[pose, [3, line_y, 1.1, 1, 0, 0, 0]])),
     ctrl=" ".join(map(str, pose[7:])),
   )
   xml = ET.tostring(root, encoding="unicode")

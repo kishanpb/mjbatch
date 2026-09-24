@@ -99,3 +99,15 @@ def test_controlled_impact_audit_is_repeatable():
   assert first["peak_normal_load_n"] > 0
   assert 0 < first["summed_normal_impulse_magnitude_ns"] < 1
   assert first["final_pelvis_height_m"] > .7
+
+
+@pytest.mark.parametrize("hand,line_y", [("right", -.2), ("left", .2)])
+def test_ball_wickets_and_bat_are_on_the_selected_hand_side(hand, line_y):
+  env = G1Cricket(hand=hand)
+  bat = env.batch.site("bat_sweet_spot")
+  env.batch.forward()
+  assert env.batch.joint("cricket_ball_joint").qpos[0, 1] == line_y
+  assert abs(bat.xpos[0, 1] - line_y) < .025
+  for end in ("striker", "bowler"):
+    assert env.model.geom(f"{end}_stump_1").pos[1] == line_y
+    assert env.model.geom(f"{end}_popping_crease").pos[1] == line_y
