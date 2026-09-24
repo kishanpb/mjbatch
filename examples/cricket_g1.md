@@ -324,8 +324,42 @@ These are development preload witnesses, not learned policies, held-out success
 rates, paired-resolution validation or advertising videos. The full reports
 retain all failures, poses and force diagnostics with 108 local input pins,
 104 learner-runtime file pins and native executor hashes. 50 focused UniLab
-tests and 47 native Batch tests pass. Left-hand drive/release and right-hand
-gait/recovery remain separate next tasks; earlier media are unchanged.
+tests and 47 native Batch tests pass. The drive/release study below advances
+the left-hand diagnostic; right-hand gait/recovery remains unresolved.
+
+### Fixed Overarm Drive and Release
+
+The [frozen six-case study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e45cfdcddf18996a7158a3d073d17756e8e71760/G1_CRICKET.md#fixed-overarm-drive-and-release)
+uses the shared guarded UniLab task on native Batch, not a separate native
+learner. Starting from the left -2.80 / 1.40 rad preload, a shoulder-only target
+step at 2.2 s compares +0.3 and +1 rad with release at 2.28, 2.36 and 2.44 s.
+Original robot/holder dynamics, motor limits, pitch and full delivery gate are
+unchanged; no pose or velocity injection is used.
+
+All six release and complete four seconds without forbidden contacts, joint
+excess, balance or actuator-limit failures. Three satisfy the current overarm
+and stride proxies, but **all six fail the full delivery gate**. Forward release
+speeds are [2.804, 2.021, -0.800, 3.128, 1.518, -2.311] m/s in the fixed case
+order, below the >6 m/s requirement; first bounces span x=0.087-1.237 m, all
+short of the x>4 m zone. No ball reaches the target. Later release redirects
+motion downward rather than fixing the velocity deficit.
+
+The [complete traces, outcomes and force diagnostics](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e45cfdcddf18996a7158a3d073d17756e8e71760/g1_cricket_results/overarm_release_v1/evaluation.json)
+retain all cases at one seed/timestep, with exact independent serial endpoint
+state and named-sensor replay. Peak simulated holder force is 9.74-11.60 N,
+pitch-contact peaks 1.14-1.62 kN and maximum penetration 2.846 mm; these are
+uncalibrated simulator loads, not hardware safety evidence. A second complete
+replay proves corrected contact/phase labels change no physical result or trace.
+The retained input contract pins 111 local files and 104 learner-runtime files.
+
+The unsigned elbow-angle proxy folds near straight, so it cannot certify
+bowling legality; actual joint traces are retained and a signed extension audit
+is needed before variable-elbow training. Late release also limits flight time
+within the fixed four-second horizon. This result is not learned bowling, a
+usable qualified teacher, a general G1 speed limit or an advertising video.
+55 focused UniLab tests and 47 native Batch tests pass locally, not upstream CI.
+Existing videos are unchanged; coordinated wind-up/control and both-hand learned
+batting/bowling showcases remain unfinished.
 
 ### Bowling Task and Force Audit
 

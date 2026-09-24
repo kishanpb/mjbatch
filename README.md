@@ -64,6 +64,11 @@ the shared task's locomotion-prior targets. All right-hand trials still fail
 physical checks. These are one-seed preload diagnostics, not learned releases
 or a new bowling showcase; all failed cases remain available.
 
+The subsequent [fixed drive/release study](examples/cricket_g1.md#fixed-overarm-drive-and-release)
+completes six left-hand scripted releases with stable recovery, but **zero
+qualified deliveries**: maximum forward release speed is 3.13 m/s and every
+first bounce falls short. This is development evidence, not a learned video.
+
 ---
 
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)
