@@ -15,7 +15,7 @@ from cricket_g1_train import CricketVecEnv, evaluate
 
 
 def physical_rollout(policy, seed, horizon=500):
-  env = CricketVecEnv(1, seed=seed)
+  env = CricketVecEnv(1, seed=seed, observe_root_height=getattr(policy, "observe_root_height", False))
   obs = env.reset()
   physics = env.physics
   initial = physics.qpos[0, :3].copy()

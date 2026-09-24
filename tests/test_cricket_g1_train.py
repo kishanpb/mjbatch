@@ -95,3 +95,36 @@ def test_stress_audit_rejects_contact_failure_before_running(monkeypatch, tmp_pa
   with pytest.raises(RuntimeError, match="contact-free short curriculum gate"):
     validation.main()
   assert not (tmp_path / "balance_validation.json").exists()
+
+
+def test_height_observation_appends_state_without_changing_dynamics():
+  original = CricketVecEnv(2, seed=7)
+  height = CricketVecEnv(2, seed=7, observe_root_height=True)
+  a, b = original.reset(), height.reset()
+  assert a.shape == (2, 117)
+  assert b.shape == (2, 118)
+  np.testing.assert_array_equal(a, b[:, :-1])
+  np.testing.assert_allclose(b[:, -1], height.physics.qpos[:, 2] - .78)
+  for _ in range(5):
+    action = np.full((2, 29), .01, dtype=np.float32)
+    a, b = original.step(action), height.step(action)
+    np.testing.assert_array_equal(a[0], b[0][:, :-1])
+    np.testing.assert_array_equal(a[1], b[1])
+    np.testing.assert_array_equal(a[2], b[2])
+    np.testing.assert_array_equal(original.physics.qpos, height.physics.qpos)
+
+
+def test_height_checkpoint_retains_observation_contract(tmp_path):
+  from stable_baselines3 import PPO
+
+  env = CricketVecEnv(2, observe_root_height=True)
+  policy = PPO("MlpPolicy", env, n_steps=2, batch_size=4, n_epochs=1, seed=1,
+               policy_kwargs={"net_arch": [16, 16]})
+  policy.observe_root_height = True
+  policy.save(tmp_path / "policy")
+  loaded = PPO.load(tmp_path / "policy")
+  assert loaded.observe_root_height
+  loaded.set_env(env)
+  assert loaded.predict(env.reset(), deterministic=True)[0].shape == (2, 29)
+  with pytest.raises(ValueError, match="Observation spaces do not match"):
+    loaded.set_env(CricketVecEnv(2))

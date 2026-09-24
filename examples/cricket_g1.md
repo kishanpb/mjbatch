@@ -46,6 +46,33 @@ vision-only or deployable hardware sensing setup. Kinematic/sensor fields are
 from the final physics substep's evaluation stage, which precedes the resulting
 integrated state by one step; no extra forward force solve replaces those samples.
 
+## Height Observation Comparison
+
+`--observe-root-height` appends pelvis height relative to the 0.78 m target,
+changing the input from 117 to 118 values without changing physics or reward.
+New checkpoints record this contract and restore it on resume; an incompatible
+checkpoint/input shape is rejected rather than silently reinterpreted. Old
+checkpoints and the default observation remain unchanged.
+
+Two fresh seed-1 PPO runs used 524,288 transitions each, fixed action std 0.08,
+target KL 0.02, learning rate 0.0003 and the same free-bat contact guard:
+
+| Observation | All eight deterministic development trials |
+| --- | --- |
+| Original 117 inputs | Contact failure at 0.72-0.74 s; 0 successes |
+| Height-aware 118 inputs | Contact failure at 0.70 s; 0 successes |
+
+[Original evidence](cricket_g1_results/observation_comparison/original/evaluation.json)
+and [height-aware evidence](cricket_g1_results/observation_comparison/height/evaluation.json)
+retain every row and both training curves. This budget does not establish a
+height-observation benefit or a solved stance. Different input widths also
+change seeded network initialization; this is not an independently replicated
+causal comparison. Neither candidate advanced to the ten-second gate.
+
+Reproduce either arm with `examples/cricket_g1_train.py`, `--steps 524288`,
+`--forbid-bat-contact --fixed-action-std .08 --target-kl .02 --learning-rate .0003`
+and a distinct `--output`; add `--observe-root-height` only for the height arm.
+
 ## Contact Evidence
 
 Explicit pairs cover ball/bat, robot, ground and stumps, plus bat/robot and ground

@@ -105,3 +105,14 @@ are recoverable at `6b7961a`. Their complete evaluations, curves and descendant
 parent hashes remain. Keep the bootstrap/action-sampling pair, the rejected
 bat-crutch counterexample and the two latest guarded checkpoints for current
 comparisons instead of accumulating every optimizer snapshot.
+
+## Explicit Height Observation Does Not Solve Stance
+
+Two fresh PPO seed-1 runs, 524,288 transitions each, retained the same guarded
+physics/reward and fixed std 0.08, target KL 0.02, learning rate 0.0003. The
+original 117-input control took 191.69 s; seven trials fail on contact at 0.72 s
+and seed 9004 at 0.74 s. Appending relative pelvis height (118 inputs) took
+196.48 s; all eight trials fail on contact at 0.70 s. No fall precedes these
+failures, but none is a successful stance. Full rows/curves/checkpoints live in
+`observation_comparison/{original,height}`. Do not pool these fresh starts with
+the older warm-start continuation or claim a benefit from this single pair.

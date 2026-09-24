@@ -20,7 +20,7 @@ def main():
   args = parser.parse_args()
   torch.set_num_threads(2)
   policy = PPO.load(args.directory / "policy.zip", device="cpu")
-  env = CricketVecEnv(1, seed=19101)
+  env = CricketVecEnv(1, seed=19101, observe_root_height=getattr(policy, "observe_root_height", False))
   obs = env.reset()
   physics = env.physics
   data = mujoco.MjData(physics.model)

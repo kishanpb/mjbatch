@@ -21,11 +21,13 @@ from cricket_g1 import DECIMATION, TIMESTEP, G1Cricket
 
 
 class CricketVecEnv(VecEnv):
-  def __init__(self, count=32, seed=1, hand="right", task="balance", horizon=150, forbid_bat_contact=False):
+  def __init__(self, count=32, seed=1, hand="right", task="balance", horizon=150, forbid_bat_contact=False,
+               observe_root_height=False):
     self.physics = G1Cricket(count, hand)
     self.task, self.render_mode = task, None
     self.horizon = horizon
     self.forbid_bat_contact = forbid_bat_contact
+    self.observe_root_height = observe_root_height
     self.rngs = [np.random.default_rng(seed + i) for i in range(count)]
     self.steps = np.zeros(count, dtype=int)
     self.returns = np.zeros(count)
@@ -53,6 +55,8 @@ class CricketVecEnv(VecEnv):
              bat_pos - q[:, :3], support,
              env.batch.sensor("bat_fixture_force") / 100,
              env.batch.sensor("bat_fixture_torque") / 10]
+    if self.observe_root_height:
+      parts.append(q[:, 2:3] - .78)
     return np.clip(np.concatenate(parts, axis=1), -10, 10).astype(np.float32)
 
   def _reset_rows(self, ids):
@@ -133,9 +137,12 @@ class CricketVecEnv(VecEnv):
     return [False for _ in self._get_indices(indices)]
 
 
-def evaluate(policy, hand, task, horizon=150, seed=9001, forbid_bat_contact=False):
+def evaluate(policy, hand, task, horizon=150, seed=9001, forbid_bat_contact=False,
+             observe_root_height=None):
+  if observe_root_height is None:
+    observe_root_height = getattr(policy, "observe_root_height", False)
   env = CricketVecEnv(count=8, seed=seed, hand=hand, task=task, horizon=horizon,
-                      forbid_bat_contact=forbid_bat_contact)
+                      forbid_bat_contact=forbid_bat_contact, observe_root_height=observe_root_height)
   obs = env.reset()
   rows, finished = [], np.zeros(8, dtype=bool)
   for _ in range(horizon):
@@ -180,6 +187,7 @@ def main():
   parser.add_argument("--target-kl", type=float)
   parser.add_argument("--learning-rate", type=float)
   parser.add_argument("--forbid-bat-contact", action="store_true")
+  parser.add_argument("--observe-root-height", action="store_true")
   args = parser.parse_args()
   if args.target_kl is not None and (args.algorithm != "ppo" or not np.isfinite(args.target_kl) or args.target_kl <= 0):
     parser.error("--target-kl requires PPO and a finite positive value")
@@ -187,10 +195,12 @@ def main():
     parser.error("--learning-rate must be finite and positive")
   args.output.mkdir(parents=True, exist_ok=True)
   torch.set_num_threads(2)
-  env = CricketVecEnv(args.envs, args.seed, args.hand, args.task)
   cls = PPO if args.algorithm == "ppo" else A2C
+  model = cls.load(args.load, device="cpu") if args.load else None
+  observe_root_height = args.observe_root_height or getattr(model, "observe_root_height", False)
+  env = CricketVecEnv(args.envs, args.seed, args.hand, args.task, observe_root_height=observe_root_height)
   if args.load:
-    model = cls.load(args.load, env=env, device="cpu")
+    model.set_env(env)
   else:
     kwargs = dict(n_steps=64, learning_rate=3e-4, ent_coef=.005, gamma=.99,
                   seed=args.seed, device="cpu", verbose=1,
@@ -212,6 +222,7 @@ def main():
     model.lr_schedule = FloatSchedule(args.learning_rate)
   env.forbid_bat_contact = args.forbid_bat_contact or getattr(model, "forbid_bat_contact", False)
   model.forbid_bat_contact = env.forbid_bat_contact
+  model.observe_root_height = observe_root_height
   model.verbose = 0
   start = time.monotonic()
   model.set_logger(configure(str(args.output), ["csv"]))
@@ -228,13 +239,16 @@ def main():
                                 "fixed_action_std": std,
                                 "target_kl": getattr(model, "target_kl", None),
                                 "forbid_bat_contact": env.forbid_bat_contact,
+                                "observe_root_height": observe_root_height,
                                 "policy_kwargs": model.policy_kwargs},
             "evaluation_scope": "Fixed development seeds 9001-9008; not an untouched final test set",
             "seconds": time.monotonic() - start, "provenance": env.physics.provenance,
             "observation_contract": "simulator proprioception, privileged ball state, geometry-level loads",
+            "observation_version": "height_v3_118" if observe_root_height else "original_117",
             "source_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                               for p in (Path(__file__), Path(__file__).with_name("cricket_g1.py"))},
-            "baseline": evaluate(None, args.hand, args.task, forbid_bat_contact=env.forbid_bat_contact),
+            "baseline": evaluate(None, args.hand, args.task, forbid_bat_contact=env.forbid_bat_contact,
+                                 observe_root_height=observe_root_height),
             "trained": evaluate(model, args.hand, args.task, forbid_bat_contact=env.forbid_bat_contact)}
   (args.output / "evaluation.json").write_text(json.dumps(report, indent=2, allow_nan=False) + "\n")
   print(json.dumps({"baseline_falls": sum(r["fell"] for r in report["baseline"]),

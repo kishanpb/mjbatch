@@ -57,3 +57,18 @@ transitions without changing reward, physics, observation, optimizer or seeds.
 Retain all eight development rows. Only eight contact-free, non-falling
 three-second trials permit the separate ten-second physical audit. This is
 additional-budget development, not a new mechanism or an algorithm comparison.
+
+## Explicit Height Observation Comparison
+
+The second v2 continuation still has zero valid three-second trials. Compare
+two fresh-start PPO runs at 524,288 transitions each, seed 1, 32 environments,
+fixed action std 0.08, target KL 0.02, learning rate 0.0003. Both enforce the
+same contact-presence guard and use the same physics, reset and reward. One
+retains the original 117 inputs; the other appends pelvis height minus the
+0.78 m target as input 118. Both actor and critic receive the extra state.
+
+No old checkpoint is reinterpreted or padded to fit. Different input widths
+also change random network initialization, so one pair is development evidence,
+not a causal confidence claim or an algorithm ranking. Retain every evaluation
+row, including failures, on seeds 9001-9008. The predeclared ten-second audit
+remains conditional on all eight contact-free three-second successes.

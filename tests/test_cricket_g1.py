@@ -128,3 +128,16 @@ def test_contact_presence_does_not_require_positive_normal_load(monkeypatch):
   env.step(np.zeros((1, 29)))
   assert env.peak_load[0, floor] == 0
   assert env.active_samples[0, floor] == DECIMATION
+
+
+@pytest.mark.parametrize("hand", ["right", "left"])
+def test_applied_joint_torques_respect_stock_limits(hand):
+  env = G1Cricket(count=2, hand=hand)
+  torque = env.batch.bind("qfrc_actuator")
+  dofs = env.model.jnt_dofadr[env.joints]
+  limits = env.model.jnt_actfrcrange[env.joints]
+  rng = np.random.default_rng(41)
+  for _ in range(15):
+    env.step(rng.uniform(-1, 1, (2, 29)))
+    assert (torque[:, dofs] >= limits[:, 0] - 1e-9).all()
+    assert (torque[:, dofs] <= limits[:, 1] + 1e-9).all()
