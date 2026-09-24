@@ -268,6 +268,34 @@ The [result discussion](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/10e1
 includes complete aggregates, source/runtime pins and 49 focused passing tests.
 No new showcase or upstream submission follows from this failed pilot.
 
+### Overarm Search and Pitch Contact Audit
+
+The [frozen 32-attempt search](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d0cba961b0dfce81d0f1c4089bea9fdb9f235f17/g1_cricket_results/delivery_motion_v1/evaluation.json)
+tests both hands with bounded motor targets, not pose or velocity injection.
+Every attempt releases but fails the unchanged delivery gate: neither arm
+crosses shoulder height, forward release speed stays below .282 m/s, and pitch
+penetration reaches 48.405 mm. These are failed scripted trials, not learned
+policies or imitation teachers. The tested family is closed without extra budget.
+
+The [opt-in shared-task repair](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/52c894ac94978879ea11fcc92af2f645597f9355/docs/g1_cricket_pitch_contact_v2.md)
+adds one explicit ball/pitch contact pair and requires physics steps <=.0625 ms.
+Robot, holder, motor limits, other contacts, rewards and delivery gates remain
+unchanged. This is an engineering contact model, not measured material calibration.
+
+[All 24 isolated impacts and eight robot drops](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/52c894ac94978879ea11fcc92af2f645597f9355/g1_cricket_results/pitch_contact_v2/evaluation.json)
+are retained. Native Batch matches serial MuJoCo states/sensors exactly; maximum
+world-impulse/momentum residual is 5.29e-13 N s. Revised .0625/.03125 ms isolated
+impacts stay below 3.651 mm penetration and 3.30% peak-force difference. Coarser
+oblique comparisons fail the unchanged 5% force tolerance and remain reported.
+
+Both-hand robot drops complete four seconds in both executors and fine steps,
+with 1.287-1.307 mm maximum ball penetration, but **all eight fail the delivery
+gate**. The left drop hits the foot/linkage after bouncing; later contact forces
+and bounce counts remain timestep-sensitive. Full motion convergence, overarm
+control and learned bowling are not established. The repair has 38 focused
+UniLab tests and 47 passing native Batch tests; no new showcase replaces old media.
+Reproduce at the linked revisions, not against historical source-hash contracts.
+
 ### Bowling Task and Force Audit
 
 The [companion task contract](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/f2b58d9e8b3d8a67274239f6ed98e43ecab9457c/docs/g1_cricket_bowling_v1.md)

@@ -58,6 +58,12 @@ evaluation cases match across executors but retain the ball: zero qualified
 deliveries. Failed checkpoints and complete evidence are retained, not promoted
 as a new bowling showcase.
 
+The [overarm search and pitch-contact audit](examples/cricket_g1.md#overarm-search-and-pitch-contact-audit)
+retain 32 failed scripted motions plus a finer-step contact-model repair in the
+shared G1 task. Native Batch exactly reproduces the isolated impacts and full
+robot drops; these are numerical diagnostics, not newly learned bowling or
+physical force calibration.
+
 ---
 
 [![Build](https://img.shields.io/github/actions/workflow/status/kevinzakka/mjbatch/ci.yml?branch=main)](https://github.com/kevinzakka/mjbatch/actions)
