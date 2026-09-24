@@ -47,6 +47,23 @@ state/sensor replay. Right PPO contacts 24/24 balls but still has zero qualified
 forward shots; left PPO is untrained transfer and misses all 24. This is not
 new mjbatch training, material calibration or a replacement for the videos.
 
+### Bounded Scripted Reversal Diagnostic
+
+The companion [fixed search and complete evidence](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/6271395fc34da213a4fdb79b7e5f7f7e17249516/G1_CRICKET.md#bounded-reversal-diagnostic)
+retain all 161 motion prefixes, eight exact full baseline replays and four full
+candidate replays. This uses the shared UniLab task on native mjbatch, not the
+legacy 1.12 kg fixture. Only one right-handed seed/center toss was searched;
+the seven-arm-joint reversal is scripted, not a newly learned policy.
+
+The sole eligible candidate produces identical complete two-second outcomes in
+both executors: first-exit vx 1.028620 m/s at 0.25 ms physics dt and 1.066471 m/s
+at 0.125 ms. It passes the coarse shot gate, but fine-step bat-ball penetration
+is **6.620823 mm**, exceeding the unchanged 6 mm limit. Penetration also fails
+the timestep agreement check, so there are **zero validated witnesses**.
+Fine-step blade/fixture force peaks are 273.684 N / 99.198 N, with fixture torque
+28.911 Nm; these remain uncalibrated simulated loads. No training, policy
+promotion or new showcase video follows from this diagnostic.
+
 ## Reproduce
 
 ```sh

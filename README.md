@@ -40,6 +40,9 @@ An experimental [shared-task executor](examples/cricket_g1.md#shared-unilab-task
 now runs the UniLab G1 task through native Batch with physics-substep contact
 recording; all 192 frozen-policy evaluation rows match exactly. This verifies
 the integration, not a new learned-cricket result or successful forward shot.
+A [bounded scripted motion search](examples/cricket_g1.md#bounded-scripted-reversal-diagnostic)
+now produces a forward strike in both engines, but excessive overlap at the finer
+timestep prevents validation. Existing videos are unchanged; no G1 showcase yet.
 
 ---
 
