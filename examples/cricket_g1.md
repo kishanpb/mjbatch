@@ -125,7 +125,7 @@ Contact-consistent whole-body support remains unresolved. Both baseline pose
 sequences reproduce bit-for-bit and all 55 focused tests pass. No new learned
 bowling result or independent Menagerie training is claimed.
 
-### Preceding Dry-Swing Pilots
+### Contact-Aware Running Control
 
 The later [native contact-control comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d89b74eef8128ea8d7c91d14935af07934e38c59/docs/g1_cricket_contact_control.md)
 tests all 29 motors against local MuJoCo contact dynamics, first at 20 ms, then
@@ -138,6 +138,8 @@ All six episodes, 224 decoded video frames and the comparison sheet were
 reviewed; complete traces and the latest full videos remain, with redundant
 older MP4s pruned. All 65 focused tests pass. These are shared UniLab/native
 MuJoCo development results, not independently trained Menagerie or PPO results.
+
+### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
 now completes both reference-controlled swings. Fresh PPO with 0.05-rad residual
