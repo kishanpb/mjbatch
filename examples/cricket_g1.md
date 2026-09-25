@@ -178,6 +178,24 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Whole-Body Smoothing and Curve-State Comparison
+
+The [latest complete study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0812e8018ee29d255ae896557e6aff7b15dd262a/docs/g1_cricket_ground_momentum.md#rejected-whole-body-smoothing)
+rejects all-joint acceleration smoothing with extra limb-clearance penalties:
+both references gain 131 intersection frames and still fall before release.
+The sequential smoothing objective does not impose feasible contact transitions
+or regularize initial velocity. Original hardware/model limits remain unchanged.
+
+An eight-episode comparison separately tests the stored versus reconstructed
+reference state with both absolute and relative root damping. Initial joint
+velocities differ by up to 5.85/5.89 rad/s despite matching startup poses.
+Using the audited curve state still fails every episode and advances ankle-stop
+crossings to about 17 ms. All 87,360 physical substeps and complete outcomes
+remain; no successful run or completed bowling release is claimed. The latest
+81 focused tests pass, all 141 new comparison frames decode nonblank, and the
+review was inspected. This is shared UniLab evidence, not an independent
+Menagerie experiment. Feasible startup and landing dynamics remain unresolved.
+
 ### Full-Body Dynamics and Wrist Smoothing
 
 The [native inverse-dynamics study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/a6c787f549ba88d66f3829a89f962f5486f89b46/docs/g1_cricket_ground_momentum.md#native-dynamics-and-motor-authority)
