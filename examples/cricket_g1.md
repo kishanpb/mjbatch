@@ -178,6 +178,30 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Exact-Model CPU Grouping
+
+`HeldControlRollout(..., group_identical_models=True)` combines only models
+whose complete compiled MJB bytes match. Identity grouping remains the default;
+models must remain fixed. Distinct masses, timesteps, contact and actuator
+parameters stay in separate groups, and row ordering/reset/release semantics
+are unchanged. The companion flag is `env.mujoco_group_identical_models`.
+
+The [complete G1 replay and benchmark](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/14be04674e2675b068fd0f58501832c90bc22884/docs/g1_cricket_cpu_grouping.md)
+covers all eight retained first-step cases and 1,167,360 unique physical
+substeps. Two-copy full replay matches official native states/sensors and
+frozen endpoints exactly. Eight-copy timing uses fixed evenly spaced intervals,
+two warm-ups and six alternating-order samples per mode. Local median recorder
+speedups are 1.49-2.08x; raw samples and the memory-bounded verification protocol
+are retained. All 115,305 sensor channels remain present at every substep.
+This is not an end-to-end training speedup or new policy result.
+
+Sixty native Batch/recorder tests and 207 focused UniLab tests pass with warnings
+as errors, including heterogeneous groups, partial resets, releases, warnings
+and both-handed G1 native replay. Original physical gates remain unchanged.
+The requested videos still require the humanoid to perform the earlier
+one-bounce batting swing and running legal delivery; soft tosses and single
+steps are not substitutes, and independent Menagerie learning is unfinished.
+
 ### World-Frame Foot-Reward PPO
 
 The [complete reward comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/2dc8259c40c36082390ac35d71d16feec6c889ad/docs/g1_cricket_first_step_foot_reward.md)
@@ -198,11 +222,8 @@ both review sheets were inspected and 130 focused tests pass. This remains
 shared UniLab G1 learning using native mjbatch, not independently trained
 Menagerie policies or running-bowling highlights.
 
-The next runtime investigation concerns identity-based grouping: this owner
-has eight distinct model objects but byte-identical compiled MJB models,
-producing eight singleton recorder groups. Opt-in grouping of immutable exact
-copies needs heterogeneous-model, reset/release and full native parity tests
-plus uncontended repeated benchmarks before adoption. No speedup is claimed.
+The subsequent exact-model grouping study above addresses the owner's eight
+distinct but byte-identical model objects without changing these failed results.
 
 ### Uniform-Start First-Step PPO
 
@@ -421,7 +442,8 @@ model variants, state resets and external wrenches are covered; reset-time model
 mutation is rejected by the UniLab adapter. Every physics substep retains the
 solved contact sensors without an extra forward call. Any MuJoCo warning fails
 the interval, so a solver auto-reset cannot masquerade as healthy execution.
-Different model groups are stepped sequentially; no speedup is claimed.
+Different model groups are stepped sequentially. Opt-in exact-model grouping
+and its narrowly scoped G1 recorder timings are documented above.
 
 The recorder's tests compare every native-dtype state and sensor through actual
 blade contact against official MuJoCo Rollout, including heterogeneous fixed

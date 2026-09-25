@@ -61,6 +61,9 @@ improves left-hand landing but regresses the right hand; all eight from-rest
 evaluations still fail the full step gate.
 The [world-frame foot-reward trial](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/2dc8259c40c36082390ac35d71d16feec6c889ad/docs/g1_cricket_first_step_foot_reward.md)
 regresses both hands and is not promoted; all eight outcomes remain available.
+An [opt-in recorder optimization](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/14be04674e2675b068fd0f58501832c90bc22884/docs/g1_cricket_cpu_grouping.md)
+preserves exact G1 replay and measures 1.49-2.08x local recorder speedup,
+not an end-to-end training or policy-quality gain.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.
