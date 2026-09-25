@@ -316,6 +316,18 @@ The earlier two-hand video is preserved; no redundant video was generated.
 
 ### Closed-Loop Whole-Body PPO
 
+The later [lane-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/924d9d838d8ce2bd62676f92421d073559c09f4c/docs/g1_cricket_approach_lane.md#complete-results)
+freezes both final actors and changes only the bounded lateral-speed command.
+All four hand/timestep trials finish upright, travelling 2.821-2.826 m.
+Right drift falls from 16.6-17.1 cm to 9.8-10.2 cm; left falls from
+26.1-26.7 cm to 15.4-15.6 cm, still outside the unchanged 15 cm limit.
+Every case fails peak foot slip, and right stance slip regresses across the
+3 cm limit at the finer timestep. The complete results retain that failed
+resolution comparison and both full half-speed videos. All 768,000 native
+substeps replay exactly, compiled physics is identical to the parent, and
+30 focused tests pass. No retraining, changed physical gates, independent
+Menagerie learning or running-delivery claim; the earlier highlights remain.
+
 The [complete feedback study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7d00b0dcea4850cbab3ea4d1e3e271d87684ded6/docs/g1_cricket_approach_feedback.md#complete-results)
 retains the pinned external Unitree locomotion prior's live five-frame feedback
 and adds a zero-initialized, bounded 29-joint PPO residual. Both independent

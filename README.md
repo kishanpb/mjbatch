@@ -66,6 +66,10 @@ residual actors complete eight-second approaches and stop upright at two
 physics resolutions, travelling 2.78-2.81 m. Full videos and all eight outcomes
 are retained; slip/drift checks still fail. These are shared UniLab G1 walking
 diagnostics on native Batch, not independent Menagerie training or bowling.
+The [frozen-policy lane trial](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/924d9d838d8ce2bd62676f92421d073559c09f4c/docs/g1_cricket_approach_lane.md#complete-results)
+reduces right/left drift from about 17/27 cm to 10/15 cm, but left still fails
+the lane limit and touchdown slip remains unresolved. Full outcomes and videos
+include the finer-grid right stance-slip regression; no bowling promotion.
 The earlier [measured-command PPO follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)
 trains both 29-joint actors for 49,152 transitions each on native Batch.
 All eight outcomes are retained: PPO loses balance at 2.76 s right and 2.18 s
