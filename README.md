@@ -33,7 +33,14 @@ The shared UniLab task now trains separate right/left PPO actors on native
 CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
 direction; it is not an independent native learner or a new Menagerie-model
-result. The [latest two-hand G1 video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/g1_cricket_results/bimanual_bounced_delivery_v1/two_hand_ppo_bounced_delivery.mp4)
+result. The [new ball/contact-observed PPO video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ecd65db68b1fe16f4921fe97a5d8b46156d46f5/g1_cricket_results/bimanual_batting_learning_v1/two_hand_ppo_learned_batting.mp4)
+shows fresh right/left actors making two-handed swings, hitting a one-bounce
+practice feed and recovering upright at 0.5x. The
+[complete learning pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ecd65db68b1fe16f4921fe97a5d8b46156d46f5/docs/g1_cricket_batting_learning.md#complete-results)
+retains both final checkpoints and all eight evaluations: contact/stability
+checks pass, but both actors fail the 8 cm bat-path limit. Reference-only
+control also hits; this is not robust learned interception or an independent
+Menagerie result. The [earlier frozen-actor video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/g1_cricket_results/bimanual_bounced_delivery_v1/two_hand_ppo_bounced_delivery.mp4)
 shows a one-bounce incoming delivery, two-handed hit and upright recovery in
 both stances at 0.5x. Frozen dry-swing actors have no ball observation; this is
 not learned interception. The [complete eight-episode study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/docs/g1_cricket_bounced_delivery.md)

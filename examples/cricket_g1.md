@@ -240,6 +240,34 @@ UniLab tests pass. This remains the shared UniLab task on native mjbatch, not
 new training, independent Menagerie learning or hardware validation. The video
 is unchanged. Bat-state/ball-aware learning and running bowling remain open.
 
+### Ball/Contact-Observed Batting PPO
+
+The [new learning task and complete results](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ecd65db68b1fe16f4921fe97a5d8b46156d46f5/docs/g1_cricket_batting_learning.md)
+add ball state, simulated contact/tactile snapshots and bat-reference error to
+both actor and critic, plus direct bat tracking and loaded-contact exit shaping.
+These are privileged simulator observations and uncalibrated loads, not camera
+estimates or hardware taxels. Each hand trains a fresh seed-1 PPO actor for
+49,152 transitions on eight native CPU mjbatch environments; no inherited dry-
+swing weights or best-checkpoint selection. Mechanical grips, zero lead,
+robot/motor limits, fixed practice feed and physical gates remain unchanged.
+
+All eight reference/PPO x right/left x 31.25/15.625-microsecond episodes complete
+three seconds, hit after one bounce and recover upright. Contact, grip,
+stability, joint/motor limits and all four resolution comparisons pass.
+Every episode still fails the original 8 cm bat-path gate. Finest PPO errors
+are 14.79 cm right and 13.58 cm left; reference errors are 13.69 and 13.65 cm.
+The right actor regresses while the left barely improves. Reference control
+also hits, so this does not establish learned interception on unseen deliveries.
+
+The [full right-then-left slow-motion video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ecd65db68b1fe16f4921fe97a5d8b46156d46f5/g1_cricket_results/bimanual_batting_learning_v1/two_hand_ppo_learned_batting.mp4)
+is a development diagnostic, not a qualified advertising reel. Both final
+actors, all finite training scalars, eight outcomes and 1,152,000 audited
+substeps remain; native endpoint/sensor replay is exact. Every reference
+physical trace matches the previous zero-lead study. All 154 focused UniLab
+tests pass; all 1,050 source/combined video frames decode nonblank and the
+fixed-frame sheet was inspected. This is the shared UniLab G1 task using native
+mjbatch, not independent Menagerie training. Running bowling remains unfinished.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
