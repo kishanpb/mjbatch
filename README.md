@@ -59,6 +59,8 @@ right PPO delays instability, left PPO regresses, and neither passes the step ga
 The [uniform-start comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/1d580e72a5e6ac02d98798f0c0011cbcb134adcb/docs/g1_cricket_first_step_uniform.md)
 improves left-hand landing but regresses the right hand; all eight from-rest
 evaluations still fail the full step gate.
+The [world-frame foot-reward trial](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/2dc8259c40c36082390ac35d71d16feec6c889ad/docs/g1_cricket_first_step_foot_reward.md)
+regresses both hands and is not promoted; all eight outcomes remain available.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.

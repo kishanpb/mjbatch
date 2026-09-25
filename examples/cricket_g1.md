@@ -178,6 +178,32 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### World-Frame Foot-Reward PPO
+
+The [complete reward comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/2dc8259c40c36082390ac35d71d16feec6c889ad/docs/g1_cricket_first_step_foot_reward.md)
+adds one world-frame worst-foot tracking term while preserving uniform resets,
+reference, observations, motor limits and budget. Both hands complete 256 updates /
+49,152 transitions with seed 1; all eight from-rest evaluations fail.
+
+Right PPO regresses from 6.52 to 5.52 s at both timesteps and fails quiet hold
+again. Its 3.7137 s first recontact precedes the planned 4.5 s forward step,
+so it is not a successful landing of that step. Left regresses from 6.84 to
+5.42 s without landing, while retaining quiet hold. No joint/motor violation,
+unintended loaded contact, ball penetration or release occurs. Not promoted.
+
+Both final actors, complete scalar logs, all 1,167,360 finite substeps and four
+full diagnostic videos remain. Exact native replay and both 44-input manifests
+verify; all baseline arrays match the parent. All 1,220 frames decode nonblank,
+both review sheets were inspected and 130 focused tests pass. This remains
+shared UniLab G1 learning using native mjbatch, not independently trained
+Menagerie policies or running-bowling highlights.
+
+The next runtime investigation concerns identity-based grouping: this owner
+has eight distinct model objects but byte-identical compiled MJB models,
+producing eight singleton recorder groups. Opt-in grouping of immutable exact
+copies needs heterogeneous-model, reset/release and full native parity tests
+plus uncontended repeated benchmarks before adoption. No speedup is claimed.
+
 ### Uniform-Start First-Step PPO
 
 The [complete reset-sampling comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/1d580e72a5e6ac02d98798f0c0011cbcb134adcb/docs/g1_cricket_first_step_uniform.md)
@@ -198,8 +224,8 @@ frames decode nonblank, both review sheets were inspected, and 126 focused
 tests pass. Final weights and full scalar logs remain, with redundant initial
 weights/events pruned. This is shared UniLab G1 learning using native mjbatch,
 not independent Menagerie-model training or qualified running bowling. The
-next proposed reward-axis experiment targets world-frame foot-link accuracy
-without changing the physical gate; it is not implemented here.
+subsequent world-frame foot-reward comparison above preserves the physical
+gate and regresses both hands.
 
 ### Whole-Body First-Step PPO
 
