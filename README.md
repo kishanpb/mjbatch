@@ -60,6 +60,11 @@ reduces bat-path error but still fails the unchanged accuracy gate across
 both hands, retaining all 24 episodes and contact checks. The earlier
 [soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
 is preserved. Neither input is regulation-speed bowling or a final showcase.
+The [measured approach study and both-hand videos](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/874af274779349c2f5007c8ee9a0546f9b0996a8/docs/g1_cricket_approach_teacher.md#complete-results)
+retain eight complete external-prior trials: all travel 2.82-2.85 m and stop
+upright, but all fail foot-slip checks and some drift sideways. These are
+shared UniLab G1 carry diagnostics on native mjbatch, not locally learned
+running deliveries or independently trained Menagerie policies.
 **Running bowling is unfinished.** Both-hand references preserve the approach,
 gather, delivery and recovery, but physical controllers and the PPO pilot fall
 before release. The latest [planted-foot reference and joint-tracking comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)

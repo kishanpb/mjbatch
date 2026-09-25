@@ -314,6 +314,33 @@ This remains the shared UniLab G1 task on native mjbatch, not independently
 trained Menagerie policies, held-out interception or completed running bowling.
 The earlier two-hand video is preserved; no redundant video was generated.
 
+### Physically Achieved Approach Teacher
+
+The [complete eight-case study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/874af274779349c2f5007c8ee9a0546f9b0996a8/docs/g1_cricket_approach_teacher.md#complete-results)
+records the externally trained Unitree locomotion prior through a fixed
+rest/acceleration/approach/braking/settling profile. Both hands, seeds 5301/5302
+and 62.5/31.25-microsecond physics retain every outcome. All finish eight
+seconds, travel 2.82-2.85 m, register six landings per foot and stop upright.
+All joint/motor, holder, penetration, unintended-contact and corridor checks
+pass, but all eight fail loaded-foot slip; some also fail drift/stance-slip.
+Three of four resolution comparisons pass. No teacher or policy is promoted.
+
+The [right](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/874af274779349c2f5007c8ee9a0546f9b0996a8/g1_cricket_results/approach_teacher_v1/right_approach.mp4)
+and [left](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/874af274779349c2f5007c8ee9a0546f9b0996a8/g1_cricket_results/approach_teacher_v1/left_approach.mp4)
+diagnostics show predeclared seed 5301 finer-grid states, including failures,
+at half speed. The mechanically held ball is never released. This is shared
+UniLab G1 on native mjbatch, not an independently trained Menagerie model or
+a running-bowling highlight. External policy weights are not redistributed.
+
+All 1,536,000 native substeps pass exact state/sensor replay, and 157 focused
+UniLab tests pass. Every case retains measured robot/ball poses and native
+velocities, all 400 executed motor commands, holder telemetry and substep
+contact-point slip. All 3,208 exported reference frames match offline native
+FK/velocities exactly. This supports future bounded whole-body learning;
+copying poses into a different controller does not reproduce the commands.
+Gather, legal overarm release and recovery remain required, and the failed
+slip checks cannot be cleared by reference packaging or video rendering.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
