@@ -84,7 +84,13 @@ retain eight complete external-prior trials: all travel 2.82-2.85 m and stop
 upright, but all fail foot-slip checks and some drift sideways. These are
 shared UniLab G1 carry diagnostics on native mjbatch, not locally learned
 running deliveries or independently trained Menagerie policies.
-**Running bowling is unfinished.** Both-hand references preserve the approach,
+**Running bowling is unfinished.** The [continuous moving-delivery prototype and full videos](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e01b3eee57b13e3f62a21f66d2badf910ee7ce49/docs/g1_cricket_moving_delivery.md#arm-servo-follow-up)
+reach overarm releases in both hands with live body feedback, and right-hand
+recovery stays upright at both timesteps. Backward ball velocity, left-foot
+wicket contact and right joint-limit violations still block qualification.
+All eight outcomes are retained: shared UniLab G1 on native CPU Batch,
+not an independently trained Menagerie policy or a finished bowling highlight.
+Earlier both-hand references preserve the approach,
 gather, delivery and recovery, but physical controllers and the PPO pilot fall
 before release. The latest [planted-foot reference and joint-tracking comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)
 removes audited reference self-intersections and passes sampled support bounds,
