@@ -178,6 +178,25 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Native Two-Foot Startup
+
+The [complete held-ball startup test](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/72004f4e31af68458aec131ea2fcfe070b073103/docs/g1_cricket_running_startup.md)
+now passes all four declared native episodes: both hands at 125 and 62.5
+microseconds. Each starts from rest, settles for 2 s, shifts COM 80 mm toward
+the front foot over 1.5 s, then holds for 2 s. Static support feedforward
+includes the ball's gravitational load through the mechanical wrist holder;
+native contacts provide the actual support, without live root/pose writes.
+
+Both finer trials transfer about 82% of weight to the front foot, with no
+joint-stop violations, unintended loaded contacts or ball penetration. Peak
+motor/cap fraction is below 0.235; peak foot displacement is below 4.389 mm.
+All 264,000 substeps and complete outcomes remain, 95 focused tests pass,
+and all 552 video frames decode nonblank. Side and front review sheets were
+inspected. The linked videos are standing/load-transfer diagnostics, not
+running bowling, learned control, independent Menagerie training or a new
+advertising reel. Actual foot lift, acceleration into strides and a continuous
+join to the complete delivery remain unfinished. Earlier highlights remain.
+
 ### Planted-Foot Reference and Joint Tracking
 
 The [complete moving-start study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)

@@ -45,7 +45,11 @@ gather, delivery and recovery, but physical controllers and the PPO pilot fall
 before release. The latest [planted-foot reference and joint-tracking comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)
 removes audited reference self-intersections and passes sampled support bounds,
 but every physical trial still falls before release. Stronger tracking gains
-worsen joint-limit violations; native startup and landing dynamics remain unresolved.
+worsen joint-limit violations; transition into running and landing dynamics remain unresolved.
+The new [two-foot startup test](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/72004f4e31af68458aec131ea2fcfe070b073103/docs/g1_cricket_running_startup.md)
+completes settling and an 80 mm weight shift in both hands at two physics
+timesteps, without joint-stop or unintended-contact violations. It verifies
+only the from-rest startup stage, not foot lift, strides or a full delivery.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.
