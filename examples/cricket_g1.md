@@ -178,6 +178,24 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Native First-Step Comparison
+
+The [complete first-step study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/274c562adc699e920563b329f26eabaa770b50d5/docs/g1_cricket_running_startup.md#first-step-results)
+extends the startup below with single-foot load transfer, a 160 mm forward
+step, recentering and settling. All 12 declared trials fail: both hands, two
+physics timesteps and PD/support-only balance/contact-acceleration controllers.
+The eight PD trials achieve actual foot lift and loaded landing, without
+joint-stop violations or unintended loaded contacts, but lose balance and
+fall at 6.72-6.78 s. Contact acceleration fails earlier and crosses joint limits.
+
+All 865,760 substeps, physical trajectories and six full diagnostic videos
+remain. All 1,806 frames decode nonblank, the all-condition sheet was inspected,
+37 source hashes verify and 107 focused tests pass with warnings as errors.
+The prior two-foot references and native traces remain bit-identical. These
+are shared UniLab G1 diagnostics, not independent Menagerie training, learned
+running, completed bowling or an advertising reel. Lift/landing stabilization
+must precede repeated strides and a continuous join to the full delivery.
+
 ### Native Two-Foot Startup
 
 The [complete held-ball startup test](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/72004f4e31af68458aec131ea2fcfe070b073103/docs/g1_cricket_running_startup.md)

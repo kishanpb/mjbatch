@@ -50,6 +50,9 @@ The new [two-foot startup test](https://github.com/kishanpb/Cricket-Gym-Unilab/b
 completes settling and an 80 mm weight shift in both hands at two physics
 timesteps, without joint-stop or unintended-contact violations. It verifies
 only the from-rest startup stage, not foot lift, strides or a full delivery.
+The subsequent [first-step comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/274c562adc699e920563b329f26eabaa770b50d5/docs/g1_cricket_running_startup.md#first-step-results)
+achieves actual foot lift and landing with both PD variants, but all 12 trials
+fall before settling. Repeated strides and the complete delivery remain unfinished.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.
