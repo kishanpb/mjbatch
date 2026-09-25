@@ -38,7 +38,9 @@ shows a one-bounce incoming delivery, two-handed hit and upright recovery in
 both stances at 0.5x. Frozen dry-swing actors have no ball observation; this is
 not learned interception. The [complete eight-episode study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/docs/g1_cricket_bounced_delivery.md)
 retains both reference and PPO outcomes: all finish and hit, but bat-path
-accuracy and pitch-force resolution checks still fail. The earlier
+accuracy still fails. A [third physics resolution](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/47583d1979c071c8071e9755587b9290780083cb/docs/g1_cricket_bounced_delivery.md#refinement-results)
+passes the finer contact comparisons while retaining the original coarse-grid
+failures; this does not qualify the final showcase. The earlier
 [soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
 is preserved. Neither input is regulation-speed bowling or a final showcase.
 **Running bowling is unfinished.** Both-hand references preserve the approach,

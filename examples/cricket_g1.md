@@ -194,7 +194,7 @@ bat-path bound. Fine PPO exit vx is 2.2022 / 2.2971 m/s for right / left, with
 blade penetration 3.724 / 3.855 mm. Reference controls also hit; this is not
 evidence of learned interception or an independently learned Menagerie policy.
 
-All four resolution pairs fail the pitch-force check: 1453.72 versus 1378.99 N,
+All four original coarse/fine pairs fail the pitch-force check: 1453.72 versus 1378.99 N,
 a 5.4195% difference against 5%. Right reference also fails blade-penetration
 convergence. These failures remain visible alongside the ball-only launch
 design's timestep sensitivity, not removed by a successful-looking clip.
@@ -204,6 +204,18 @@ All 103 focused tests pass. The complete 350-frame two-hand clip and both full
 reference-control videos remain, with a fixed-time review sheet; all original
 and combined frames decoded nonblank. This is batting development progress,
 not a qualified advertising reel or completed running-bowling result.
+
+The [third-resolution check](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/47583d1979c071c8071e9755587b9290780083cb/docs/g1_cricket_bounced_delivery.md#refinement-results)
+adds both hands and controllers at 15.625 microseconds without changing the
+launch, contact model, robot, actors or gates. All four new episodes finish and
+hit. All four 31.25-to-15.625-microsecond pairs pass force, penetration and exit
+velocity comparisons; pitch peak force differs by 0.6404%. All twelve rows
+still fail bat-path tracking, and the four original failed pairs remain intact.
+The full pool covers 1,344,000 audited substeps with exact native endpoint/sensor
+replay and verified inputs; 104 focused tests pass. This is nominal-feed
+finite-grid consistency, not hardware calibration or a new learned capability.
+The video is unchanged; future controller studies must repeat the contact
+checks at the finer pair rather than inherit this result.
 
 ### Compact Substep Recording
 
