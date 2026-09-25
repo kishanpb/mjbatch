@@ -64,6 +64,9 @@ regresses both hands and is not promoted; all eight outcomes remain available.
 An [opt-in recorder optimization](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/14be04674e2675b068fd0f58501832c90bc22884/docs/g1_cricket_cpu_grouping.md)
 preserves exact G1 replay and measures 1.49-2.08x local recorder speedup,
 not an end-to-end training or policy-quality gain.
+Its [compact-recording extension](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ca859631b52fc9fa60dcbd9a2b2ae425cdf398b/docs/g1_cricket_cpu_grouping.md#compact-sensor-recording)
+reduces retained sensor arrays and measures a further 1.73-4.09x local recorder
+speedup without changing physical sensors or policy outcomes.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.

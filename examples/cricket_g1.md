@@ -178,6 +178,32 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Compact Substep Recording
+
+`HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
+selected sensor trajectory columns, preserving order and duplicates. It accepts
+an empty integer array; `None` retains the original full-trajectory default.
+All physical sensors still execute, every FULLPHYSICS state remains recorded,
+and `final_sensors` holds all channels at the last substep. That cache is cleared
+before each call, on failure and on close. The UniLab owner exposes
+`env.mujoco_compact_substeps`, default false and requiring the mjbatch engine.
+
+The [complete compact benchmark](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/3ca859631b52fc9fa60dcbd9a2b2ae425cdf398b/docs/g1_cricket_cpu_grouping.md#compact-sensor-recording)
+checks all eight frozen G1 cases and 1,167,360 unique physical substeps, with
+exact official state, requested substep sensor, full final sensor and saved
+endpoint parity. The registered holder/contact observer requests 75 of 115,305
+channels. Both timed modes use model grouping; six alternating-order samples
+after two warm-ups measure 1.73-4.09x local recorder speedups, not end-to-end
+training gains. Every timing sample and all source hashes are retained.
+
+For eight rows and 320 substeps, the sensor trajectory drops from 2,361,446,400
+to 1,536,000 bytes, plus a 7,379,520-byte complete final cache in either mode.
+This is an allocation count, not measured total RSS. No physical sensor or
+audit gate is removed. All 89 native Batch/recorder tests and 235 focused
+UniLab tests pass with warnings as errors, including invalid/empty/duplicate
+selections, failure-cache clearing, release/reset parity and G1 behavior.
+This runtime change creates no new policy result or video qualification.
+
 ### Exact-Model CPU Grouping
 
 `HeldControlRollout(..., group_identical_models=True)` combines only models
@@ -443,7 +469,9 @@ mutation is rejected by the UniLab adapter. Every physics substep retains the
 solved contact sensors without an extra forward call. Any MuJoCo warning fails
 the interval, so a solver auto-reset cannot masquerade as healthy execution.
 Different model groups are stepped sequentially. Opt-in exact-model grouping
-and its narrowly scoped G1 recorder timings are documented above.
+and compact trajectory storage, with narrowly scoped G1 recorder timings,
+are documented above. Compact recording stores only requested channels at
+intermediate substeps while retaining every final sensor value.
 
 The recorder's tests compare every native-dtype state and sensor through actual
 blade contact against official MuJoCo Rollout, including heterogeneous fixed
