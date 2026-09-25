@@ -54,6 +54,9 @@ both physical PD trials still fall at 0.68 s before release. The stance ankle
 crosses its original joint stop before takeoff; ground support remains unresolved.
 The [native stance-force audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/30d694dcc974befac9cb46eaff4ef1632f4d6a45/docs/g1_cricket_running_stance.md)
 rules out disabling ankle balance: both hands fail earlier and violate limits more.
+The [whole-body contact-control experiments](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d89b74eef8128ea8d7c91d14935af07934e38c59/docs/g1_cricket_contact_control.md)
+also remain unqualified: faster contact updates and foot tracking do not yet
+produce a complete, collision-free running delivery.
 No new PPO was trained. Complete failures
 and controls remain available. This is shared UniLab G1 work, not a separately
 trained Menagerie-model result or a bowling showcase.
