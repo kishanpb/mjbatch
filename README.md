@@ -42,10 +42,10 @@ Bat-path accuracy and one reference-control pitch-force timestep check remain
 failed, and running bowling remains unfinished.
 **Running bowling is unfinished.** Both-hand references preserve the approach,
 gather, delivery and recovery, but physical controllers and the PPO pilot fall
-before release. The latest [full-body smoothing and controller-state comparisons](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0812e8018ee29d255ae896557e6aff7b15dd262a/docs/g1_cricket_ground_momentum.md#rejected-whole-body-smoothing)
-remain rejected: stronger smoothing worsens self-intersections, and aligning
-the controller with the audited curve still falls before release. Feasible
-startup and landing dynamics remain unresolved.
+before release. The latest [planted-foot reference and joint-tracking comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)
+removes audited reference self-intersections and passes sampled support bounds,
+but every physical trial still falls before release. Stronger tracking gains
+worsen joint-limit violations; native startup and landing dynamics remain unresolved.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.

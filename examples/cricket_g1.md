@@ -178,6 +178,25 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Planted-Foot Reference and Joint Tracking
+
+The [complete moving-start study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)
+replaces constant forward speed with a periodic planted-foot pendulum and
+constant centroidal momentum. Both full references have no audited intersections
+deeper than 1 mm, at most 1.763 mm foot error and zero outer-support-box
+violations in all 91 supported samples per hand at two derivative resolutions.
+This is a moving start, not a from-rest repair or a full feasibility proof:
+physical baseline falls at 0.62/0.64 s without release.
+
+A complete 12-episode gain comparison keeps original motor caps and command
+bounds. Gains 1, 2 and 4, both root-damping modes and both hands all fail before
+release; stronger gains advance waist-stop crossings and worsen joint excursions.
+All 125,440 substeps, full poses, outcomes and diagnostic videos remain, with
+91 focused tests passing and all 537 generated video frames decoded nonblank.
+The shared UniLab evidence is not independent Menagerie learning. Native
+two-foot startup, load transfer, full delivery qualification and both requested
+learned showcases remain unfinished; existing highlights are unchanged.
+
 ### Whole-Body Smoothing and Curve-State Comparison
 
 The [latest complete study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0812e8018ee29d255ae896557e6aff7b15dd262a/docs/g1_cricket_ground_momentum.md#rejected-whole-body-smoothing)
