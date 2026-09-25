@@ -40,7 +40,10 @@ not learned interception. The [complete eight-episode study](https://github.com/
 retains both reference and PPO outcomes: all finish and hit, but bat-path
 accuracy still fails. A [third physics resolution](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/47583d1979c071c8071e9755587b9290780083cb/docs/g1_cricket_bounced_delivery.md#refinement-results)
 passes the finer contact comparisons while retaining the original coarse-grid
-failures; this does not qualify the final showcase. The earlier
+failures; this does not qualify the final showcase. The
+[motor-timing comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f46074160e9848a804c706d7dd79b8b8faf0baf/docs/g1_cricket_motor_lead.md#complete-results)
+reduces bat-path error but still fails the unchanged accuracy gate across
+both hands, retaining all 24 episodes and contact checks. The earlier
 [soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
 is preserved. Neither input is regulation-speed bowling or a final showcase.
 **Running bowling is unfinished.** Both-hand references preserve the approach,

@@ -217,6 +217,29 @@ finite-grid consistency, not hardware calibration or a new learned capability.
 The video is unchanged; future controller studies must repeat the contact
 checks at the finer pair rather than inherit this result.
 
+### Motor-Reference Timing
+
+The [complete timing comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/0f46074160e9848a804c706d7dd79b8b8faf0baf/docs/g1_cricket_motor_lead.md)
+changes only motor-reference lead: 0, 20 and 60 ms. Position, velocity and
+gravity feedforward advance together; measured targets, observations, feedback,
+original limits, ball feed and frozen actors stay unchanged. All 24 episodes
+(both hands, reference/PPO, three leads, two physics resolutions) complete
+three seconds and hit after one bounce. All twelve contact-resolution
+comparisons pass; every episode still fails the unchanged 8 cm bat-path gate.
+
+At 15.625 microseconds, PPO maximum bat-path error changes from 12.84/13.71 cm
+(right/left, zero lead) to 10.17/10.78 cm (20 ms) and 9.78/9.42 cm (60 ms).
+The larger lead improves follow-through but shifts the right-hand peak into
+downswing and lowers the existing tracking reward. Neither candidate qualifies;
+the default stays zero, and no further constant-lead sweep is implied.
+
+All 3,456,000 physical substeps retain exact native endpoint/sensor replay;
+74 input hashes plus recorder hash verify per evaluation, and the eight fresh
+zero-lead episode rows exactly reproduce the retained baseline. All 119 focused
+UniLab tests pass. This remains the shared UniLab task on native mjbatch, not
+new training, independent Menagerie learning or hardware validation. The video
+is unchanged. Bat-state/ball-aware learning and running bowling remain open.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
