@@ -24,6 +24,9 @@ class HeldControlRollout:
   which groups byte-identical compiled models. Groups step sequentially.
   EQ_ACTIVE is explicit held
   input: callers must supply it each interval to preserve released constraints.
+  Optional sensor_indices select trajectory columns, not physical sensors.
+  final_sensors contains every channel after a successful interval, or None
+  before the first call and after a failed call or close.
   """
 
   def __init__(
@@ -38,6 +41,7 @@ class HeldControlRollout:
     self.models = tuple(models)
     self.nstate = mujoco.mj_stateSize(models[0], FULL)
     self.nsensor = models[0].nsensordata
+    self.final_sensors = None
     ncontrol = mujoco.mj_stateSize(models[0], CONTROLS)
     if any(
       mujoco.mj_stateSize(m, FULL) != self.nstate
@@ -72,7 +76,10 @@ class HeldControlRollout:
         )
       )
 
-  def rollout(self, model, data, initial_state, control, *, control_spec, nstep, chunk_size=None):
+  def rollout(
+    self, model, data, initial_state, control, *, control_spec, nstep, chunk_size=None, sensor_indices=None
+  ):
+    self.final_sensors = None
     if not self.groups:
       raise RuntimeError("recorder is closed")
     if len(model) != len(self.models) or any(a is not b for a, b in zip(model, self.models, strict=True)):
@@ -85,8 +92,19 @@ class HeldControlRollout:
       raise ValueError("invalid held-control interval shape")
     if not np.array_equal(control, np.broadcast_to(control[:, :1], expected)):
       raise ValueError("control must be held throughout the interval")
+    if sensor_indices is not None:
+      sensor_indices = np.asarray(sensor_indices)
+      if (
+        sensor_indices.ndim != 1
+        or sensor_indices.dtype.kind not in "iu"
+        or np.any(sensor_indices < 0)
+        or np.any(sensor_indices >= self.nsensor)
+      ):
+        raise ValueError("sensor_indices must be a one-dimensional array of valid integer columns")
+    width = self.nsensor if sensor_indices is None else len(sensor_indices)
     states = np.empty((len(model), nstep, self.nstate), dtype=mujoco.MJTNUM_DTYPE)
-    sensors = np.empty((len(model), nstep, self.nsensor), dtype=mujoco.MJTNUM_DTYPE)
+    sensors = np.empty((len(model), nstep, width), dtype=mujoco.MJTNUM_DTYPE)
+    final_sensors = np.empty((len(model), self.nsensor), dtype=mujoco.MJTNUM_DTYPE)
     for indices, source, batch, integration, sensed, warning, scratch in self.groups:
       warning[:] = 0
       for local, row in enumerate(indices):
@@ -102,11 +120,14 @@ class HeldControlRollout:
           raise RuntimeError(
             f"MuJoCo warning {mujoco.mjtWarning(int(code)).name} in row {indices[local]} at substep {step}"
           )
-        sensors[indices, step] = sensed
+        sensors[indices, step] = sensed if sensor_indices is None else sensed[:, sensor_indices]
         for local, row in enumerate(indices):
           mujoco.mj_setState(source, scratch, integration[local], INTEGRATION)
           mujoco.mj_getState(source, scratch, states[row, step], FULL)
+      final_sensors[indices] = sensed
+    self.final_sensors = final_sensors
     return states, sensors
 
   def close(self):
     self.groups.clear()
+    self.final_sensors = None

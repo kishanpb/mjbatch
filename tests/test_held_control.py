@@ -32,7 +32,10 @@ XML = """
 @pytest.mark.parametrize("nstep", [1, 80, 160])
 @pytest.mark.parametrize("group_identical_models", [False, True])
 @pytest.mark.parametrize("num_threads", [1, 8])
-def test_all_substeps_with_variants_wrench_and_partial_reset(nstep, group_identical_models, num_threads):
+@pytest.mark.parametrize("selection", ["all", "subset", "empty"])
+def test_all_substeps_with_variants_wrench_and_partial_reset(
+  nstep, group_identical_models, num_threads, selection
+):
   first = mujoco.MjModel.from_xml_string(XML)
   second = mujoco.MjModel.from_xml_string(XML)
   second.body_mass[2] *= 1.7
@@ -53,6 +56,11 @@ def test_all_substeps_with_variants_wrench_and_partial_reset(nstep, group_identi
   scratch.qacc_warmstart[:] = 123
   scratch.ctrl[:] = 91
   scratch.xfrc_applied[:] = 37
+  columns = {
+    "all": None,
+    "subset": np.array([first.nsensordata - 1, 0, 2, 0]),
+    "empty": np.empty(0, dtype=int),
+  }[selection]
   contact_seen = False
   try:
     for tick in range(4):
@@ -66,16 +74,40 @@ def test_all_substeps_with_variants_wrench_and_partial_reset(nstep, group_identi
       if tick == 1:
         control[:, :, 1:] = 0.03
       expected = official.rollout(models, [scratch], initial, control, control_spec=spec, nstep=nstep)
-      actual = batch.rollout(models, [scratch], initial, control, control_spec=spec, nstep=nstep)
-      for observed, reference in zip(actual, expected, strict=True):
+      actual = batch.rollout(
+        models, [scratch], initial, control, control_spec=spec, nstep=nstep, sensor_indices=columns
+      )
+      np.testing.assert_array_equal(batch.final_sensors, expected[1][:, -1])
+      selected = expected if columns is None else (expected[0], expected[1][:, :, columns])
+      for observed, reference in zip(actual, selected, strict=True):
         assert observed.dtype == mujoco.MJTNUM_DTYPE
         np.testing.assert_array_equal(observed, reference)
-      contact_seen |= bool(np.any(actual[1][:, :, 0] > 0))
+      contact_seen |= bool(np.any(expected[1][:, :, 0] > 0))
       initial = expected[0][:, -1].astype(np.float32)
     assert contact_seen
   finally:
     official.close()
     batch.close()
+    assert batch.final_sensors is None
+
+
+@pytest.mark.parametrize("columns", [[-1], [71], [0.5], [[0]], [True]])
+def test_invalid_sensor_columns_clear_final_cache(columns):
+  model = mujoco.MjModel.from_xml_string(XML)
+  data = mujoco.MjData(model)
+  initial = np.empty((1, mujoco.mj_stateSize(model, FULL)))
+  mujoco.mj_getState(model, data, initial[0], FULL)
+  recorder = HeldControlRollout([model])
+  control = np.zeros((1, 1, model.nu))
+  kwargs = dict(control_spec=int(mujoco.mjtState.mjSTATE_CTRL), nstep=1)
+  try:
+    recorder.rollout([model], [data], initial, control, **kwargs)
+    assert recorder.final_sensors is not None
+    with pytest.raises(ValueError, match="sensor_indices"):
+      recorder.rollout([model], [data], initial, control, sensor_indices=columns, **kwargs)
+    assert recorder.final_sensors is None
+  finally:
+    recorder.close()
 
 
 def test_compiled_grouping_keeps_same_shape_option_and_contact_variants_separate():
@@ -131,6 +163,10 @@ def test_divergence_fails_before_auto_reset_can_look_healthy(group_identical_mod
     expected = official.rollout(models, [data], initial, control, **kwargs)
     for observed, reference in zip(actual, expected, strict=True):
       np.testing.assert_array_equal(observed, reference)
+    np.testing.assert_array_equal(recorder.final_sensors, expected[1][:, -1])
+    with pytest.raises(RuntimeError, match="mjWARN_BADQPOS"):
+      recorder.rollout(models, [data], invalid, control, sensor_indices=np.array([0]), **kwargs)
+    assert recorder.final_sensors is None
   finally:
     recorder.close()
     official.close()
