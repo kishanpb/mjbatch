@@ -53,6 +53,9 @@ only the from-rest startup stage, not foot lift, strides or a full delivery.
 The subsequent [first-step comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/274c562adc699e920563b329f26eabaa770b50d5/docs/g1_cricket_running_startup.md#first-step-results)
 achieves actual foot lift and landing with both PD variants, but all 12 trials
 fall before settling. Repeated strides and the complete delivery remain unfinished.
+The [whole-body first-step PPO pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e22b1d05cb8be969b500bcd3fca81a1b3b70df9d/docs/g1_cricket_first_step_learning.md)
+retains both independently trained final actors and all eight evaluations:
+right PPO delays instability, left PPO regresses, and neither passes the step gate.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.

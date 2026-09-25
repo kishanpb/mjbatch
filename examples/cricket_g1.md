@@ -178,6 +178,31 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Whole-Body First-Step PPO
+
+The [complete learning pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e22b1d05cb8be969b500bcd3fca81a1b3b70df9d/docs/g1_cricket_first_step_learning.md)
+trains both hands independently with native CPU mjbatch: 256 updates and
+49,152 transitions each, seed 1, retaining final checkpoints. All 29 joint
+targets receive bounded learned residuals over static support feedforward;
+foot contact/load and reference-phase inputs supplement proprioception and
+holder telemetry. The ball stays mechanically held. No pose writes or changed
+robot geometry, joint limits or motor caps are used during policy steps.
+
+All eight full evaluations fail the unchanged first-step gate. Right PPO
+lasts 7.22/7.28 s at 62.5/31.25 microseconds versus its 6.70 s baseline, but
+does not settle. Left PPO regresses to 5.00/4.98 s versus 6.68 s and never
+lands. No episode has joint-stop violations, unintended loaded contacts or
+ball penetration; balance and foot-path failures still prevent qualification.
+
+The complete reports retain 1,230,080 finite substeps and exact native endpoint/
+sensor replay. All 1,286 video frames decode nonblank, both review sheets were
+inspected, 44 hashes per report verify, and 121 focused tests pass. Final
+checkpoints and scalar CSVs remain; redundant initial weights/events were
+pruned. The left run was temporarily paused for local resource contention,
+so timing is not a handedness or algorithm comparison. This is shared UniLab
+G1 learning on mjbatch, not an independent Menagerie-model training result,
+a learned release, complete run-up or an advertising video.
+
 ### Native First-Step Comparison
 
 The [complete first-step study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/274c562adc699e920563b329f26eabaa770b50d5/docs/g1_cricket_running_startup.md#first-step-results)
