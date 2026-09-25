@@ -139,6 +139,18 @@ reviewed; complete traces and the latest full videos remain, with redundant
 older MP4s pruned. All 65 focused tests pass. These are shared UniLab/native
 MuJoCo development results, not independently trained Menagerie or PPO results.
 
+### Native Physics Preview
+
+The subsequent [native physics-preview study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/07d93d03fdc6f04b561e8839ba52ef9ac7dd9f87/docs/g1_cricket_preview_control.md)
+evaluates 24 candidates in two stages over 120 ms, using two native rollout
+threads and the unchanged physical model. Both fixed physical episodes avoid
+joint-limit crossings, but fall at 0.86/1.04 s before release, with arm/body
+contacts. Five/six selected horizons are already predicted unsafe, exposing
+the limited candidate search rather than proving that no viable motion exists.
+Both full videos, all 97 decoded frames, 30,400 substep records and all candidate
+scores are retained; 73 focused tests pass. This remains shared, untrained
+UniLab evidence, not an independent Menagerie integration or bowling showcase.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)

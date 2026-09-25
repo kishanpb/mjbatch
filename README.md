@@ -57,6 +57,9 @@ rules out disabling ankle balance: both hands fail earlier and violate limits mo
 The [whole-body contact-control experiments](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d89b74eef8128ea8d7c91d14935af07934e38c59/docs/g1_cricket_contact_control.md)
 also remain unqualified: faster contact updates and foot tracking do not yet
 produce a complete, collision-free running delivery.
+The [120 ms native preview experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/07d93d03fdc6f04b561e8839ba52ef9ac7dd9f87/docs/g1_cricket_preview_control.md)
+avoids joint-limit crossings in both fixed episodes, but falls at 0.86/1.04 s
+with unwanted arm/body contacts, before release.
 No new PPO was trained. Complete failures
 and controls remain available. This is shared UniLab G1 work, not a separately
 trained Menagerie-model result or a bowling showcase.
