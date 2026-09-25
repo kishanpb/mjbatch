@@ -314,6 +314,30 @@ This remains the shared UniLab G1 task on native mjbatch, not independently
 trained Menagerie policies, held-out interception or completed running bowling.
 The earlier two-hand video is preserved; no redundant video was generated.
 
+### Closed-Loop Whole-Body PPO
+
+The [complete feedback study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7d00b0dcea4850cbab3ea4d1e3e271d87684ded6/docs/g1_cricket_approach_feedback.md#complete-results)
+retains the pinned external Unitree locomotion prior's live five-frame feedback
+and adds a zero-initialized, bounded 29-joint PPO residual. Both independent
+right/left actors finish 49,152 transitions; all 256 iterations and 25 scalar
+series per hand are finite and retained. External weights are not redistributed.
+
+All eight final-PPO/zero-residual x hand x timestep cases now complete eight
+seconds and stop upright. PPO travels 2.78-2.81 m, with six landings per foot.
+All four resolution comparisons pass, unlike the fixed-command pilot below.
+This removes its early falls but does not beat all teacher gates: every PPO
+case still fails loaded-foot slip and lateral drift; left also fails stance
+slip. Original limits, physics and full failed outcomes remain unchanged.
+All 1,536,000 substeps pass exact native endpoint/sensor replay, with independent
+slip-cost agreement within 2.23e-16. This is one development seed, not robustness.
+
+The uncut half-speed [right](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7d00b0dcea4850cbab3ea4d1e3e271d87684ded6/g1_cricket_results/approach_feedback_v1/evaluation/right_ppo_approach.mp4)
+and [left](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7d00b0dcea4850cbab3ea4d1e3e271d87684ded6/g1_cricket_results/approach_feedback_v1/evaluation/left_ppo_approach.mp4)
+videos each contain 401 nonblank frames and visibly show walking with a held
+ball. No gather, overarm release or delivery recovery is implemented here.
+This is the shared UniLab G1 on native Batch, not independently trained
+Menagerie G1. Existing two-handed batting videos and earlier highlights remain.
+
 ### Measured-Command Whole-Body PPO
 
 The [complete follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)

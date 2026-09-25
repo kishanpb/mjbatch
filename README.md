@@ -60,7 +60,13 @@ reduces bat-path error but still fails the unchanged accuracy gate across
 both hands, retaining all 24 episodes and contact checks. The earlier
 [soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
 is preserved. Neither input is regulation-speed bowling or a final showcase.
-The [measured-command PPO follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)
+The [closed-loop PPO follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7d00b0dcea4850cbab3ea4d1e3e271d87684ded6/docs/g1_cricket_approach_feedback.md#complete-results)
+keeps the external locomotion prior's live feedback. Both local whole-body
+residual actors complete eight-second approaches and stop upright at two
+physics resolutions, travelling 2.78-2.81 m. Full videos and all eight outcomes
+are retained; slip/drift checks still fail. These are shared UniLab G1 walking
+diagnostics on native Batch, not independent Menagerie training or bowling.
+The earlier [measured-command PPO follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)
 trains both 29-joint actors for 49,152 transitions each on native Batch.
 All eight outcomes are retained: PPO loses balance at 2.76 s right and 2.18 s
 left, while fixed reference commands are timestep-sensitive. Both full failed
