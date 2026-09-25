@@ -268,6 +268,29 @@ tests pass; all 1,050 source/combined video frames decode nonblank and the
 fixed-frame sheet was inspected. This is the shared UniLab G1 task using native
 mjbatch, not independent Menagerie training. Running bowling remains unfinished.
 
+### Reference Closure Without Moving the Bat Target
+
+The [complete reference-projection comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/df9bedba4e7489a12dc3c17765c8befaa2a291c4/docs/g1_cricket_projected_batting.md)
+closes the lower-hand grip and fixes both initial foot transforms across all
+302 reference frames while preserving every bat pose and time. Robot joint
+changes stay below 0.006301 rad, root translation below 0.680 mm; no runtime
+pose writes, changed motor limits or new training are used.
+
+Both original/projected x right/left x reference/PPO x two-resolution outcomes
+are retained: 16 complete three-second hits after one bounce, all physical
+contact/stability checks and all eight resolution pairs pass. Every outcome
+still fails the 8 cm bat-path limit. Finest PPO peak errors change only from
+14.7939 to 14.7761 cm right and 13.5804 to 13.5541 cm left. The candidate is not
+promoted; the current video and default reference remain unchanged.
+
+Each compressed offline inverse audit retains 1,208 static/velocity/dynamic
+decompositions. Projection removes static motor-cap excess but retains root
+force residual and derivative-sensitive dynamic demand, so these are not
+physical feasibility claims or measured impact loads. All 2,304,000 rollout
+substeps pass exact native state/sensor replay and 160 focused UniLab tests
+pass. This is the shared UniLab G1 task on native mjbatch, not independent
+Menagerie training, hardware validation or a running-bowling result.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores

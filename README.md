@@ -29,6 +29,9 @@ and explicit sensor-timing limits. This does not turn the scripted components in
 learned robot control; a Unitree G1 cricket extension is the next milestone.
 
 **Unitree G1 research:** [robot setup and complete results](examples/cricket_g1.md).
+The [reference-closure comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/df9bedba4e7489a12dc3c17765c8befaa2a291c4/docs/g1_cricket_projected_batting.md)
+retains all 16 physical outcomes: exact grip/foot reference closure separates
+inverse constraint loads but does not fix the remaining swing-tracking error.
 The shared UniLab task now trains separate right/left PPO actors on native
 CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
