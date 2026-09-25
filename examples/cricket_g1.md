@@ -314,6 +314,31 @@ This remains the shared UniLab G1 task on native mjbatch, not independently
 trained Menagerie policies, held-out interception or completed running bowling.
 The earlier two-hand video is preserved; no redundant video was generated.
 
+### Measured-Command Whole-Body PPO
+
+The [complete follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)
+first reproduces all eight teacher traces exactly using measured 29-joint motor
+targets and robot/ball state resets, without an online locomotion prior.
+It then trains fresh right/left PPO actors for 49,152 transitions each with
+contact-synchronous loaded-foot slip and lane rewards. Every final checkpoint,
+256-iteration scalar history and reference/PPO outcome is retained.
+
+Neither actor qualifies: right loses balance at 2.76 s, left at 2.18 s, at both
+62.5/31.25-us timesteps. Zero residual completes at the original timestep but
+falls at 4.46/4.14 s when the same motor commands run at the finer timestep.
+Exact replay at the source timestep is not robust feedback control. All eight
+cases fail loaded-foot slip; the next change must address feedback stability.
+All 768,320 audited substeps reproduce native endpoints/sensors exactly, and
+86 focused tests pass. Sensor cost agrees with independent contact-point
+velocity; a measurement mismatch does not explain the failures.
+
+The uncut, half-speed [right](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/g1_cricket_results/approach_learning_v1/evaluation/right_ppo_approach.mp4)
+and [left](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/g1_cricket_results/approach_learning_v1/evaluation/left_ppo_approach.mp4)
+videos include terminal failures. Every frame decodes nonblank; contact sheets
+were inspected. This remains shared UniLab G1 on native Batch, not independently
+trained Menagerie G1, learned running delivery or a qualified advertising reel.
+The existing two-handed batting videos and earlier highlights remain unchanged.
+
 ### Physically Achieved Approach Teacher
 
 The [complete eight-case study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/874af274779349c2f5007c8ee9a0546f9b0996a8/docs/g1_cricket_approach_teacher.md#complete-results)
