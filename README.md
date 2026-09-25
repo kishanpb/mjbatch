@@ -32,6 +32,10 @@ learned robot control; a Unitree G1 cricket extension is the next milestone.
 The [reference-closure comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/df9bedba4e7489a12dc3c17765c8befaa2a291c4/docs/g1_cricket_projected_batting.md)
 retains all 16 physical outcomes: exact grip/foot reference closure separates
 inverse constraint loads but does not fix the remaining swing-tracking error.
+The [bounded motor-inertia experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/c217748d77b46bf1d07d3fe1e8dc957620b15b62/docs/g1_cricket_inertial_feedforward.md#complete-results)
+reduces finest PPO error to 9.72 cm right / 8.69 cm left while preserving
+contact/stability checks across all 16 trials. The 8 cm limit still fails;
+compensation remains opt-in, with frozen actors rather than new training.
 The shared UniLab task now trains separate right/left PPO actors on native
 CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior

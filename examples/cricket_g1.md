@@ -291,6 +291,29 @@ substeps pass exact native state/sensor replay and 160 focused UniLab tests
 pass. This is the shared UniLab G1 task on native mjbatch, not independent
 Menagerie training, hardware validation or a running-bowling result.
 
+### Bounded Motor Acceleration Compensation
+
+The [complete motor-inertia comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/c217748d77b46bf1d07d3fe1e8dc957620b15b62/docs/g1_cricket_inertial_feedforward.md#complete-results)
+adds bounded motor-only motion compensation to the same projected references
+and frozen ball/contact-observed PPO actors. It preserves robot strength,
+velocity feedforward, nominal feed and all acceptance limits; no root wrench,
+native inverse-constraint torque injection or retraining is used.
+
+All 16 baseline/candidate x hand x reference/PPO x two-resolution episodes
+finish, hit after one bounce and recover upright. Contact, grip, penetration,
+joint/motor and stability checks pass, as do all eight resolution comparisons.
+Finest PPO peak bat error falls from 14.7761 to 9.7211 cm right and 13.5541 to
+8.6944 cm left. Every episode still fails the unchanged 8 cm bat-path limit;
+the controller is not promoted and stays off by default.
+
+The nine canonical reports retain every outcome, all 151 requested/bounded
+torque frames per hand, clipping and runtime motor saturation. All eight
+baseline rows exactly match the projection parent; 2,304,000 substeps pass
+exact native endpoint/sensor replay and 172 focused UniLab tests pass.
+This remains the shared UniLab G1 task on native mjbatch, not independently
+trained Menagerie policies, held-out interception or completed running bowling.
+The earlier two-hand video is preserved; no redundant video was generated.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
