@@ -164,6 +164,20 @@ all 952 parent/candidate audit rows remain available; all 340 video frames were
 decoded and the review figures inspected. All 79 focused tests pass. These are
 shared UniLab results, not independently trained Menagerie policies.
 
+### Stance Momentum and Rate Tracking
+
+The latest [stance-momentum and angular-rate comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/6ee819414c38380c834d64077970e29773f71f10/docs/g1_cricket_ground_momentum.md)
+replaces the repeated stance rotation reset with an inferred ground-wrench
+momentum target. A 5 ms retargeting refinement removes sampled fore/aft support
+violations, but leaves startup/landing lateral failures and shoulder/torso
+overlap. Both physical trials still fall at 0.68 s. Tracking intended torso
+angular rate instead of damping absolute rate does not improve the fall time;
+the absolute-rate controls reproduce parent poses bit-for-bit.
+All 101 focused tests pass, all 750 generated frames decode nonblank, and the
+complete comparison was inspected. Full traces and latest videos remain;
+redundant coarse MP4s were pruned after review. This is shared, untrained
+UniLab development evidence, not independent Menagerie learning or a showcase.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)

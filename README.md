@@ -42,8 +42,9 @@ Bat-path accuracy and one reference-control pitch-force timestep check remain
 failed, and running bowling remains unfinished.
 **Running bowling is unfinished.** Both-hand references preserve the approach,
 gather, delivery and recovery, but physical controllers and the PPO pilot fall
-before release. The latest [support-wrench audit and lateral reference repair](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/bfede311a1140f6e3745ca08ca0cf9b6e878292f/docs/g1_cricket_running_support.md)
-correct part of the balance mismatch; forward support remains inconsistent.
+before release. The latest [stance-momentum and controller comparisons](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/6ee819414c38380c834d64077970e29773f71f10/docs/g1_cricket_ground_momentum.md)
+improve sampled support estimates but retain startup, joint-limit and collision
+failures.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.
