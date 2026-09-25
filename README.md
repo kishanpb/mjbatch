@@ -40,31 +40,13 @@ observation: this is not learned interception. All 16 declared episodes finish
 without joint-stop or unintended-contact violations; all eight toss trials hit.
 Bat-path accuracy and one reference-control pitch-force timestep check remain
 failed, and running bowling remains unfinished.
-The companion [running-delivery reference](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/b75c8e766c0c8d8a5b721c92d19eb40a01618b91/docs/g1_cricket_running_reference.md)
-now includes both-handed approach, gather and overarm targets, with arm error
-below 5.25 mm and no audited intersections in the offline references. Native
-MuJoCo PD baselines still fall before delivery; these animations are not learned
-bowling or an independently validated mjbatch running integration.
-The [whole-body running PPO study on native mjbatch](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/114c985f001895ba28b9a4c6485e4553a3b82545/docs/g1_cricket_running_tracking.md)
-trains all 29 joints with holder-force/contact observations. An outward lane
-shift lets frozen right/left policies reach 0.66 / 0.72 s, but both stop before
-release. The [COM and airborne rotation repair](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/ed6d575d4fb0458f3f7e476d2c8d920a143f2cd2/docs/g1_cricket_running_reference.md#airborne-rotation-repair)
-accounts for held-ball momentum and improves both-hand reference geometry, but
-both physical PD trials still fall at 0.68 s before release. The stance ankle
-crosses its original joint stop before takeoff; ground support remains unresolved.
-The [native stance-force audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/30d694dcc974befac9cb46eaff4ef1632f4d6a45/docs/g1_cricket_running_stance.md)
-rules out disabling ankle balance: both hands fail earlier and violate limits more.
-The [whole-body contact-control experiments](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d89b74eef8128ea8d7c91d14935af07934e38c59/docs/g1_cricket_contact_control.md)
-also remain unqualified: faster contact updates and foot tracking do not yet
-produce a complete, collision-free running delivery.
-The [120 ms native preview experiment](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/07d93d03fdc6f04b561e8839ba52ef9ac7dd9f87/docs/g1_cricket_preview_control.md)
-avoids joint-limit crossings in both fixed episodes, but falls at 0.86/1.04 s
-with unwanted arm/body contacts, before release.
-No new PPO was trained. Complete failures
-and controls remain available. This is shared UniLab G1 work, not a separately
-trained Menagerie-model result or a bowling showcase.
-The linked research log retains complete episodes and substep force, grip,
-joint-limit and collision audits, not just selected successful-looking frames.
+**Running bowling is unfinished.** Both-hand references preserve the approach,
+gather, delivery and recovery, but physical controllers and the PPO pilot fall
+before release. The latest [support-wrench audit and lateral reference repair](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/bfede311a1140f6e3745ca08ca0cf9b6e878292f/docs/g1_cricket_running_support.md)
+correct part of the balance mismatch; forward support remains inconsistent.
+This is shared UniLab G1 work, not a separately trained Menagerie-model result
+or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
+episodes, controls, failed videos and substep force/contact audits.
 
 Earlier [force/touch diagnostics](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/7f936c78b9e0d882087be6deedadba4525bd7224/g1_cricket_results/bc_v1/learned_development_diagnostic.mp4)
 and complete failed experiments remain in the research log. Simulated loads

@@ -151,6 +151,19 @@ Both full videos, all 97 decoded frames, 30,400 substep records and all candidat
 scores are retained; 73 focused tests pass. This remains shared, untrained
 UniLab evidence, not an independent Menagerie integration or bowling showcase.
 
+### Lateral Running Support
+
+The subsequent [full-momentum support audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/bfede311a1140f6e3745ca08ca0cf9b6e878292f/docs/g1_cricket_running_support.md)
+finds that fixed lateral COM position demands a ground-force location outside
+the supporting foot. An offline variable-height lateral pendulum target reduces
+lateral violations from 91 to 3 of 91 supported samples per hand, including
+transition rows; it does not certify the full motion. Forward/backward support
+violations remain in 33 samples per hand and both actual PD trials fall at
+0.66 s before release. Both complete references, failed physical episodes and
+all 952 parent/candidate audit rows remain available; all 340 video frames were
+decoded and the review figures inspected. All 79 focused tests pass. These are
+shared UniLab results, not independently trained Menagerie policies.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
