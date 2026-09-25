@@ -20,12 +20,19 @@ class HeldControlRollout:
   Models are copied at construction and must stay fixed. Each call starts from
   FULLPHYSICS with reset auxiliary state, then preserves warmstart within the
   interval. Sensors are mj_step's solved-phase values, without an extra forward.
-  Heterogeneous models are grouped by identity and stepped sequentially; this is
-  an evidence recorder, not a throughput claim. EQ_ACTIVE is explicit held
+  Models are grouped by identity unless group_identical_models is enabled,
+  which groups byte-identical compiled models. Groups step sequentially.
+  EQ_ACTIVE is explicit held
   input: callers must supply it each interval to preserve released constraints.
   """
 
-  def __init__(self, models: Sequence[mujoco.MjModel], num_threads: int = 1):
+  def __init__(
+    self,
+    models: Sequence[mujoco.MjModel],
+    num_threads: int = 1,
+    *,
+    group_identical_models: bool = False,
+  ):
     if not models:
       raise ValueError("at least one model is required")
     self.models = tuple(models)
@@ -39,9 +46,18 @@ class HeldControlRollout:
       for m in models
     ):
       raise ValueError("models must have matching state, sensor and control dimensions")
+    grouped = {}
+    for row, model in enumerate(models):
+      if group_identical_models:
+        compiled = np.empty(mujoco.mj_sizeModel(model), dtype=np.uint8)
+        mujoco.mj_saveModel(model, buffer=compiled)
+        key = compiled.tobytes()
+      else:
+        key = id(model)
+      grouped.setdefault(key, []).append(row)
     self.groups = []
-    for identity in dict.fromkeys(id(m) for m in models):
-      indices = np.array([i for i, m in enumerate(models) if id(m) == identity])
+    for rows in grouped.values():
+      indices = np.array(rows)
       model = models[indices[0]]
       batch = Batch(model, len(indices), num_threads=num_threads, forward=False)
       self.groups.append(
