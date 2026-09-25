@@ -316,6 +316,18 @@ The earlier two-hand video is preserved; no redundant video was generated.
 
 ### Closed-Loop Whole-Body PPO
 
+The [peak-slip reward comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/294373e629722f5fc37414c56531443e2efa0ab2/docs/g1_cricket_approach_peak_slip.md#complete-results)
+changes only mean-square versus peak-square foot-slip cost. Both fresh actors
+complete the same 49,152-transition budget, with finite final weights and full
+iteration diagnostics. All eight outcomes finish upright, but every PPO case
+still fails slip and lateral drift; left also fails stance slip. Right peak
+slip/drift regress. All four zero-residual traces match the parent exactly and
+all 1,536,000 substeps pass independent native replay; direct touchdown tests
+also verify the peak reward against native contact-point speeds. 35 tests pass.
+The full reports and both half-speed videos remain diagnostic evidence, with
+no reward-only repair or bowling promotion. Shared UniLab G1 on native Batch,
+not independent Menagerie training; existing batting highlights are unchanged.
+
 The later [lane-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/924d9d838d8ce2bd62676f92421d073559c09f4c/docs/g1_cricket_approach_lane.md#complete-results)
 freezes both final actors and changes only the bounded lateral-speed command.
 All four hand/timestep trials finish upright, travelling 2.821-2.826 m.

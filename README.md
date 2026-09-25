@@ -70,6 +70,10 @@ The [frozen-policy lane trial](https://github.com/kishanpb/Cricket-Gym-Unilab/bl
 reduces right/left drift from about 17/27 cm to 10/15 cm, but left still fails
 the lane limit and touchdown slip remains unresolved. Full outcomes and videos
 include the finer-grid right stance-slip regression; no bowling promotion.
+The matched [peak-slip reward pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/294373e629722f5fc37414c56531443e2efa0ab2/docs/g1_cricket_approach_peak_slip.md#complete-results)
+retains fresh right/left PPO runs and all eight outcomes, but fails the same
+physical gates. It is rejected as a reward-only repair, not advertised as progress
+in bowling quality.
 The earlier [measured-command PPO follow-up](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/aa88ad7eb09379495c01f6910f6dcd790fd82206/docs/g1_cricket_measured_approach.md#complete-ppo-results)
 trains both 29-joint actors for 49,152 transitions each on native Batch.
 All eight outcomes are retained: PPO loses balance at 2.76 s right and 2.18 s
