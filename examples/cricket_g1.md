@@ -178,6 +178,26 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Full-Body Dynamics and Wrist Smoothing
+
+The [native inverse-dynamics study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/a6c787f549ba88d66f3829a89f962f5486f89b46/docs/g1_cricket_ground_momentum.md#native-dynamics-and-motor-authority)
+checks the full 41-DOF model, finite-compliance holder, original motor limits
+and bounded position commands. It separately tests optimistic ideal support
+to distinguish contact mismatch from motor authority. All 119 run-up samples
+per hand and both derivative spacings are retained; these are inferred force
+requirements, not measured successful-rollout loads.
+
+A sharp bowling-wrist reversal motivates one opt-in temporal smoothing change.
+At the finer derivative spacing, ideal motor-cap feasibility improves from
+56/119 per hand to 78/right and 79/left, and bounded-command feasibility from
+45 to 57 per hand. This is not promotion evidence: actual PD still falls at
+0.70/0.68 s without release, joint stops are exceeded, and four new reference
+hand-thigh intersections per hand remain. All 109 focused tests pass, all 343
+new video frames decode nonblank, and the full-motion review was inspected.
+The linked reports/videos remain shared UniLab diagnostics, not independent
+Menagerie training or advertising footage. Neither model limits nor existing
+trained policies were changed.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
