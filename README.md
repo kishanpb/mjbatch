@@ -33,13 +33,14 @@ The shared UniLab task now trains separate right/left PPO actors on native
 CPU `Batch.step()`, with two mechanical hand grips and all 29 joints following
 a cricket swing reference. This replaces the isolated-arm/frozen-walking-prior
 direction; it is not an independent native learner or a new Menagerie-model
-result. The [latest two-hand G1 video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/g1_cricket_results/bimanual_soft_toss_v1/two_hand_ppo_soft_toss.mp4)
-shows actual simulated soft-toss strikes and upright recovery in both stances,
-at 0.5x. Frozen dry-swing actors use bounded waist/ankle feedback and no ball
-observation: this is not learned interception. All 16 declared episodes finish
-without joint-stop or unintended-contact violations; all eight toss trials hit.
-Bat-path accuracy and one reference-control pitch-force timestep check remain
-failed, and running bowling remains unfinished.
+result. The [latest two-hand G1 video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/g1_cricket_results/bimanual_bounced_delivery_v1/two_hand_ppo_bounced_delivery.mp4)
+shows a one-bounce incoming delivery, two-handed hit and upright recovery in
+both stances at 0.5x. Frozen dry-swing actors have no ball observation; this is
+not learned interception. The [complete eight-episode study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/docs/g1_cricket_bounced_delivery.md)
+retains both reference and PPO outcomes: all finish and hit, but bat-path
+accuracy and pitch-force resolution checks still fail. The earlier
+[soft-toss study](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/d88ae36ec444af5fbb18b100fff1a700133f944f/docs/g1_cricket_bimanual_contact.md)
+is preserved. Neither input is regulation-speed bowling or a final showcase.
 **Running bowling is unfinished.** Both-hand references preserve the approach,
 gather, delivery and recovery, but physical controllers and the PPO pilot fall
 before release. The latest [planted-foot reference and joint-tracking comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/fcf57f917d5d696a08d5e0d0f9efb6c21a576497/docs/g1_cricket_ground_momentum.md#foreaft-pendulum-comparison)

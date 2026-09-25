@@ -178,6 +178,33 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### One-Bounce Incoming Delivery
+
+The shared UniLab G1 task now receives a fixed practice ball at `(4, 0, 1.3)` m
+with velocity `(-3, 0, 4)` m/s. All subsequent flight and bounce dynamics are
+native MuJoCo through CPU mjbatch, with unchanged pitch/blade contact pairs,
+original robot/motor limits, two mechanical grips and frozen dry-swing PPO.
+No ball-state observations or new interception training were added.
+
+The [complete study and slow-motion video](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/579221676ac5165285fc68cf90197875f45d965a/docs/g1_cricket_bounced_delivery.md)
+retain both hands x reference/PPO x two timesteps: all eight episodes complete,
+bounce once before blade contact and send the ball forward. All pass joint,
+motor, grip, height and unintended-contact checks; all fail the original 8 cm
+bat-path bound. Fine PPO exit vx is 2.2022 / 2.2971 m/s for right / left, with
+blade penetration 3.724 / 3.855 mm. Reference controls also hit; this is not
+evidence of learned interception or an independently learned Menagerie policy.
+
+All four resolution pairs fail the pitch-force check: 1453.72 versus 1378.99 N,
+a 5.4195% difference against 5%. Right reference also fails blade-penetration
+convergence. These failures remain visible alongside the ball-only launch
+design's timestep sensitivity, not removed by a successful-looking clip.
+Every one of 576,000 physical substeps is audited with exact native endpoint/
+sensor replay; 74 input hashes plus the recorder hash per evaluation verify.
+All 103 focused tests pass. The complete 350-frame two-hand clip and both full
+reference-control videos remain, with a fixed-time review sheet; all original
+and combined frames decoded nonblank. This is batting development progress,
+not a qualified advertising reel or completed running-bowling result.
+
 ### Compact Substep Recording
 
 `HeldControlRollout.rollout(..., sensor_indices=columns)` optionally stores
