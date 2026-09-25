@@ -52,6 +52,8 @@ release. The [COM and airborne rotation repair](https://github.com/kishanpb/Cric
 accounts for held-ball momentum and improves both-hand reference geometry, but
 both physical PD trials still fall at 0.68 s before release. The stance ankle
 crosses its original joint stop before takeoff; ground support remains unresolved.
+The [native stance-force audit](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/30d694dcc974befac9cb46eaff4ef1632f4d6a45/docs/g1_cricket_running_stance.md)
+rules out disabling ankle balance: both hands fail earlier and violate limits more.
 No new PPO was trained. Complete failures
 and controls remain available. This is shared UniLab G1 work, not a separately
 trained Menagerie-model result or a bowling showcase.

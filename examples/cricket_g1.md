@@ -113,6 +113,18 @@ full target and failed physical videos remain clearly labeled diagnostics.
 This is shared UniLab/native-mjbatch evidence, not independent Menagerie training
 or a qualified running-bowling showcase. Earlier batting highlights are unchanged.
 
+### First-Stance Force Diagnosis
+
+The [fixed native stance comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/30d694dcc974befac9cb46eaff4ef1632f4d6a45/docs/g1_cricket_running_stance.md)
+retains all four full PD episodes and 42,240 substeps, including ankle motor and
+constraint torques, normal foot loads, commands and first limit crossings.
+Disabling ankle balance makes both failures earlier (0.64 versus 0.68 s) and
+worsens joint excursions. At the original first crossing the motor is already
+braking away from the joint stop, so this is not a correction-sign error.
+Contact-consistent whole-body support remains unresolved. Both baseline pose
+sequences reproduce bit-for-bit and all 55 focused tests pass. No new learned
+bowling result or independent Menagerie training is claimed.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
