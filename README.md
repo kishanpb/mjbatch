@@ -56,6 +56,9 @@ fall before settling. Repeated strides and the complete delivery remain unfinish
 The [whole-body first-step PPO pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e22b1d05cb8be969b500bcd3fca81a1b3b70df9d/docs/g1_cricket_first_step_learning.md)
 retains both independently trained final actors and all eight evaluations:
 right PPO delays instability, left PPO regresses, and neither passes the step gate.
+The [uniform-start comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/1d580e72a5e6ac02d98798f0c0011cbcb134adcb/docs/g1_cricket_first_step_uniform.md)
+improves left-hand landing but regresses the right hand; all eight from-rest
+evaluations still fail the full step gate.
 This is shared UniLab G1 work, not a separately trained Menagerie-model result
 or bowling showcase. The [research log](examples/cricket_g1.md) retains complete
 episodes, controls, failed videos and substep force/contact audits.

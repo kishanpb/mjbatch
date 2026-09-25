@@ -178,6 +178,29 @@ complete comparison was inspected. Full traces and latest videos remain;
 redundant coarse MP4s were pruned after review. This is shared, untrained
 UniLab development evidence, not independent Menagerie learning or a showcase.
 
+### Uniform-Start First-Step PPO
+
+The [complete reset-sampling comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/1d580e72a5e6ac02d98798f0c0011cbcb134adcb/docs/g1_cricket_first_step_uniform.md)
+changes only training initialization to uniform reference frames; evaluation
+explicitly starts from rest. Both hands complete the same 256 updates /
+49,152 transitions with seed 1. Saved configurations differ from the parent
+only in sampling mode and output directory.
+
+All eight evaluations fail. Right PPO regresses to 6.52 s at both resolutions;
+left improves to 6.84 s with landing. Both pass initial quiet hold but fail
+settling, orientation and foot-path gates, terminating on tracked-body-height
+deviation. No joint/motor-limit violations, unintended loaded contacts, ball
+penetration or release occur. Neither result completes the 10.5 s step.
+
+All 1,283,520 substeps are finite and pass exact native endpoint/sensor replay;
+both baseline traces reproduce every parent array bit-for-bit. All 1,341 video
+frames decode nonblank, both review sheets were inspected, and 126 focused
+tests pass. Final weights and full scalar logs remain, with redundant initial
+weights/events pruned. This is shared UniLab G1 learning using native mjbatch,
+not independent Menagerie-model training or qualified running bowling. The
+next proposed reward-axis experiment targets world-frame foot-link accuracy
+without changing the physical gate; it is not implemented here.
+
 ### Whole-Body First-Step PPO
 
 The [complete learning pilot](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/e22b1d05cb8be969b500bcd3fca81a1b3b70df9d/docs/g1_cricket_first_step_learning.md)
