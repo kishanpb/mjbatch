@@ -94,6 +94,25 @@ pruned after validation; complete reports, poses and reviews remain, and the
 latest full target/failed-PD videos are retained. No new PPO, separate Menagerie
 running training, upstream PR or social publication is claimed.
 
+### Airborne Rotation Repair
+
+The [complete two-hand momentum comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/ed6d575d4fb0458f3f7e476d2c8d920a143f2cd2/docs/g1_cricket_running_reference.md#airborne-rotation-repair)
+uses native centroidal momentum and held-ball Jacobians to construct offline
+root orientation, retaining all 136 poses per hand and unchanged physical PD
+controls. Discrete flight momentum error is below 3.5e-12 Nms, foot error below
+1.75 mm and arm error below 5.46 mm, with no audited reference intersections.
+One optimizer frame per hand reaches its evaluation limit. Independent curve
+refinement still finds about 8 Nm pitch residual: exact discrete conservation
+does not establish exact continuous motion or achieved physics.
+
+Both physical trials fall at 0.68 s. Their stance ankle already exceeds its
+original stop at the recorded 0.16 s endpoint, before takeoff. Ground support
+and ankle/hip control allocation need repair before more unchanged-reference
+PPO. All 50 focused tests pass and all 342 new video frames decode nonblank;
+full target and failed physical videos remain clearly labeled diagnostics.
+This is shared UniLab/native-mjbatch evidence, not independent Menagerie training
+or a qualified running-bowling showcase. Earlier batting highlights are unchanged.
+
 ### Preceding Dry-Swing Pilots
 
 The [balance-feedback comparison](https://github.com/kishanpb/Cricket-Gym-Unilab/blob/812cc13d5b948aa73faf8db41c1e12ad14e2a444/docs/g1_cricket_balance_feedback.md)
