@@ -26,6 +26,10 @@ grip/guard failures, and no fully qualified legal bowling deliveries.
 [Run the pinned standalone CPU reproduction](g1_cricket_runtime/README.md),
 including live mjbatch stepping, asset/controller installers and all-case
 evaluation. This is not new training or hardware validation.
+[Train bounded bowling torque residuals on CPU](g1_cricket_training/README.md)
+with the optional SKRL PPO extension. Its 400-step native-mjbatch run reproduced
+the development checkpoint and all four evaluations exactly, but qualified
+0/4 deliveries; it demonstrates reproducibility, not improved cricket skill.
 [All cases, forces, provenance and limitations](g1_cricket_showcase/README.md).
 
 ### Earlier Simplified-Humanoid Demonstrations
