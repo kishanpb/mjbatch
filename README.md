@@ -8,6 +8,26 @@ in [upstream PR #5](https://github.com/kevinzakka/mjbatch/pull/5).
 The contribution is included on this fork's default branch; upstream acceptance
 is separate. mjbatch is developed upstream by Kevin Zakka and contributors.
 
+### Unitree G1 Cricket Preview
+
+| G1 batting: both hands | G1 bowling: overarm and underarm |
+| --- | --- |
+| [![G1 batting](g1_cricket_showcase/batting_preview.gif)](https://github.com/kishanpb/mjbatch/raw/refs/heads/main/g1_cricket_showcase/batting.mp4) | [![G1 bowling](g1_cricket_showcase/bowling_preview.gif)](https://github.com/kishanpb/mjbatch/raw/refs/heads/main/g1_cricket_showcase/bowling.mp4) |
+
+The 67.2-second batting and 30.56-second bowling reels include normal speed,
+slow replay and failures. Live native mjbatch evaluation exactly matches the
+retained native-MuJoCo results for all 14 batting and 8 bowling cases; these
+are the same simulated motions, not independent training or a speedup result.
+Batting combines PPO residuals with frozen balance/reference control; bowling
+uses learned locomotion, reference arms and a mechanical ball holder.
+
+**Development limits:** 8 qualified batting contacts, 0 boundaries, remaining
+grip/guard failures, and no fully qualified legal bowling deliveries. Full
+portable controller/checkpoint reproduction is still in progress.
+[All cases, forces, provenance and limitations](g1_cricket_showcase/README.md).
+
+### Earlier Simplified-Humanoid Demonstrations
+
 | Batting: right and left handed | Bowling: right and left handed |
 | --- | --- |
 | [![Native mjbatch humanoid batting highlights](examples/assets/cricket_humanoid_batting_preview.gif)](https://github.com/kishanpb/gym-cricket/releases/download/v0.1.1-mjbatch-preview/gym_cricket_mjbatch_humanoid_batting.mp4) | [![Native mjbatch humanoid running-bowling highlights](examples/assets/cricket_humanoid_bowling_preview.gif)](https://github.com/kishanpb/gym-cricket/releases/download/v0.1.1-mjbatch-preview/gym_cricket_mjbatch_humanoid_bowling.mp4) |
@@ -26,7 +46,8 @@ the previews are highlights, not success-rate estimates.
 **Contact diagnostics:** [force and simulated-touch reporting](examples/cricket_humanoid.md#contact-forces-and-simulated-touch)
 now covers the full fixed PPO/A2C replay, with per-contact force/torque, touch states
 and explicit sensor-timing limits. This does not turn the scripted components into
-learned robot control; a Unitree G1 cricket extension is the next milestone.
+learned robot control. The separate G1 development preview above retains its
+own controller and physical-validation limitations.
 
 ---
 
