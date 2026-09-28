@@ -22,8 +22,10 @@ Batting combines PPO residuals with frozen balance/reference control; bowling
 uses learned locomotion, reference arms and a mechanical ball holder.
 
 **Development limits:** 8 qualified batting contacts, 0 boundaries, remaining
-grip/guard failures, and no fully qualified legal bowling deliveries. Full
-portable controller/checkpoint reproduction is still in progress.
+grip/guard failures, and no fully qualified legal bowling deliveries.
+[Run the pinned standalone CPU reproduction](g1_cricket_runtime/README.md),
+including live mjbatch stepping, asset/controller installers and all-case
+evaluation. This is not new training or hardware validation.
 [All cases, forces, provenance and limitations](g1_cricket_showcase/README.md).
 
 ### Earlier Simplified-Humanoid Demonstrations
