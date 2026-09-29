@@ -32,6 +32,12 @@ the development checkpoint and all four evaluations exactly, but qualified
 0/4 deliveries; it demonstrates reproducibility, not improved cricket skill.
 [All cases, forces, provenance and limitations](g1_cricket_showcase/README.md).
 
+[Final native-limit effort check](g1_cricket_runtime/README.md#bounded-maximum-effort-check):
+forward-crease bowling and maximum arm-effort trials still produce no fully
+qualified deliveries or batting boundaries. All results and reproducible code
+are included; the accepted videos remain unchanged. These are controller/setup
+limits, not proven G1 hardware ceilings.
+
 ### Earlier Simplified-Humanoid Demonstrations
 
 | Batting: right and left handed | Bowling: right and left handed |
